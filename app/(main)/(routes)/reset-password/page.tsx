@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 
-export default function ResetPassword() {
+function ResetPasswordContent() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -213,17 +213,15 @@ export default function ResetPassword() {
                 Nouveau mot de passe
               </label>
               <input
-                type="password"
                 id="password"
+                name="password"
+                type="password"
+                required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
-                placeholder="Votre nouveau mot de passe"
-                required
+                className="appearance-none relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-xl focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
+                placeholder="Entrez votre nouveau mot de passe"
               />
-              <p className="mt-2 text-xs text-gray-500">
-                Minimum 8 caractères, avec majuscule, minuscule et chiffre
-              </p>
             </div>
 
             <div>
@@ -234,42 +232,61 @@ export default function ResetPassword() {
                 Confirmer le mot de passe
               </label>
               <input
-                type="password"
                 id="confirmPassword"
+                name="confirmPassword"
+                type="password"
+                required
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
+                className="appearance-none relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-xl focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                 placeholder="Confirmez votre nouveau mot de passe"
-                required
               />
             </div>
 
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="w-full bg-gradient-to-r from-purple-500 to-blue-500 text-white px-6 py-3 rounded-xl font-semibold hover:from-purple-600 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-white disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-105"
-            >
-              {isLoading ? (
-                <div className="flex items-center justify-center">
-                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                  Réinitialisation en cours...
-                </div>
-              ) : (
-                "Réinitialiser le mot de passe"
-              )}
-            </button>
-
-            <div className="text-center">
-              <Link
-                href="/login"
-                className="text-purple-600 hover:text-purple-700 text-sm font-medium transition-colors duration-200"
+            <div>
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-xl text-white bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
               >
-                ← Retour à la connexion
-              </Link>
+                {isLoading ? (
+                  <div className="flex items-center">
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                    Réinitialisation...
+                  </div>
+                ) : (
+                  "Réinitialiser le mot de passe"
+                )}
+              </button>
             </div>
           </form>
+
+          <div className="text-center">
+            <Link
+              href="/login"
+              className="font-medium text-purple-600 hover:text-purple-500 transition-colors duration-200"
+            >
+              Retour à la connexion
+            </Link>
+          </div>
         </div>
       </div>
     </div>
+  );
+}
+
+function LoadingFallback() {
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center">
+      <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-purple-500"></div>
+    </div>
+  );
+}
+
+export default function ResetPassword() {
+  return (
+    <Suspense fallback={<LoadingFallback />}>
+      <ResetPasswordContent />
+    </Suspense>
   );
 }

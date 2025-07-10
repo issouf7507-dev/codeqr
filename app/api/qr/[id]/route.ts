@@ -2,15 +2,15 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/libs/prisma";
 
 export async function GET(
-  request: NextRequest,
-  { params }: { params: Promise<{ code: string }> }
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  try {
-    const resolvedParams = await params;
+  const { id } = await params;
 
+  try {
     // Trouver le QR code par le code avec les relations
     const qrCode = await prisma.qRCode.findUnique({
-      where: { code: resolvedParams.code },
+      where: { id },
       include: {
         user: {
           select: {
@@ -26,11 +26,11 @@ export async function GET(
       },
     });
 
-    console.log(qrCode);
+    // console.log(qrCode);
 
     if (!qrCode) {
       return NextResponse.json(
-        { error: "Code QR non trouvé" },
+        { error: "QR code non trouvé" },
         { status: 404 }
       );
     }

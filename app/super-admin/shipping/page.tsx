@@ -171,12 +171,6 @@ export default function SuperAdminShipping() {
                 Utilisateurs
               </Link>
               <Link
-                href="/super-admin/plaques"
-                className="text-gray-600 hover:text-gray-900 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-gray-100"
-              >
-                Plaques
-              </Link>
-              <Link
                 href="/super-admin/shipping"
                 className="text-gray-600 hover:text-gray-900 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-gray-100"
               >

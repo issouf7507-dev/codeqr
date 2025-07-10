@@ -14,11 +14,11 @@ export async function GET(request: NextRequest) {
     });
 
     // Statistiques des plaques
-    const totalPlaques = await prisma.plaque.count();
-    const activatedPlaques = await prisma.plaque.count({
+    const totalPlaques = await prisma.qRCode.count();
+    const activatedPlaques = await prisma.qRCode.count({
       where: { isActivated: true },
     });
-    const pendingPlaques = await prisma.plaque.count({
+    const pendingPlaques = await prisma.qRCode.count({
       where: { isActivated: false },
     });
 
@@ -40,21 +40,21 @@ export async function GET(request: NextRequest) {
         email: true,
         createdAt: true,
         _count: {
-          select: { plaques: true },
+          select: { qrCodes: true },
         },
       },
     });
 
-    const recentPlaques = await prisma.plaque.findMany({
+    const recentPlaques = await prisma.qRCode.findMany({
       take: 5,
       orderBy: { createdAt: "desc" },
       include: {
         user: {
           select: { email: true },
         },
-        shippingInfo: {
-          select: { firstName: true, lastName: true, status: true },
-        },
+        // shippingInfo: {
+        //   select: { firstName: true, lastName: true, status: true },
+        // },
       },
     });
 

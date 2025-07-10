@@ -26,22 +26,13 @@ export async function GET(request: NextRequest) {
       include: {
         _count: {
           select: {
-            plaques: true,
+            qrCodes: true,
             links: true,
           },
         },
-        plaques: {
+        qrCodes: {
           take: 3,
           orderBy: { createdAt: "desc" },
-          include: {
-            shippingInfo: {
-              select: {
-                firstName: true,
-                lastName: true,
-                status: true,
-              },
-            },
-          },
         },
       },
     });

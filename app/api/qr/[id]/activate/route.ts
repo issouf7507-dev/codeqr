@@ -4,7 +4,7 @@ import { hashPassword } from "@/libs/auth";
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: Promise<{ code: string }> }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { email, password, googleReviewUrl } = await request.json();
@@ -19,7 +19,7 @@ export async function POST(
 
     // Vérifier que le QR code existe et n'est pas déjà activé
     const qrCode = await prisma.qRCode.findUnique({
-      where: { code: resolvedParams.code },
+      where: { id: resolvedParams.id },
     });
 
     if (!qrCode) {

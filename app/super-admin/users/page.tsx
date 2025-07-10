@@ -142,12 +142,7 @@ export default function SuperAdminUsers() {
               >
                 Code QR
               </Link>
-              <Link
-                href="/super-admin/plaques"
-                className="text-gray-600 hover:text-gray-900 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-gray-100"
-              >
-                Plaques
-              </Link>
+
               <Link
                 href="/super-admin/shipping"
                 className="text-gray-600 hover:text-gray-900 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-gray-100"
@@ -226,70 +221,13 @@ export default function SuperAdminUsers() {
                             {new Date(user.createdAt).toLocaleDateString()}
                           </p>
                           <div className="flex items-center space-x-4 mt-2">
-                            <span className="text-sm text-gray-600">
-                              {user._count.plaques} plaque(s)
-                            </span>
+                            <span className="text-sm text-gray-600"></span>
                             <span className="text-sm text-gray-600">
                               {user._count.links} lien(s) configuré(s)
                             </span>
                           </div>
                         </div>
                       </div>
-
-                      {/* User's Plaques */}
-                      {user.plaques.length > 0 && (
-                        <div className="mt-4 ml-16">
-                          <h4 className="text-sm font-medium text-gray-700 mb-2">
-                            Plaques de l'utilisateur :
-                          </h4>
-                          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                            {user.plaques.map((plaque) => (
-                              <div
-                                key={plaque.id}
-                                className="bg-gray-50 rounded-lg p-3 border border-gray-200"
-                              >
-                                <div className="flex items-center justify-between mb-2">
-                                  <span className="text-sm font-medium text-gray-900">
-                                    {plaque.codeId}
-                                  </span>
-                                  <span
-                                    className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
-                                      plaque.isActivated
-                                        ? "bg-green-100 text-green-700"
-                                        : "bg-yellow-100 text-yellow-700"
-                                    }`}
-                                  >
-                                    {plaque.isActivated
-                                      ? "Active"
-                                      : "En attente"}
-                                  </span>
-                                </div>
-                                <p className="text-xs text-gray-600 mb-1">
-                                  Créée le{" "}
-                                  {new Date(
-                                    plaque.createdAt
-                                  ).toLocaleDateString()}
-                                </p>
-                                {plaque.shippingInfo && (
-                                  <div className="text-xs text-gray-500">
-                                    <p>
-                                      {plaque.shippingInfo.firstName}{" "}
-                                      {plaque.shippingInfo.lastName}
-                                    </p>
-                                    <span
-                                      className={`inline-flex items-center px-1 py-0.5 rounded text-xs font-medium ${getStatusColor(
-                                        plaque.shippingInfo.status
-                                      )}`}
-                                    >
-                                      {plaque.shippingInfo.status}
-                                    </span>
-                                  </div>
-                                )}
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      )}
                     </div>
 
                     <div className="ml-6 flex items-center space-x-2">

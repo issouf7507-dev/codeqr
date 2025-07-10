@@ -69,6 +69,7 @@ export default function SuperAdminDashboard() {
       if (response.ok) {
         const dashboardData = await response.json();
         setData(dashboardData);
+        console.log(dashboardData);
       } else {
         setError("Erreur lors du chargement des données");
       }
@@ -133,12 +134,7 @@ export default function SuperAdminDashboard() {
               >
                 Utilisateurs
               </Link>
-              <Link
-                href="/super-admin/plaques"
-                className="text-gray-600 hover:text-gray-900 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-gray-100"
-              >
-                Plaques
-              </Link>
+
               <Link
                 href="/super-admin/shipping"
                 className="text-gray-600 hover:text-gray-900 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-gray-100"
@@ -178,7 +174,7 @@ export default function SuperAdminDashboard() {
           <div className="bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200 p-6 hover:border-gray-300 transition-all duration-300">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Plaques</p>
+                <p className="text-sm font-medium text-gray-600">Codes QR</p>
                 <p className="text-3xl font-bold text-gray-900">
                   {data.stats.plaques.total}
                 </p>
@@ -278,7 +274,7 @@ export default function SuperAdminDashboard() {
               </Link>
             </div>
             <div className="space-y-4">
-              {data.recent.plaques.map((plaque) => (
+              {/* {data.recent.plaques.map((plaque) => (
                 <div
                   key={plaque.id}
                   className="flex items-center justify-between p-4 bg-gray-50 rounded-xl"
@@ -286,7 +282,7 @@ export default function SuperAdminDashboard() {
                   <div>
                     <p className="font-medium text-gray-900">{plaque.codeId}</p>
                     <p className="text-sm text-gray-600">
-                      {plaque.user.email} •{" "}
+
                       {new Date(plaque.createdAt).toLocaleDateString()}
                     </p>
                     {plaque.shippingInfo && (
@@ -309,7 +305,7 @@ export default function SuperAdminDashboard() {
                     </span>
                   </div>
                 </div>
-              ))}
+              ))} */}
             </div>
           </div>
         </div>
@@ -333,12 +329,12 @@ export default function SuperAdminDashboard() {
               </div>
             </Link>
             <Link
-              href="/super-admin/plaques"
+              href="/super-admin/coderq"
               className="flex items-center p-4 bg-purple-50 rounded-xl hover:bg-purple-100 transition-all duration-200"
             >
               <span className="text-2xl mr-3">🏷️</span>
               <div>
-                <p className="font-medium text-gray-900">Gérer les Plaques</p>
+                <p className="font-medium text-gray-900">Gérer les Codes QR</p>
                 <p className="text-sm text-gray-600">Suivre les commandes</p>
               </div>
             </Link>

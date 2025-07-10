@@ -30,18 +30,11 @@ export async function POST(request: NextRequest) {
 
     try {
       // Mettre à jour la plaque avec l'email de l'acheteur
-      await prisma.plaque.update({
-        where: { id: plaqueId },
-        data: {
-          // Pour l'instant, on ne lie pas à un utilisateur spécifique
-          // L'utilisateur devra s'inscrire et activer la plaque avec le code
-        },
-      });
 
       // Marquer le code comme réclamé
-      await prisma.code.update({
-        where: { value: codeId },
-        data: { isClaimed: true },
+      await prisma.qRCode.update({
+        where: { code: codeId },
+        data: { isActivated: true },
       });
 
       // Ici, vous pourriez envoyer un email de confirmation

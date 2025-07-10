@@ -34,21 +34,6 @@ export async function GET(request: NextRequest) {
       skip,
       take: limit,
       orderBy: { createdAt: "desc" },
-      include: {
-        plaque: {
-          select: {
-            id: true,
-            codeId: true,
-            isActivated: true,
-            createdAt: true,
-            user: {
-              select: {
-                email: true,
-              },
-            },
-          },
-        },
-      },
     });
 
     // Compter le total pour la pagination

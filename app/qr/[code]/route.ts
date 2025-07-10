@@ -3,10 +3,11 @@ import prisma from "@/libs/prisma";
 
 export async function GET(
   request: Request,
-  { params }: { params: { code: string } }
+  { params }: { params: Promise<{ code: string }> }
 ) {
+  const { code } = await params;
   const qrCode = await prisma.qRCode.findUnique({
-    where: { code: params.code },
+    where: { code },
     include: { link: true },
   });
 
@@ -15,5 +16,5 @@ export async function GET(
   }
 
   // Si non activé, rediriger vers la page d'activation React
-  redirect(`/qr/${params.code}/activation`);
+  redirect(`/qr/${code}/activation`);
 }

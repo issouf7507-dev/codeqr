@@ -75,7 +75,7 @@ npx prisma studio
 2. Créer un produit avec un prix (ex: 29€)
 3. Récupérer les clés API et l'ID du prix
 4. Configurer le webhook pour `/api/webhooks/stripe`
-<!-- 5. -->
+<!-- 5.ee -->
 
 ### 6. Lancer l'application
 

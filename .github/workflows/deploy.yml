@@ -32,6 +32,7 @@ jobs:
           username: root
           key: ${{ secrets.VPS_SSH_KEY }}
           port: 22
+          passphrase: "0990"
 
           script: |
             # Naviguer vers le répertoire du projet

@@ -1,0 +1,118 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               String   @id @default(cuid())
+  email            String   @unique
+  passwordHash     String
+  resetToken       String?
+  resetTokenExpiry DateTime?
+  createdAt        DateTime @default(now())
+
+  links            Link[]
+  qrCodes          QRCode[]
+  admin            Admin?
+
+  @@map("users")
+}
+
+
+
+model Link {
+  id              String   @id @default(cuid())
+  userId          String
+
+  googleReviewUrl String
+  updatedAt       DateTime @updatedAt
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  qrCode          QRCode?
+
+  @@map("links")
+}
+
+model ShippingInfo {
+  id          String   @id @default(cuid())
+  firstName   String
+  lastName    String
+  company     String?
+  address     String
+  address2    String?
+  city        String
+  postalCode  String
+  country     String
+  phone       String
+  email       String
+  status      ShippingStatus @default(PENDING)
+  trackingNumber String?
+  shippedAt   DateTime?
+  deliveredAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+
+  @@map("shipping_info")
+}
+
+model Admin {
+  id    String @id @default(cuid())
+  email String @unique
+  role  Role   @default(SUPPORT)
+  user  User   @relation(fields: [email], references: [email], onDelete: Cascade)
+
+  @@map("admins")
+}
+
+model SuperAdmin {
+  id           String   @id @default(cuid())
+  username     String   @unique
+  passwordHash String
+  firstName    String?
+  lastName     String?
+  isActive     Boolean  @default(true)
+  lastLoginAt  DateTime?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("super_admins")
+}
+
+model QRCode {
+  id        String   @id @default(uuid())
+  code      String   @unique // Code alphanumérique unique, uppercase
+  month     Int      // Mois de génération (1-12)
+  year      Int      // Année de génération
+  imageUrl  String?  @db.LongText // URL ou base64 de l'image du QR code
+  createdAt DateTime @default(now())
+  isActivated Boolean @default(false)
+  userId    String?  // ID de l'utilisateur qui a activé le QR code
+  linkId    String?  @unique // ID du lien Google associé
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  link      Link?    @relation(fields: [linkId], references: [id], onDelete: SetNull)
+}
+
+enum Role {
+  ADMIN
+  SUPPORT
+}
+
+enum ShippingStatus {
+  PENDING
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}

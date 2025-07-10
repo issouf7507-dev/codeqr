@@ -1,0 +1,963 @@
+"use client";
+
+import Link from "next/link";
+
+export default function Home() {
+  const handlePurchase = async () => {
+    // Rediriger vers la page de checkout pour collecter les informations de livraison
+    window.location.href = "/checkout";
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+      {/* Animated Background */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-2000"></div>
+        <div className="absolute top-40 left-40 w-80 h-80 bg-pink-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-4000"></div>
+      </div>
+
+      {/* Header */}
+      <header className="relative bg-white/80 backdrop-blur-md border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-6">
+            <div className="flex items-center">
+              <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-blue-500 rounded-xl flex items-center justify-center">
+                <span className="text-white font-bold text-xl">Q</span>
+              </div>
+              <h1 className="ml-3 text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+                CodeQR
+              </h1>
+            </div>
+            <div className="flex space-x-4">
+              <Link
+                href="/login"
+                className="text-gray-600 hover:text-gray-900 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-gray-100"
+              >
+                Connexion
+              </Link>
+              <Link
+                href="/register"
+                className="bg-gradient-to-r from-purple-500 to-blue-500 text-white px-6 py-2 rounded-lg text-sm font-medium hover:from-purple-600 hover:to-blue-600 transition-all duration-200"
+              >
+                Inscription
+              </Link>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Hero Section */}
+      <main className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Text Content */}
+          <div className="text-center lg:text-left">
+            <div className="mb-8">
+              <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-purple-100 text-purple-700 border border-purple-200">
+                ✨ Nouveau produit disponible
+              </span>
+            </div>
+
+            <h1 className="text-5xl font-bold sm:text-6xl md:text-7xl mb-8">
+              <span className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-700 bg-clip-text text-transparent">
+                Boostez vos avis clients
+              </span>
+              <br />
+              <span className="bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent">
+                avec des plaques QR Code
+              </span>
+            </h1>
+
+            <p className="mt-8 text-xl text-gray-600 max-w-4xl mx-auto lg:mx-0 leading-relaxed">
+              Achetez une plaque personnalisée avec un QR Code qui redirige
+              directement vers votre lien Google d'avis. Facilitez la collecte
+              d'avis pour votre entreprise avec un design moderne et
+              professionnel.
+            </p>
+
+            <button
+              onClick={handlePurchase}
+              className="px-6 py-3 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-2xl font-semibold hover:from-purple-600 hover:to-blue-600 transition-all duration-200 transform hover:scale-105 inline-flex items-center space-x-2"
+            >
+              <span>Acheter maintenant</span>
+              <svg
+                className="w-5 h-5 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                />
+              </svg>
+            </button>
+          </div>
+
+          {/* Image Section */}
+          <div className="flex justify-center lg:justify-end">
+            <div className="relative">
+              {/* Main QR Code Plate Mockup */}
+              <div className="relative bg-white rounded-3xl p-8 transform rotate-3 hover:rotate-0 transition-transform duration-500">
+                <div className="w-80 h-80 bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl border-2 border-gray-200 flex items-center justify-center relative overflow-hidden">
+                  {/* QR Code Pattern */}
+                  <div className="grid grid-cols-8 gap-1 p-4">
+                    {Array.from({ length: 64 }, (_, i) => (
+                      <div
+                        key={i}
+                        className={`w-3 h-3 rounded-sm ${
+                          Math.random() > 0.5 ? "bg-gray-800" : "bg-transparent"
+                        }`}
+                      />
+                    ))}
+                  </div>
+
+                  {/* Scan Animation */}
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-500/20 to-transparent animate-pulse"></div>
+
+                  {/* Corner Markers */}
+                  <div className="absolute top-4 left-4 w-8 h-8 border-4 border-gray-800 rounded-lg"></div>
+                  <div className="absolute top-4 right-4 w-8 h-8 border-4 border-gray-800 rounded-lg"></div>
+                  <div className="absolute bottom-4 left-4 w-8 h-8 border-4 border-gray-800 rounded-lg"></div>
+                </div>
+
+                {/* Plate Frame */}
+                <div className="absolute -inset-2 bg-gradient-to-r from-purple-500 to-blue-500 rounded-3xl -z-10 blur-sm opacity-30"></div>
+              </div>
+
+              {/* Floating Elements */}
+              <div className="absolute -top-4 -right-4 w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center animate-bounce">
+                <svg
+                  className="w-8 h-8 text-white"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg>
+              </div>
+
+              <div className="absolute -bottom-4 -left-4 w-12 h-12 bg-green-400 rounded-full flex items-center justify-center animate-pulse">
+                <svg
+                  className="w-6 h-6 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+              </div>
+
+              {/* Phone Mockup */}
+              <div className="absolute top-1/2 -right-20 transform -translate-y-1/2 bg-gray-900 rounded-3xl p-2">
+                <div className="w-32 h-64 bg-white rounded-2xl p-2">
+                  <div className="w-full h-full bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl flex items-center justify-center">
+                    <div className="text-center">
+                      <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg mx-auto mb-2 flex items-center justify-center">
+                        <svg
+                          className="w-4 h-4 text-white"
+                          fill="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                        </svg>
+                      </div>
+                      <div className="text-xs text-gray-600 font-medium">
+                        Avis Google
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* New Section - Client Reviews */}
+        <div className="mt-32">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-8">
+              <span className="bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+                Vos clients vous laisseront leur{" "}
+              </span>
+              <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+                avis
+              </span>
+              <span className="bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+                {" "}
+                en seulement{" "}
+              </span>
+              <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+                3 secondes
+              </span>
+              <span className="bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+                !
+              </span>
+            </h2>
+
+            <h2 className="text-3xl md:text-4xl font-bold mb-8">
+              <span className="bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+                Doublez votre nombre d'avis Google en 3 mois{" "}
+              </span>
+              <span className="bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent">
+                ✅
+              </span>
+            </h2>
+
+            <div className="max-w-3xl mx-auto">
+              <p className="text-lg text-gray-600 mb-4">
+                C'est les statistiques moyennes de nos clients.
+              </p>
+              <p className="text-lg text-gray-600">
+                Vous êtes en contact avec vos clients{" "}
+                <strong className="text-gray-900">tous les jours</strong>, ne
+                loupez pas l'occasion de récolter{" "}
+                <strong className="text-gray-900">leur avis Google!</strong>
+              </p>
+            </div>
+          </div>
+
+          {/* Carousel Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            {/* Card 1 */}
+            <div className="bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200 p-6 hover:transform hover:scale-105 transition-all duration-300">
+              <div className="flex flex-col items-center text-center">
+                <div className="w-16 h-16 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center mb-4">
+                  <svg
+                    className="w-8 h-8 text-white"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                  </svg>
+                </div>
+                <div className="text-gray-700">
+                  <p>
+                    <strong className="text-gray-900">
+                      Soyez 1er sur Google!
+                    </strong>{" "}
+                    Et gardez l'avance sur la concurrence
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Card 2 */}
+            <div className="bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200 p-6 hover:transform hover:scale-105 transition-all duration-300">
+              <div className="flex flex-col items-center text-center">
+                <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mb-4">
+                  <svg
+                    className="w-8 h-8 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M13 10V3L4 14h7v7l9-11h-7z"
+                    />
+                  </svg>
+                </div>
+                <div className="text-gray-700">
+                  <p>
+                    <strong className="text-gray-900">
+                      Redirigez instantanément
+                    </strong>{" "}
+                    vers la section avis Google
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Card 3 */}
+            <div className="bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200 p-6 hover:transform hover:scale-105 transition-all duration-300">
+              <div className="flex flex-col items-center text-center">
+                <div className="w-16 h-16 bg-gradient-to-r from-green-400 to-teal-500 rounded-2xl flex items-center justify-center mb-4">
+                  <svg
+                    className="w-8 h-8 text-white"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                  </svg>
+                </div>
+                <div className="text-gray-700">
+                  <p>
+                    <strong className="text-gray-900">
+                      Les clients adorent!
+                    </strong>{" "}
+                    C'est simple et ludique
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Card 4 */}
+            <div className="bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200 p-6 hover:transform hover:scale-105 transition-all duration-300">
+              <div className="flex flex-col items-center text-center">
+                <div className="w-16 h-16 bg-gradient-to-r from-pink-500 to-red-500 rounded-2xl flex items-center justify-center mb-4">
+                  <svg
+                    className="w-8 h-8 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                    />
+                  </svg>
+                </div>
+                <div className="text-gray-700">
+                  <p>
+                    Laissez vos <strong className="text-gray-900">VRAIS</strong>{" "}
+                    <strong className="text-gray-900">clients</strong> parler
+                    pour vous!
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Product Presentation Section */}
+        <div className="mt-32">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-8">
+              <span className="bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+                Découvrez notre{" "}
+              </span>
+              <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                plaque QR Code
+              </span>
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Une solution élégante et professionnelle pour collecter facilement
+              les avis de vos clients
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center max-w-6xl mx-auto">
+            {/* Product Image */}
+            <div className="relative">
+              <div className="bg-white rounded-3xl p-8 transform -rotate-2 hover:rotate-0 transition-transform duration-500">
+                <div className="w-full h-80 bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl border-2 border-gray-200 flex items-center justify-center relative overflow-hidden">
+                  {/* QR Code Pattern */}
+                  <div className="grid grid-cols-12 gap-1 p-6">
+                    {Array.from({ length: 144 }, (_, i) => (
+                      <div
+                        key={i}
+                        className={`w-2 h-2 rounded-sm ${
+                          Math.random() > 0.6 ? "bg-gray-800" : "bg-transparent"
+                        }`}
+                      />
+                    ))}
+                  </div>
+
+                  {/* Corner Markers */}
+                  <div className="absolute top-6 left-6 w-10 h-10 border-4 border-gray-800 rounded-lg"></div>
+                  <div className="absolute top-6 right-6 w-10 h-10 border-4 border-gray-800 rounded-lg"></div>
+                  <div className="absolute bottom-6 left-6 w-10 h-10 border-4 border-gray-800 rounded-lg"></div>
+
+                  {/* Scan Line Animation */}
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-500/30 to-transparent animate-pulse"></div>
+                </div>
+
+                {/* Plate Frame */}
+                <div className="absolute -inset-2 bg-gradient-to-r from-purple-500 to-blue-500 rounded-3xl -z-10 blur-sm opacity-30"></div>
+              </div>
+
+              {/* Floating Elements */}
+              <div className="absolute -top-6 -right-6 w-20 h-20 bg-yellow-400 rounded-full flex items-center justify-center animate-bounce">
+                <span className="text-white font-bold text-2xl">5★</span>
+              </div>
+
+              <div className="absolute -bottom-6 -left-6 w-16 h-16 bg-green-400 rounded-full flex items-center justify-center animate-pulse">
+                <svg
+                  className="w-8 h-8 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+              </div>
+
+              {/* Phone Mockup */}
+              <div className="absolute top-1/2 -right-20 transform -translate-y-1/2 bg-gray-900 rounded-3xl p-2">
+                <div className="w-32 h-64 bg-white rounded-2xl p-2">
+                  <div className="w-full h-full bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl flex items-center justify-center">
+                    <div className="text-center">
+                      <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg mx-auto mb-2 flex items-center justify-center">
+                        <svg
+                          className="w-4 h-4 text-white"
+                          fill="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                        </svg>
+                      </div>
+                      <div className="text-xs text-gray-600 font-medium">
+                        Avis Google
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Product Details */}
+            <div className="space-y-8">
+              <div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                  Caractéristiques du produit
+                </h3>
+                <div className="space-y-4">
+                  <div className="flex items-start space-x-3">
+                    <div className="w-6 h-6 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                      <svg
+                        className="w-3 h-3 text-white"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900">
+                        Design professionnel
+                      </h4>
+                      <p className="text-gray-600">
+                        Plaque en matériau premium avec finition élégante
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start space-x-3">
+                    <div className="w-6 h-6 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                      <svg
+                        className="w-3 h-3 text-white"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900">
+                        QR Code haute résolution
+                      </h4>
+                      <p className="text-gray-600">
+                        Scan rapide et fiable sur tous les smartphones
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start space-x-3">
+                    <div className="w-6 h-6 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                      <svg
+                        className="w-3 h-3 text-white"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900">
+                        Installation facile
+                      </h4>
+                      <p className="text-gray-600">
+                        Adhésif double-face inclus pour fixation simple
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start space-x-3">
+                    <div className="w-6 h-6 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                      <svg
+                        className="w-3 h-3 text-white"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900">
+                        Personnalisation
+                      </h4>
+                      <p className="text-gray-600">
+                        Lien Google Reviews configuré selon vos besoins
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                  Comment ça marche ?
+                </h3>
+                <div className="space-y-4">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                      1
+                    </div>
+                    <p className="text-gray-600">
+                      Votre client scanne le QR Code avec son smartphone
+                    </p>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                      2
+                    </div>
+                    <p className="text-gray-600">
+                      Il est redirigé directement vers votre page Google Reviews
+                    </p>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                      3
+                    </div>
+                    <p className="text-gray-600">
+                      Il peut laisser son avis en quelques clics
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-2xl p-6 border border-purple-200">
+                <h4 className="font-bold text-gray-900 mb-2">
+                  💡 Conseil d'utilisation
+                </h4>
+                <p className="text-gray-700">
+                  Placez votre plaque QR Code à un endroit visible et accessible
+                  : comptoir, table de restaurant, salle d'attente... Plus elle
+                  est visible, plus vous collecterez d'avis !
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* FAQ Section */}
+        <div className="mt-32">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-8">
+              <span className="bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+                Questions{" "}
+              </span>
+              <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                fréquentes
+              </span>
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Tout ce que vous devez savoir sur nos plaques QR Code
+            </p>
+          </div>
+
+          <div className="max-w-4xl mx-auto space-y-4">
+            {/* FAQ Item 1 */}
+            <div className="bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200">
+              <details className="group">
+                <summary className="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50/50 transition-colors duration-200">
+                  <h3 className="text-lg font-semibold text-gray-900">
+                    Comment fonctionne exactement la plaque QR Code ?
+                  </h3>
+                  <svg
+                    className="w-6 h-6 text-gray-500 group-open:rotate-180 transition-transform duration-200"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </summary>
+                <div className="px-6 pb-6">
+                  <p className="text-gray-600 leading-relaxed">
+                    La plaque contient un QR Code unique qui redirige
+                    directement vers votre page Google Reviews. Vos clients
+                    scannent simplement le code avec leur smartphone et sont
+                    automatiquement dirigés vers votre page d'avis Google où ils
+                    peuvent laisser leur commentaire en quelques clics.
+                  </p>
+                </div>
+              </details>
+            </div>
+
+            {/* FAQ Item 2 */}
+            <div className="bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200">
+              <details className="group">
+                <summary className="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50/50 transition-colors duration-200">
+                  <h3 className="text-lg font-semibold text-gray-900">
+                    Combien de temps faut-il pour recevoir ma plaque ?
+                  </h3>
+                  <svg
+                    className="w-6 h-6 text-gray-500 group-open:rotate-180 transition-transform duration-200"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </summary>
+                <div className="px-6 pb-6">
+                  <p className="text-gray-600 leading-relaxed">
+                    Après confirmation de votre paiement, votre plaque est
+                    personnalisée et expédiée sous 24-48h. La livraison standard
+                    prend 3-5 jours ouvrés. Vous recevrez également un email
+                    avec les instructions d'activation et de configuration de
+                    votre lien Google Reviews.
+                  </p>
+                </div>
+              </details>
+            </div>
+
+            {/* FAQ Item 3 */}
+            <div className="bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200">
+              <details className="group">
+                <summary className="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50/50 transition-colors duration-200">
+                  <h3 className="text-lg font-semibold text-gray-900">
+                    Puis-je personnaliser le lien de redirection ?
+                  </h3>
+                  <svg
+                    className="w-6 h-6 text-gray-500 group-open:rotate-180 transition-transform duration-200"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </summary>
+                <div className="px-6 pb-6">
+                  <p className="text-gray-600 leading-relaxed">
+                    Absolument ! Nous configurons le QR Code avec votre lien
+                    Google Reviews spécifique. Si vous n'avez pas encore de page
+                    Google My Business, nous vous aidons à la créer. Vous pouvez
+                    également modifier le lien de redirection à tout moment via
+                    votre espace client.
+                  </p>
+                </div>
+              </details>
+            </div>
+
+            {/* FAQ Item 4 */}
+            <div className="bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200">
+              <details className="group">
+                <summary className="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50/50 transition-colors duration-200">
+                  <h3 className="text-lg font-semibold text-gray-900">
+                    La plaque fonctionne-t-elle avec tous les smartphones ?
+                  </h3>
+                  <svg
+                    className="w-6 h-6 text-gray-500 group-open:rotate-180 transition-transform duration-200"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </summary>
+                <div className="px-6 pb-6">
+                  <p className="text-gray-600 leading-relaxed">
+                    Oui ! Tous les smartphones modernes (iPhone, Android) ont
+                    une application de scan QR Code intégrée dans l'appareil
+                    photo. Il suffit d'ouvrir l'appareil photo et de pointer
+                    vers le QR Code. Aucune application supplémentaire n'est
+                    nécessaire.
+                  </p>
+                </div>
+              </details>
+            </div>
+
+            {/* FAQ Item 5 */}
+            <div className="bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200">
+              <details className="group">
+                <summary className="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50/50 transition-colors duration-200">
+                  <h3 className="text-lg font-semibold text-gray-900">
+                    Que se passe-t-il si ma plaque est endommagée ?
+                  </h3>
+                  <svg
+                    className="w-6 h-6 text-gray-500 group-open:rotate-180 transition-transform duration-200"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </summary>
+                <div className="px-6 pb-6">
+                  <p className="text-gray-600 leading-relaxed">
+                    Nos plaques sont fabriquées avec des matériaux résistants et
+                    durables. En cas de dommage dans les 30 jours suivant la
+                    réception, nous vous envoyons une nouvelle plaque
+                    gratuitement. Le QR Code reste fonctionnel même si la plaque
+                    est légèrement usée.
+                  </p>
+                </div>
+              </details>
+            </div>
+
+            {/* FAQ Item 6 */}
+            <div className="bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200">
+              <details className="group">
+                <summary className="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50/50 transition-colors duration-200">
+                  <h3 className="text-lg font-semibold text-gray-900">
+                    Puis-je commander plusieurs plaques pour différents
+                    emplacements ?
+                  </h3>
+                  <svg
+                    className="w-6 h-6 text-gray-500 group-open:rotate-180 transition-transform duration-200"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </summary>
+                <div className="px-6 pb-6">
+                  <p className="text-gray-600 leading-relaxed">
+                    Bien sûr ! Vous pouvez commander autant de plaques que
+                    nécessaire. Chaque plaque aura le même QR Code qui redirige
+                    vers votre page Google Reviews. C'est parfait pour couvrir
+                    plusieurs emplacements : comptoir, tables, salle d'attente,
+                    etc.
+                  </p>
+                </div>
+              </details>
+            </div>
+
+            {/* FAQ Item 7 */}
+            <div className="bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200">
+              <details className="group">
+                <summary className="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50/50 transition-colors duration-200">
+                  <h3 className="text-lg font-semibold text-gray-900">
+                    Y a-t-il des frais cachés ou des abonnements ?
+                  </h3>
+                  <svg
+                    className="w-6 h-6 text-gray-500 group-open:rotate-180 transition-transform duration-200"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </summary>
+                <div className="px-6 pb-6">
+                  <p className="text-gray-600 leading-relaxed">
+                    Non, aucun frais caché ! Le prix de 29€ inclut tout : la
+                    plaque personnalisée, la livraison, la configuration du QR
+                    Code et l'accès à votre espace client. Aucun abonnement
+                    n'est requis. Vous payez une seule fois et la plaque
+                    fonctionne à vie.
+                  </p>
+                </div>
+              </details>
+            </div>
+
+            {/* FAQ Item 8 */}
+            <div className="bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200">
+              <details className="group">
+                <summary className="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50/50 transition-colors duration-200">
+                  <h3 className="text-lg font-semibold text-gray-900">
+                    Comment puis-je suivre l'impact de ma plaque sur mes avis ?
+                  </h3>
+                  <svg
+                    className="w-6 h-6 text-gray-500 group-open:rotate-180 transition-transform duration-200"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </summary>
+                <div className="px-6 pb-6">
+                  <p className="text-gray-600 leading-relaxed">
+                    Vous recevez un accès à votre tableau de bord personnel où
+                    vous pouvez voir les statistiques de scan de votre QR Code.
+                    Vous pouvez également suivre l'évolution de vos avis Google
+                    directement sur votre page Google My Business.
+                  </p>
+                </div>
+              </details>
+            </div>
+          </div>
+        </div>
+
+        {/* Features */}
+        <div className="mt-32 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="group bg-white/60 backdrop-blur-xl rounded-2xl border border-gray-200 p-8 hover:border-purple-300 transition-all duration-300 hover:transform hover:scale-105">
+            <div className="w-14 h-14 bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-6 group-hover:transition-all duration-300">
+              <svg
+                className="w-7 h-7 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                />
+              </svg>
+            </div>
+            <h3 className="text-xl font-bold text-gray-900 mb-3">
+              Paiement sécurisé
+            </h3>
+            <p className="text-gray-600 leading-relaxed">
+              Paiement sécurisé via Stripe avec cryptage SSL. Votre plaque sera
+              générée automatiquement après confirmation du paiement.
+            </p>
+          </div>
+
+          <div className="group bg-white/60 backdrop-blur-xl rounded-2xl border border-gray-200 p-8 hover:border-blue-300 transition-all duration-300 hover:transform hover:scale-105">
+            <div className="w-14 h-14 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-6 group-hover:transition-all duration-300">
+              <svg
+                className="w-7 h-7 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+            </div>
+            <h3 className="text-xl font-bold text-gray-900 mb-3">
+              Activation simple
+            </h3>
+            <p className="text-gray-600 leading-relaxed">
+              Activez votre plaque avec le code unique reçu par email et
+              configurez votre lien Google d'avis en quelques clics.
+            </p>
+          </div>
+
+          <div className="group bg-white/60 backdrop-blur-xl rounded-2xl border border-gray-200 p-8 hover:border-pink-300 transition-all duration-300 hover:transform hover:scale-105">
+            <div className="w-14 h-14 bg-gradient-to-r from-pink-500 to-pink-600 rounded-xl flex items-center justify-center mb-6 group-hover:transition-all duration-300">
+              <svg
+                className="w-7 h-7 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M13 10V3L4 14h7v7l9-11h-7z"
+                />
+              </svg>
+            </div>
+            <h3 className="text-xl font-bold text-gray-900 mb-3">
+              Redirection instantanée
+            </h3>
+            <p className="text-gray-600 leading-relaxed">
+              Vos clients scannent le QR Code et sont redirigés directement vers
+              votre page d'avis Google en moins d'une seconde.
+            </p>
+          </div>
+        </div>
+
+        {/* Stats Section */}
+        <div className="mt-32 bg-white/60 backdrop-blur-xl rounded-2xl border border-gray-200 p-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div>
+              <div className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">
+                1000+
+              </div>
+              <div className="text-gray-600">Plaques vendues</div>
+            </div>
+            <div>
+              <div className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
+                98%
+              </div>
+              <div className="text-gray-600">Satisfaction client</div>
+            </div>
+            <div>
+              <div className="text-3xl font-bold bg-gradient-to-r from-pink-600 to-red-600 bg-clip-text text-transparent mb-2">
+                24h
+              </div>
+              <div className="text-gray-600">Support client</div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      {/* Footer */}
+      <footer className="relative bg-white/80 backdrop-blur-md border-t border-gray-200 py-12 mt-32">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <div className="flex items-center justify-center mb-4">
+              <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-sm">Q</span>
+              </div>
+              <span className="ml-2 text-gray-900 font-semibold">CodeQR</span>
+            </div>
+            <p className="text-gray-600">
+              &copy; 2024 CodeQR. Tous droits réservés.
+            </p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}

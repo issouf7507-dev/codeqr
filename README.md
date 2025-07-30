@@ -4,10 +4,12 @@ Une solution complète pour permettre aux commerçants d'acheter des plaques phy
 
 ## 🎯 Fonctionnalités
 
-- **Achat de plaques** via Stripe Checkout
+- **Achat de plaques** avec choix de modèle (Standard, Premium, Pack Multi)
+- **Paiement sécurisé** via Mollie (cartes, virements, etc.)
 - **Génération automatique** de codes uniques après paiement
 - **Activation de plaques** avec code unique et lien Google
-- **Tableau de bord** pour gérer les plaques et liens
+- **Tableau de bord** pour gérer les plaques, commandes et liens
+- **Espace super admin** pour gérer les utilisateurs, commandes et codes QR
 - **Redirection QR Code** vers les liens Google d'avis
 - **Interface moderne** et responsive
 
@@ -15,8 +17,8 @@ Une solution complète pour permettre aux commerçants d'acheter des plaques phy
 
 - **Frontend**: Next.js 15 (App Router)
 - **Backend**: Next.js API Routes
-- **Base de données**: PostgreSQL avec Prisma
-- **Paiements**: Stripe Checkout
+- **Base de données**: MySQL avec Prisma
+- **Paiements**: Mollie (cartes, virements, etc.)
 - **Authentification**: JWT avec cookies httpOnly
 - **Génération QR Code**: qrcode.js
 - **Styling**: Tailwind CSS
@@ -42,15 +44,13 @@ Créer un fichier `.env.local` à la racine du projet :
 
 ```env
 # Database
-DATABASE_URL="postgresql://username:password@localhost:5432/codeqr"
+DATABASE_URL="mysql://username:password@localhost:3306/codeqr"
 
 # JWT Secret
 JWT_SECRET="your-super-secret-jwt-key-here"
 
-# Stripe Configuration
-STRIPE_SECRET_KEY="sk_test_your_stripe_secret_key"
-STRIPE_PLACE_PRICE_ID="price_your_stripe_price_id"
-STRIPE_WEBHOOK_SECRET="whsec_your_stripe_webhook_secret"
+# Mollie Configuration
+MOLLIE_API_KEY="test_your_mollie_api_key_here"
 
 # Application
 NEXT_PUBLIC_BASE_URL="http://localhost:3000"
@@ -69,13 +69,15 @@ npx prisma db push
 npx prisma studio
 ```
 
-### 5. Configuration Stripe
+### 5. Configuration Mollie
 
-1. Créer un compte Stripe
-2. Créer un produit avec un prix (ex: 29€)
-3. Récupérer les clés API et l'ID du prix
-4. Configurer le webhook pour `/api/webhooks/stripe`
-<!-- 5.ee -->
+1. Créer un compte Mollie (https://www.mollie.com)
+2. Récupérer votre clé API de test
+3. Configurer le webhook pour `/api/webhooks/mollie`
+4. Initialiser les produits dans la base de données :
+   ```bash
+   npx tsx scripts/init-products.ts
+   ```
 
 ### 6. Lancer l'application
 
@@ -89,17 +91,21 @@ L'application sera disponible sur `http://localhost:3000`
 
 ### Pour les clients
 
-1. **Acheter une plaque** : Remplir le formulaire sur la page d'accueil
-2. **Recevoir le code** : Le code unique est envoyé par email après paiement
-3. **Créer un compte** : S'inscrire sur la plateforme
-4. **Activer la plaque** : Utiliser le code et configurer le lien Google
-5. **Recevoir la plaque** : La plaque physique est envoyée par courrier
+1. **Choisir un modèle** : Sélectionner entre Standard (29€), Premium (49€) ou Pack Multi (79€)
+2. **Remplir les informations** : Adresse de livraison et coordonnées
+3. **Payer** : Paiement sécurisé via Mollie (cartes, virements, etc.)
+4. **Recevoir le code** : Le code unique est envoyé par email après paiement
+5. **Créer un compte** : S'inscrire sur la plateforme
+6. **Activer la plaque** : Utiliser le code et configurer le lien Google
+7. **Recevoir la plaque** : La plaque physique est envoyée par courrier
 
 ### Pour les administrateurs
 
-- Gestion des stocks de plaques
-- Suivi des activations
+- Gestion des commandes et suivi des paiements
+- Gestion des utilisateurs et codes QR
+- Suivi des livraisons et expéditions
 - Support client
+- Tableau de bord avec statistiques
 
 ## 📁 Structure du Projet
 
@@ -131,17 +137,26 @@ codeqr/
 ### Modèles principaux
 
 - **User** : Utilisateurs de la plateforme
-- **Plaque** : Plaques QR Code
-- **Code** : Codes d'activation uniques
+- **Product** : Produits disponibles (Standard, Premium, Pack Multi)
+- **Order** : Commandes des clients
+- **OrderItem** : Items de commande
+- **QRCode** : Codes QR générés
 - **Link** : Liens Google d'avis
-- **Admin** : Administrateurs (optionnel)
+- **ShippingInfo** : Informations de livraison
+- **Admin** : Administrateurs
+- **SuperAdmin** : Super administrateurs
 
 ## 🔄 Workflow
 
-1. **Achat** → Génération automatique du code unique
-2. **Paiement** → Webhook Stripe marque le code comme payé
-3. **Activation** → Utilisateur active avec code + lien Google
-4. **Utilisation** → QR Code redirige vers le lien Google
+1. **Sélection produit** → Client choisit un modèle de plaque
+2. **Commande** → Remplissage des informations de livraison
+3. **Paiement** → Paiement sécurisé via Mollie
+4. **Webhook** → Génération automatique des codes QR après paiement
+5. **Email** → Envoi du code d'activation au client
+6. **Inscription** → Client crée un compte sur la plateforme
+7. **Activation** → Client active sa plaque avec le code + lien Google
+8. **Livraison** → Expédition de la plaque physique
+9. **Utilisation** → QR Code redirige vers le lien Google
 
 ## 🛠️ Développement
 

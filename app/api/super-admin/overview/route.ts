@@ -28,8 +28,21 @@ export async function GET(request: NextRequest) {
       where: { status: "PENDING" },
     });
 
-    // Revenus (estimation basée sur le nombre de plaques)
-    const estimatedRevenue = totalPlaques * 29; // 29€ par plaque
+    // Statistiques des commandes
+    const totalOrders = await prisma.order.count();
+    const paidOrders = await prisma.order.count({
+      where: { status: "PAID" },
+    });
+
+    // Revenus (basé sur les commandes payées)
+    const paidOrdersData = await prisma.order.findMany({
+      where: { status: "PAID" },
+      select: { totalAmount: true },
+    });
+    const estimatedRevenue = paidOrdersData.reduce(
+      (sum, order) => sum + order.totalAmount,
+      0
+    );
 
     // Activité récente
     const recentUsers = await prisma.user.findMany({
@@ -40,7 +53,11 @@ export async function GET(request: NextRequest) {
         email: true,
         createdAt: true,
         _count: {
-          select: { qrCodes: true },
+          select: {
+            qrCodes: {
+              where: { isActivated: true },
+            },
+          },
         },
       },
     });
@@ -52,9 +69,27 @@ export async function GET(request: NextRequest) {
         user: {
           select: { email: true },
         },
-        // shippingInfo: {
-        //   select: { firstName: true, lastName: true, status: true },
-        // },
+      },
+    });
+
+    const recentOrders = await prisma.order.findMany({
+      take: 5,
+      orderBy: { createdAt: "desc" },
+      include: {
+        items: {
+          include: {
+            product: {
+              select: { name: true },
+            },
+          },
+        },
+        qrCodes: {
+          select: {
+            id: true,
+            code: true,
+            isActivated: true,
+          },
+        },
       },
     });
 
@@ -73,6 +108,10 @@ export async function GET(request: NextRequest) {
           total: totalShipping,
           pending: pendingShipping,
         },
+        orders: {
+          total: totalOrders,
+          paid: paidOrders,
+        },
         revenue: {
           estimated: estimatedRevenue,
         },
@@ -80,6 +119,7 @@ export async function GET(request: NextRequest) {
       recent: {
         users: recentUsers,
         plaques: recentPlaques,
+        orders: recentOrders,
       },
     });
   } catch (error) {

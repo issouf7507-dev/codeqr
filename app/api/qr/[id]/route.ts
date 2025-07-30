@@ -10,7 +10,7 @@ export async function GET(
   try {
     // Trouver le QR code par le code avec les relations
     const qrCode = await prisma.qRCode.findUnique({
-      where: { id },
+      where: { code: id },
       include: {
         user: {
           select: {
@@ -45,6 +45,13 @@ export async function GET(
       id: qrCode.id,
       code: qrCode.code,
       isActivated: qrCode.isActivated,
+      activatedAt: qrCode.activatedAt,
+      activatedBy: qrCode.user
+        ? {
+            id: qrCode.user.id,
+            email: qrCode.user.email,
+          }
+        : null,
       googleReviewUrl: qrCode.link?.googleReviewUrl || null,
     });
   } catch (error) {

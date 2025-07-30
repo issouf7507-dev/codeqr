@@ -1,25 +1,67 @@
+// require("dotenv").config({ path: ".env" });
 import nodemailer from "nodemailer";
+// import dotenv from "dotenv";
+// dotenv.config({ path: ".env" });
 
-// Configuration du transporteur email
-const transporter = nodemailer.createTransport({
-  service: "gmail", // ou "outlook", "yahoo", etc.
-  auth: {
-    user: process.env.NEXT_APP_EMAIL_USER,
-    pass: process.env.NEXT_APP_EMAIL_PASS, // Mot de passe d'application Gmail
-  },
-});
+// Configuration du transporteur email avec options de sécurité
+const createTransporter = () => {
+  // Option 1: Gmail avec App Password (recommandé)
+  if (process.env.NEXT_APP_EMAIL_USER && process.env.NEXT_APP_EMAIL_PASS) {
+    return nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.NEXT_APP_EMAIL_USER,
+        pass: process.env.NEXT_APP_EMAIL_PASS, // Doit être un App Password, pas le mot de passe normal
+      },
+      secure: true, // Utilise SSL/TLS
+      port: 465,
+    });
+  }
+
+  // Option 2: Configuration SMTP générique (fallback)
+  return nodemailer.createTransport({
+    host: process.env.SMTP_HOST || "smtp.gmail.com",
+    port: parseInt(process.env.SMTP_PORT || "587"),
+    secure: process.env.SMTP_SECURE === "true", // true pour 465, false pour les autres ports
+    auth: {
+      user: process.env.SMTP_USER || process.env.NEXT_APP_EMAIL_USER,
+      pass: process.env.SMTP_PASS || process.env.NEXT_APP_EMAIL_PASS,
+    },
+  });
+};
+
+const transporter = createTransporter();
+
+// Fonction pour tester la connexion email
+export async function testEmailConnection() {
+  try {
+    await transporter.verify();
+    console.log("✅ Connexion email réussie");
+    return true;
+  } catch (error) {
+    console.error("❌ Erreur de connexion email:", error);
+    return false;
+  }
+}
 
 // Template pour l'email de confirmation d'achat
 export async function sendPurchaseConfirmationEmail(
   email: string,
   code: string,
-  plaqueId: string
+  plaqueId: string,
+  qrCodeImage: string | null
 ) {
-  const mailOptions = {
-    from: process.env.NEXT_APP_EMAIL_USER,
-    to: email,
-    subject: "🎉 Confirmation d'achat - Votre plaque QR Code CodeQR",
-    html: `
+  try {
+    // Générer le QR code du lien d'activation
+    const activationUrl = `${
+      process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
+    }/qr/${code}/activation`;
+
+    const mailOptions = {
+      from: process.env.NEXT_APP_EMAIL_USER || "ouattaraissouf7507@gmail.com",
+      to: email,
+      subject: "🎉 Confirmation d'achat - Votre plaque QR Code CodeQR",
+      html: `
       <!DOCTYPE html>
       <html>
       <head>
@@ -53,6 +95,7 @@ export async function sendPurchaseConfirmationEmail(
               <li><strong>Numéro de commande :</strong> ${plaqueId}</li>
               <li><strong>Produit :</strong> Plaque QR Code personnalisée</li>
               <li><strong>Statut :</strong> Paiement confirmé</li>
+              <li><strong>Code d'activation :</strong> ${code}</li>
             </ul>
             
             <h3>🔑 Votre code d'activation :</h3>
@@ -63,17 +106,42 @@ export async function sendPurchaseConfirmationEmail(
             
             <h3>📝 Prochaines étapes :</h3>
             <ol>
-              <li><strong>Créez votre compte</strong> sur notre plateforme</li>
-              <li><strong>Activez votre plaque</strong> avec le code ci-dessus</li>
-              <li><strong>Configurez votre lien Google</strong> d'avis</li>
-              <li><strong>Recevez votre plaque</strong> par courrier (délai : 5-7 jours ouvrés)</li>
+              <li><strong>Cliquez sur "Activer ma plaque"</strong> ci-dessous ou utilisez le lien direct</li>
+              <li><strong>Créez votre compte</strong> (ou connectez-vous si vous en avez déjà un)</li>
+              <li><strong>Configurez votre lien Google Avis</strong> (https://g.page/r/...)</li>
+              <li><strong>Votre QR Code sera immédiatement actif</strong> et redirigera vers vos avis</li>
+              <li><strong>Recevez votre plaque physique</strong> par courrier (délai : 5-7 jours ouvrés)</li>
             </ol>
             
-            <div style="text-align: center;">
-              <a href="${process.env.NEXT_PUBLIC_BASE_URL}/register" class="button">Créer mon compte</a>
-              <br>
-              <a href="${process.env.NEXT_PUBLIC_BASE_URL}/activate" class="button">Activer ma plaque</a>
+            <h3>🔗 Lien direct d'activation :</h3>
+            <p style="word-break: break-all; background: #f0f0f0; padding: 10px; border-radius: 5px; font-family: monospace;">
+              ${activationUrl}
+            </p>
+            
+            <h3>📱 QR Code d'activation :</h3>
+            <div style="text-align: center; margin: 20px 0;">
+              <img src="${qrCodeImage}" alt="QR Code d'activation" style="max-width: 200px; border: 2px solid #667eea; border-radius: 10px;" />
+              <p style="margin-top: 10px; font-size: 12px; color: #666;">
+                Scannez ce QR code pour accéder directement à la page d'activation
+              </p>
             </div>
+            
+            <div style="text-align: center;">
+              <a href="${
+                process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
+              }/register" class="button">Créer mon compte</a>
+              <br>
+              <a href="${activationUrl}" class="button">Activer ma plaque</a>
+            </div>
+            
+            <h3>💡 Comment obtenir votre lien Google Avis ?</h3>
+            <ol>
+              <li>Allez sur <a href="https://maps.google.com" style="color: #667eea;">Google Maps</a></li>
+              <li>Recherchez votre établissement</li>
+              <li>Cliquez sur votre établissement dans les résultats</li>
+              <li>Cliquez sur "Avis" dans le panneau de gauche</li>
+              <li>Copiez l'URL de la page (elle doit commencer par https://g.page/r/)</li>
+            </ol>
             
             <h3>❓ Besoin d'aide ?</h3>
             <p>Notre équipe support est là pour vous accompagner :</p>
@@ -92,16 +160,104 @@ export async function sendPurchaseConfirmationEmail(
       </body>
       </html>
     `,
-  };
+    };
 
-  try {
     await transporter.sendMail(mailOptions);
-    console.log(`Email de confirmation envoyé à ${email}`);
+    console.log(`✅ Email de confirmation envoyé à ${email}`);
     return true;
   } catch (error) {
-    console.error("Erreur lors de l'envoi de l'email:", error);
+    console.error("❌ Erreur lors de l'envoi de l'email:", error);
     return false;
   }
+
+  // const mailOptions = {
+  //   from: process.env.NEXT_APP_EMAIL_USER,
+  //   to: email,
+  //   subject: "🎉 Confirmation d'achat - Votre plaque QR Code CodeQR",
+  //   html: `
+  //     <!DOCTYPE html>
+  //     <html>
+  //     <head>
+  //       <meta charset="utf-8">
+  //       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  //       <title>Confirmation d'achat - CodeQR</title>
+  //       <style>
+  //         body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+  //         .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+  //         .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
+  //         .content { background: #f9f9f9; padding: 30px; border-radius: 0 0 10px 10px; }
+  //         .code-box { background: #fff; border: 2px dashed #667eea; padding: 20px; text-align: center; margin: 20px 0; border-radius: 10px; }
+  //         .code { font-size: 24px; font-weight: bold; color: #667eea; letter-spacing: 2px; }
+  //         .button { display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 30px; text-decoration: none; border-radius: 25px; margin: 20px 0; }
+  //         .footer { text-align: center; margin-top: 30px; color: #666; font-size: 14px; }
+  //       </style>
+  //     </head>
+  //     <body>
+  //       <div class="container">
+  //         <div class="header">
+  //           <h1>🎉 Merci pour votre achat !</h1>
+  //           <p>Votre plaque QR Code CodeQR a été commandée avec succès</p>
+  //         </div>
+
+  //         <div class="content">
+  //           <h2>Bonjour !</h2>
+  //           <p>Nous vous confirmons la réception de votre commande de plaque QR Code.</p>
+
+  //           <h3>📋 Détails de votre commande :</h3>
+  //           <ul>
+  //             <li><strong>Numéro de commande :</strong> ${plaqueId}</li>
+  //             <li><strong>Produit :</strong> Plaque QR Code personnalisée</li>
+  //             <li><strong>Statut :</strong> Paiement confirmé</li>
+  //             <li><strong>Code d'activation :</strong> ${code}</li>
+  //           </ul>
+
+  //           <h3>🔑 Votre code d'activation :</h3>
+  //           <div class="code-box">
+  //             <div class="code">${code}</div>
+  //             <p><em>Conservez précieusement ce code - il vous sera nécessaire pour activer votre plaque</em></p>
+  //           </div>
+
+  //           <h3>📝 Prochaines étapes :</h3>
+  //           <ol>
+  //             <li><strong>Créez votre compte</strong> sur notre plateforme</li>
+  //             <li><strong>Activez votre plaque</strong> avec le code ci-dessus</li>
+  //             <li><strong>Configurez votre lien Google</strong> d'avis</li>
+  //             <li><strong>Recevez votre plaque</strong> par courrier (délai : 5-7 jours ouvrés)</li>
+  //           </ol>
+
+  //           <div style="text-align: center;">
+  //             <a href="${process.env.NEXT_PUBLIC_BASE_URL}/register" class="button">Créer mon compte</a>
+  //             <br>
+  //             <a href="${process.env.NEXT_PUBLIC_BASE_URL}/activate" class="button">Activer ma plaque</a>
+  //           </div>
+
+  //           <h3>❓ Besoin d'aide ?</h3>
+  //           <p>Notre équipe support est là pour vous accompagner :</p>
+  //           <ul>
+  //             <li>📧 Email : support@codeqr.com</li>
+  //             <li>📞 Téléphone : +33 1 23 45 67 89</li>
+  //             <li>💬 Chat en ligne : Disponible sur notre site</li>
+  //           </ul>
+  //         </div>
+
+  //         <div class="footer">
+  //           <p>© 2024 CodeQR - Tous droits réservés</p>
+  //           <p>Cet email a été envoyé à ${email}</p>
+  //         </div>
+  //       </div>
+  //     </body>
+  //     </html>
+  //   `,
+  // };
+
+  // try {
+  //   await transporter.sendMail(mailOptions);
+  //   console.log(`Email de confirmation envoyé à ${email}`);
+  //   return true;
+  // } catch (error) {
+  //   console.error("Erreur lors de l'envoi de l'email:", error);
+  //   return false;
+  // }
 }
 
 // Template pour l'email de confirmation d'activation

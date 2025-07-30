@@ -17,6 +17,10 @@ interface Stats {
     total: number;
     pending: number;
   };
+  orders: {
+    total: number;
+    paid: number;
+  };
   revenue: {
     estimated: number;
   };
@@ -51,7 +55,28 @@ interface DashboardData {
   recent: {
     users: RecentUser[];
     plaques: RecentPlaque[];
+    orders: RecentOrder[];
   };
+}
+
+interface RecentOrder {
+  id: string;
+  email: string;
+  totalAmount: number;
+  status: string;
+  createdAt: string;
+  mollieId?: string;
+  items: Array<{
+    product: {
+      name: string;
+    };
+    quantity: number;
+  }>;
+  qrCodes?: Array<{
+    id: string;
+    code: string;
+    isActivated: boolean;
+  }>;
 }
 
 export default function SuperAdminDashboard() {
@@ -136,10 +161,10 @@ export default function SuperAdminDashboard() {
               </Link>
 
               <Link
-                href="/super-admin/shipping"
+                href="/super-admin/orders"
                 className="text-gray-600 hover:text-gray-900 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-gray-100"
               >
-                Livraisons
+                Commandes
               </Link>
             </div>
           </div>
@@ -188,20 +213,23 @@ export default function SuperAdminDashboard() {
             </div>
           </div>
 
-          {/* Shipping Stats */}
+          {/* Orders Stats */}
           <div className="bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200 p-6 hover:border-gray-300 transition-all duration-300">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Livraisons</p>
+                <p className="text-sm font-medium text-gray-600">Commandes</p>
                 <p className="text-3xl font-bold text-gray-900">
-                  {data.stats.shipping.total}
+                  {data.stats.orders.total}
                 </p>
-                <p className="text-sm text-orange-600">
-                  {data.stats.shipping.pending} en attente
+                <p className="text-sm text-green-600">
+                  {data.stats.orders.paid} payées
+                </p>
+                <p className="text-xs text-gray-500 mt-1">
+                  {data.stats.orders.total - data.stats.orders.paid} en attente
                 </p>
               </div>
-              <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center">
-                <span className="text-orange-600 text-xl">📦</span>
+              <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                <span className="text-green-600 text-xl">🛒</span>
               </div>
             </div>
           </div>
@@ -214,7 +242,10 @@ export default function SuperAdminDashboard() {
                 <p className="text-3xl font-bold text-gray-900">
                   {data.stats.revenue.estimated}€
                 </p>
-                <p className="text-sm text-green-600">Estimé</p>
+                <p className="text-sm text-green-600">Total payé</p>
+                <p className="text-xs text-gray-500 mt-1">
+                  {data.stats.orders.paid} commandes payées
+                </p>
               </div>
               <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
                 <span className="text-green-600 text-xl">💰</span>
@@ -260,52 +291,73 @@ export default function SuperAdminDashboard() {
             </div>
           </div>
 
-          {/* Recent Plaques */}
+          {/* Recent Orders */}
           <div className="bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200 p-6">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-xl font-bold text-gray-900">
-                Plaques Récentes
+                Commandes Récentes
               </h2>
               <Link
-                href="/super-admin/plaques"
+                href="/super-admin/orders"
                 className="text-red-600 hover:text-red-700 text-sm font-medium"
               >
                 Voir tout
               </Link>
             </div>
             <div className="space-y-4">
-              {/* {data.recent.plaques.map((plaque) => (
-                <div
-                  key={plaque.id}
-                  className="flex items-center justify-between p-4 bg-gray-50 rounded-xl"
-                >
-                  <div>
-                    <p className="font-medium text-gray-900">{plaque.codeId}</p>
-                    <p className="text-sm text-gray-600">
-
-                      {new Date(plaque.createdAt).toLocaleDateString()}
-                    </p>
-                    {plaque.shippingInfo && (
-                      <p className="text-xs text-gray-500">
-                        {plaque.shippingInfo.firstName}{" "}
-                        {plaque.shippingInfo.lastName} -{" "}
-                        {plaque.shippingInfo.status}
+              {data.recent.orders &&
+                data.recent.orders.map((order) => (
+                  <div
+                    key={order.id}
+                    className="flex items-center justify-between p-4 bg-gray-50 rounded-xl"
+                  >
+                    <div>
+                      <p className="font-medium text-gray-900">{order.email}</p>
+                      <p className="text-sm text-gray-600">
+                        {new Date(order.createdAt).toLocaleDateString()}
                       </p>
-                    )}
+                      <p className="text-xs text-gray-500">
+                        {order.items
+                          .map(
+                            (item) => `${item.product.name} x${item.quantity}`
+                          )
+                          .join(", ")}
+                      </p>
+                      {order.mollieId && (
+                        <p className="text-xs text-blue-600 font-mono">
+                          Mollie: {order.mollieId.slice(0, 8)}...
+                        </p>
+                      )}
+                      {order.qrCodes && order.qrCodes.length > 0 && (
+                        <p className="text-xs text-green-600">
+                          {order.qrCodes.length} QR code
+                          {order.qrCodes.length > 1 ? "s" : ""} généré
+                          {order.qrCodes.length > 1 ? "s" : ""}
+                        </p>
+                      )}
+                    </div>
+                    <div className="text-right">
+                      <p className="font-medium text-gray-900">
+                        {order.totalAmount}€
+                      </p>
+                      <span
+                        className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                          order.status === "PAID"
+                            ? "bg-green-100 text-green-700"
+                            : order.status === "PENDING"
+                            ? "bg-yellow-100 text-yellow-700"
+                            : "bg-red-100 text-red-700"
+                        }`}
+                      >
+                        {order.status === "PAID"
+                          ? "Payé"
+                          : order.status === "PENDING"
+                          ? "En attente"
+                          : order.status}
+                      </span>
+                    </div>
                   </div>
-                  <div className="text-right">
-                    <span
-                      className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
-                        plaque.isActivated
-                          ? "bg-green-100 text-green-700"
-                          : "bg-yellow-100 text-yellow-700"
-                      }`}
-                    >
-                      {plaque.isActivated ? "Active" : "En attente"}
-                    </span>
-                  </div>
-                </div>
-              ))} */}
+                ))}
             </div>
           </div>
         </div>

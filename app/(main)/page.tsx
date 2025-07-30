@@ -29,6 +29,35 @@ export default function Home() {
                 CodeQR
               </h1>
             </div>
+            <nav className="hidden md:flex space-x-8">
+              <Link href="/" className="text-purple-600 font-medium">
+                Accueil
+              </Link>
+              <Link
+                href="/produits"
+                className="text-gray-600 hover:text-gray-900 transition-colors"
+              >
+                Produits
+              </Link>
+              <Link
+                href="/temoignages"
+                className="text-gray-600 hover:text-gray-900 transition-colors"
+              >
+                Témoignages
+              </Link>
+              <Link
+                href="/a-propos"
+                className="text-gray-600 hover:text-gray-900 transition-colors"
+              >
+                À propos
+              </Link>
+              <Link
+                href="/contact"
+                className="text-gray-600 hover:text-gray-900 transition-colors"
+              >
+                Contact
+              </Link>
+            </nav>
             <div className="flex space-x-4">
               <Link
                 href="/login"

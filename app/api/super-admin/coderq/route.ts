@@ -7,15 +7,25 @@ export async function GET(request: NextRequest) {
     const page = parseInt(searchParams.get("page") || "1");
     const limit = parseInt(searchParams.get("limit") || "10");
     const search = searchParams.get("search") || "";
+    const status = searchParams.get("status") || "all";
 
     const skip = (page - 1) * limit;
 
-    // Construire la requête avec recherche
-    const whereClause = search
-      ? {
-          OR: [{ code: { contains: search, mode: "insensitive" } }],
-        }
-      : {};
+    // Construire la requête avec recherche et filtrage par statut
+    let whereClause: any = {};
+
+    // Ajouter la recherche si fournie
+    if (search) {
+      whereClause.OR = [{ code: { contains: search, mode: "insensitive" } }];
+    }
+
+    // Ajouter le filtrage par statut
+    if (status === "active") {
+      whereClause.isActivated = true;
+    } else if (status === "inactive") {
+      whereClause.isActivated = false;
+    }
+    // Pour "all", pas de filtre supplémentaire
 
     // Récupérer les codes QR
     const qrCodes = await prisma.qRCode.findMany({
@@ -23,14 +33,32 @@ export async function GET(request: NextRequest) {
       skip,
       take: limit,
       orderBy: { createdAt: "desc" },
+      include: {
+        user: true,
+        order: {
+          include: {
+            items: true,
+          },
+        },
+      },
     });
 
     // Compter le total pour la pagination
     const total = await prisma.qRCode.count({ where: whereClause });
 
     // Statistiques supplémentaires
+    const totalCodes = await prisma.qRCode.count();
+    const activeCodes = await prisma.qRCode.count({
+      where: { isActivated: true },
+    });
+    const inactiveCodes = await prisma.qRCode.count({
+      where: { isActivated: false },
+    });
+
     const stats = {
-      totalCodes: total,
+      totalCodes,
+      activeCodes,
+      inactiveCodes,
       byMonth: await prisma.qRCode.groupBy({
         by: ["month", "year"],
         _count: {

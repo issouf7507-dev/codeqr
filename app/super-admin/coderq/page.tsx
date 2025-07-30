@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import * as XLSX from "xlsx";
 
 interface QRCode {
   id: string;
@@ -11,6 +12,39 @@ interface QRCode {
   imageUrl: string;
   createdAt: string;
   isActivated: boolean;
+  order: Order;
+  user: User;
+}
+
+export interface User {
+  id: string;
+  email: string;
+  passwordHash: string;
+  createdAt: string;
+  resetToken?: string | null;
+  resetTokenExpiry?: string | null;
+}
+
+export interface Order {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  status: "PAID" | "PENDING" | "FAILED" | "CANCELLED"; // Adapter selon ton système
+  totalAmount: number;
+  currency: string;
+  email: string;
+  mollieId: string;
+  shippingInfoId: string;
+  items: QRCodeOrderItem[];
+  userId: string | null;
+}
+
+export interface QRCodeOrderItem {
+  id: string;
+  orderId: string;
+  productId: string;
+  quantity: number;
+  price: number;
 }
 
 interface QRCodeData {
@@ -23,6 +57,8 @@ interface QRCodeData {
   };
   stats: {
     totalCodes: number;
+    activeCodes: number;
+    inactiveCodes: number;
     byMonth: Array<{
       month: number;
       year: number;
@@ -52,10 +88,11 @@ export default function SuperAdminCodeQR() {
   const [generated, setGenerated] = useState<QRCode[]>([]);
   const [genLoading, setGenLoading] = useState(false);
   const [genError, setGenError] = useState("");
+  const [exportLoading, setExportLoading] = useState(false);
 
   useEffect(() => {
     fetchQRCodes();
-  }, [currentPage, searchTerm]);
+  }, [currentPage, searchTerm, activeTab]);
 
   const fetchQRCodes = async () => {
     try {
@@ -64,11 +101,13 @@ export default function SuperAdminCodeQR() {
         page: currentPage.toString(),
         limit: "10",
         search: searchTerm,
+        status: activeTab, // Ajouter le filtre de statut
       });
 
       const response = await fetch(`/api/super-admin/coderq?${params}`);
       if (response.ok) {
         const qrData = await response.json();
+        console.log("qrData", qrData);
         setData(qrData);
       } else {
         setError("Erreur lors du chargement des codes QR");
@@ -120,6 +159,11 @@ export default function SuperAdminCodeQR() {
     fetchQRCodes();
   };
 
+  const handleTabChange = (tab: TabType) => {
+    setActiveTab(tab);
+    setCurrentPage(1); // Reset à la première page lors du changement de tab
+  };
+
   const handleRowClick = (qrCode: QRCode) => {
     setSelectedQRCode(qrCode);
     setShowQRModal(true);
@@ -135,24 +179,107 @@ export default function SuperAdminCodeQR() {
     }
   };
 
-  // Filter QR codes based on active tab
-  const getFilteredQRCodes = () => {
-    if (!data) return [];
+  const handleExportExcel = async () => {
+    if (!data || data.qrCodes.length === 0) {
+      alert("Aucun code QR à exporter");
+      return;
+    }
 
-    switch (activeTab) {
-      case "active":
-        return data.qrCodes.filter((qr) => qr.isActivated);
-      case "inactive":
-        return data.qrCodes.filter((qr) => !qr.isActivated);
-      default:
-        return data.qrCodes;
+    setExportLoading(true);
+    try {
+      // Récupérer tous les codes QR (pas seulement ceux de la page actuelle)
+      const response = await fetch(
+        `/api/super-admin/coderq?limit=1000&search=${searchTerm}`
+      );
+      if (!response.ok) {
+        throw new Error("Erreur lors de la récupération des données");
+      }
+
+      const allData = await response.json();
+      let codesToExport = allData.qrCodes;
+
+      // Filtrer selon l'onglet actif
+      switch (activeTab) {
+        case "active":
+          codesToExport = codesToExport.filter((qr: QRCode) => qr.isActivated);
+          break;
+        case "inactive":
+          codesToExport = codesToExport.filter((qr: QRCode) => !qr.isActivated);
+          break;
+        default:
+          // Tous les codes
+          break;
+      }
+
+      if (codesToExport.length === 0) {
+        alert("Aucun code QR à exporter pour cette sélection");
+        return;
+      }
+
+      // Préparer les données pour l'export
+      const exportData = codesToExport.map((qrCode: QRCode) => ({
+        Code: qrCode.code,
+        Période: `${String(qrCode.month).padStart(2, "0")}/${qrCode.year}`,
+        État: qrCode.isActivated ? "Activé" : "Inactif",
+        "QR Code (Lien)": qrCode.imageUrl || "Non disponible",
+        "Lien de téléchargement": qrCode.imageUrl || "Non disponible",
+        "Créé le": new Date(qrCode.createdAt).toLocaleDateString("fr-FR"),
+      }));
+
+      // Créer le workbook et worksheet
+      const workbook = XLSX.utils.book_new();
+      const worksheet = XLSX.utils.json_to_sheet(exportData);
+
+      // Ajuster la largeur des colonnes
+      const columnWidths = [
+        { wch: 15 }, // Code
+        { wch: 10 }, // Période
+        { wch: 10 }, // État
+        { wch: 50 }, // QR Code (Lien)
+        { wch: 50 }, // Lien de téléchargement
+        { wch: 15 }, // Créé le
+      ];
+      worksheet["!cols"] = columnWidths;
+
+      // Ajouter le worksheet au workbook
+      XLSX.utils.book_append_sheet(workbook, worksheet, "Codes QR");
+
+      // Générer le nom du fichier avec la date et le filtre
+      const dateStr = new Date().toISOString().split("T")[0];
+      const filterStr =
+        activeTab === "all"
+          ? "tous"
+          : activeTab === "active"
+          ? "actifs"
+          : "inactifs";
+      const fileName = `codes-qr-${filterStr}-${dateStr}.xlsx`;
+
+      XLSX.writeFile(workbook, fileName);
+    } catch (error) {
+      console.error("Erreur lors de l'export:", error);
+      alert("Erreur lors de l'export Excel");
+    } finally {
+      setExportLoading(false);
     }
   };
 
-  // Get counts for each tab
+  // Les données sont déjà filtrées par l'API, pas besoin de filtrer côté client
+  const filteredQRCodes = data?.qrCodes || [];
+
+  // Pour les comptes des tabs, on utilise les stats globales
   const getTabCounts = () => {
     if (!data) return { all: 0, active: 0, inactive: 0 };
 
+    // Utiliser les stats globales de l'API
+    if (data.stats) {
+      return {
+        all: data.stats.totalCodes || 0,
+        active: data.stats.activeCodes || 0,
+        inactive: data.stats.inactiveCodes || 0,
+      };
+    }
+
+    // Fallback: calculer basé sur les données actuelles
     const active = data.qrCodes.filter((qr) => qr.isActivated).length;
     const inactive = data.qrCodes.filter((qr) => !qr.isActivated).length;
 
@@ -164,7 +291,6 @@ export default function SuperAdminCodeQR() {
   };
 
   const tabCounts = getTabCounts();
-  const filteredQRCodes = getFilteredQRCodes();
 
   if (isLoading && !data) {
     return (
@@ -218,17 +344,12 @@ export default function SuperAdminCodeQR() {
               >
                 Utilisateurs
               </Link>
+
               <Link
-                href="/super-admin/plaques"
+                href="/super-admin/orders"
                 className="text-gray-600 hover:text-gray-900 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-gray-100"
               >
-                Plaques
-              </Link>
-              <Link
-                href="/super-admin/shipping"
-                className="text-gray-600 hover:text-gray-900 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-gray-100"
-              >
-                Livraisons
+                Commandes
               </Link>
             </div>
           </div>
@@ -263,7 +384,7 @@ export default function SuperAdminCodeQR() {
                     Codes Actifs
                   </p>
                   <p className="text-3xl font-bold text-green-600">
-                    {tabCounts.active}
+                    {data.stats.activeCodes}
                   </p>
                 </div>
                 <div className="p-3 bg-green-50 rounded-full">
@@ -279,7 +400,7 @@ export default function SuperAdminCodeQR() {
                     Codes Inactifs
                   </p>
                   <p className="text-3xl font-bold text-yellow-600">
-                    {tabCounts.inactive}
+                    {data.stats.inactiveCodes}
                   </p>
                 </div>
                 <div className="p-3 bg-yellow-50 rounded-full">
@@ -300,7 +421,7 @@ export default function SuperAdminCodeQR() {
                   placeholder="Rechercher un code..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 text-black"
                 />
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <span className="text-gray-400">🔍</span>
@@ -308,13 +429,23 @@ export default function SuperAdminCodeQR() {
               </div>
             </form>
 
-            <button
-              onClick={() => setShowModal(true)}
-              className="bg-red-500 text-white px-6 py-2 rounded-lg font-medium hover:bg-red-600 transition-all duration-200 flex items-center gap-2"
-            >
-              <span>➕</span>
-              Générer des codes QR
-            </button>
+            <div className="flex gap-3">
+              <button
+                onClick={handleExportExcel}
+                disabled={exportLoading}
+                className="bg-green-500 text-white px-6 py-2 rounded-lg font-medium hover:bg-green-600 transition-all duration-200 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <span>{exportLoading ? "⏳" : "📊"}</span>
+                {exportLoading ? "Export en cours..." : "Exporter Excel"}
+              </button>
+              <button
+                onClick={() => setShowModal(true)}
+                className="bg-red-500 text-white px-6 py-2 rounded-lg font-medium hover:bg-red-600 transition-all duration-200 flex items-center gap-2"
+              >
+                <span>➕</span>
+                Générer des codes QR
+              </button>
+            </div>
           </div>
         </div>
 
@@ -323,7 +454,7 @@ export default function SuperAdminCodeQR() {
           <div className="border-b border-gray-200">
             <nav className="flex space-x-8 px-6" aria-label="Tabs">
               <button
-                onClick={() => setActiveTab("all")}
+                onClick={() => handleTabChange("all")}
                 className={`py-4 px-1 border-b-2 font-medium text-sm transition-all duration-200 ${
                   activeTab === "all"
                     ? "border-red-500 text-red-600"
@@ -336,7 +467,7 @@ export default function SuperAdminCodeQR() {
                 </span>
               </button>
               <button
-                onClick={() => setActiveTab("active")}
+                onClick={() => handleTabChange("active")}
                 className={`py-4 px-1 border-b-2 font-medium text-sm transition-all duration-200 ${
                   activeTab === "active"
                     ? "border-green-500 text-green-600"
@@ -349,7 +480,7 @@ export default function SuperAdminCodeQR() {
                 </span>
               </button>
               <button
-                onClick={() => setActiveTab("inactive")}
+                onClick={() => handleTabChange("inactive")}
                 className={`py-4 px-1 border-b-2 font-medium text-sm transition-all duration-200 ${
                   activeTab === "inactive"
                     ? "border-yellow-500 text-yellow-600"
@@ -562,7 +693,7 @@ export default function SuperAdminCodeQR() {
                   <select
                     value={month}
                     onChange={(e) => setMonth(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent text-black"
                     required
                   >
                     <option value="">Sélectionner un mois</option>
@@ -600,7 +731,7 @@ export default function SuperAdminCodeQR() {
                     max={100}
                     value={count}
                     onChange={(e) => setCount(Number(e.target.value))}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent text-black"
                     required
                   />
                 </div>
@@ -725,6 +856,56 @@ export default function SuperAdminCodeQR() {
                         {new Date(selectedQRCode.createdAt).toLocaleDateString(
                           "fr-FR"
                         )}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-gray-500">
+                        Commande
+                      </p>
+                      <p className="text-lg font-medium text-gray-900">
+                        {selectedQRCode.order?.id}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-gray-500">
+                        Utilisateur
+                      </p>
+                      <p className="text-lg font-medium text-gray-900">
+                        {selectedQRCode.user?.email}
+                      </p>
+
+                      <p className="text-lg font-medium text-gray-900">
+                        {selectedQRCode.user?.id}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-gray-500">
+                        Commande
+                      </p>
+                      <p className="text-lg font-medium text-gray-900">
+                        {selectedQRCode.order?.id}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-gray-500">
+                        Email client
+                      </p>
+                      <p className="text-lg font-medium text-gray-900">
+                        {selectedQRCode.order?.email}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-gray-500">
+                        Product ID
+                      </p>
+                      <p className="text-lg font-medium text-gray-900">
+                        {selectedQRCode.order?.items[0].productId}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-gray-500">Prix</p>
+                      <p className="text-lg font-medium text-gray-900">
+                        {selectedQRCode.order?.items[0].price} €
                       </p>
                     </div>
                   </div>

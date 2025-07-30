@@ -24,12 +24,60 @@ model User {
 
   links            Link[]
   qrCodes          QRCode[]
+  orders           Order[]
   admin            Admin?
 
   @@map("users")
 }
 
+model Product {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  price       Float
+  features    String   // JSON string of features array
+  image       String
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
+  orderItems  OrderItem[]
+
+  @@map("products")
+}
+
+model Order {
+  id            String        @id @default(cuid())
+  userId        String?
+  email         String        // Email du client (même s'il n'est pas inscrit)
+  mollieId      String?       @unique // ID du paiement Mollie
+  status        OrderStatus   @default(PENDING)
+  totalAmount   Float
+  currency      String        @default("EUR")
+  shippingInfoId String?      @unique
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  user          User?         @relation(fields: [userId], references: [id], onDelete: SetNull)
+  items         OrderItem[]
+  qrCodes       QRCode[]
+  shippingInfo  ShippingInfo? @relation(fields: [shippingInfoId], references: [id])
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  productId String
+  quantity  Int
+  price     Float
+
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product   Product @relation(fields: [productId], references: [id])
+
+  @@map("order_items")
+}
 
 model Link {
   id              String   @id @default(cuid())
@@ -63,6 +111,7 @@ model ShippingInfo {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
+  order       Order?
 
   @@map("shipping_info")
 }
@@ -98,15 +147,29 @@ model QRCode {
   imageUrl  String?  @db.LongText // URL ou base64 de l'image du QR code
   createdAt DateTime @default(now())
   isActivated Boolean @default(false)
-  userId    String?  // ID de l'utilisateur qui a activé le QR code
+  activatedAt DateTime? // Date d'activation du QR code
+  activatedBy String?   // ID de l'utilisateur qui a activé le QR code
   linkId    String?  @unique // ID du lien Google associé
-  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  orderId   String?  // ID de la commande qui a généré ce QR code
+  
+  user      User?    @relation(fields: [activatedBy], references: [id], onDelete: SetNull)
   link      Link?    @relation(fields: [linkId], references: [id], onDelete: SetNull)
+  order     Order?   @relation(fields: [orderId], references: [id], onDelete: SetNull)
 }
 
 enum Role {
   ADMIN
   SUPPORT
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+  FAILED
 }
 
 enum ShippingStatus {

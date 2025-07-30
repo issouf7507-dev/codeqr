@@ -74,11 +74,11 @@ jobs:
             pm2 stop codeqrapp 2>/dev/null || true
             pm2 delete codeqrapp 2>/dev/null || true
 
-            # Tuer tout processus utilisant le port 3003
-            lsof -ti:3003 | xargs kill -9 2>/dev/null || true
+            # Tuer tout processus utilisant le port 3001
+            lsof -ti:3001 | xargs kill -9 2>/dev/null || true
 
-            # Démarrer le service PM2 sur le port 3003
-            pm2 start npm --name "codeqrapp" -- start -- -p 3003
+            # Démarrer le service PM2 sur le port 3001
+            pm2 start npm --name "codeqrapp" -- start -- -p 3001
 
             # Sauvegarder la configuration PM2
             pm2 save

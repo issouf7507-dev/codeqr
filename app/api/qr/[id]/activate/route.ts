@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/libs/prisma";
-import { hashPassword } from "@/libs/auth";
+import { hashPassword, verifyPassword, generateToken } from "@/libs/auth";
 
 export async function POST(
   request: NextRequest,
@@ -10,6 +10,7 @@ export async function POST(
     const { email, password, googleReviewUrl } = await request.json();
     const resolvedParams = await params;
 
+    // Validation des données d'entrée
     if (!email || !password || !googleReviewUrl) {
       return NextResponse.json(
         { error: "Email, mot de passe et lien Google requis" },
@@ -17,9 +18,37 @@ export async function POST(
       );
     }
 
+    // Validation du format email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return NextResponse.json(
+        { error: "Format d'email invalide" },
+        { status: 400 }
+      );
+    }
+
+    // Validation de la longueur du mot de passe
+    if (password.length < 6) {
+      return NextResponse.json(
+        { error: "Le mot de passe doit contenir au moins 6 caractères" },
+        { status: 400 }
+      );
+    }
+
+    // Validation du format de l'URL Google
+    if (
+      !googleReviewUrl.startsWith("https://g.page/r/") &&
+      !googleReviewUrl.startsWith("https://maps.app.goo.gl/")
+    ) {
+      return NextResponse.json(
+        { error: "Le lien Google Avis doit être un lien Google Maps valide" },
+        { status: 400 }
+      );
+    }
+
     // Vérifier que le QR code existe et n'est pas déjà activé
     const qrCode = await prisma.qRCode.findUnique({
-      where: { id: resolvedParams.id },
+      where: { code: resolvedParams.id },
     });
 
     if (!qrCode) {
@@ -36,27 +65,37 @@ export async function POST(
       );
     }
 
-    // Trouver ou créer l'utilisateur
-    let user = await prisma.user.findUnique({
+    // Vérifier si l'utilisateur existe déjà
+    const user = await prisma.user.findUnique({
       where: { email },
     });
 
     if (!user) {
-      // Créer un nouvel utilisateur
-      const hashedPassword = await hashPassword(password);
-      user = await prisma.user.create({
-        data: {
-          email,
-          passwordHash: hashedPassword,
+      // L'utilisateur n'existe pas, retourner une erreur 403
+      return NextResponse.json(
+        {
+          error:
+            "Compte non trouvé. Veuillez d'abord vous inscrire sur notre plateforme.",
         },
-      });
-    } else {
-      // Vérifier le mot de passe pour l'utilisateur existant
-      // Note: Pour simplifier, on accepte l'activation même si le mot de passe ne correspond pas
-      // En production, il faudrait vérifier le mot de passe
+        { status: 403 }
+      );
     }
 
-    // Créer le lien Google
+    // L'utilisateur existe, vérifier le mot de passe (LOGIN)
+    const isPasswordValid = await verifyPassword(password, user.passwordHash);
+
+    if (!isPasswordValid) {
+      return NextResponse.json(
+        { error: "Mot de passe incorrect pour cet email" },
+        { status: 401 }
+      );
+    }
+
+    console.log(`Utilisateur existant connecté: ${email}`);
+
+    // Vérifier si l'utilisateur a déjà un lien Google
+    // Pour éviter les conflits de contrainte unique, on crée toujours un nouveau lien
+    // car un lien ne peut être associé qu'à un seul QR code
     const link = await prisma.link.create({
       data: {
         userId: user.id,
@@ -64,25 +103,58 @@ export async function POST(
       },
     });
 
-    // Activer le QR code avec les relations (L'IMAGE RESTE LA MÊME)
+    console.log(`Nouveau lien Google créé pour l'utilisateur: ${email}`);
+
+    // Activer le QR code avec les relations
     await prisma.qRCode.update({
       where: { id: qrCode.id },
       data: {
         isActivated: true,
-        userId: user.id,
+        activatedAt: new Date(),
+        activatedBy: user.id,
         linkId: link.id,
-        // IMPORTANT: On ne change PAS imageUrl
-        // Le QR code physique pointe toujours vers /qr/[code]
-        // C'est le serveur qui gère la redirection
       },
     });
 
-    return NextResponse.json({
-      message: "Code QR activé avec succès",
+    console.log(
+      `Code QR ${resolvedParams.id} activé par l'utilisateur: ${email} (ID: ${
+        user.id
+      }) le ${new Date().toISOString()}`
+    );
+
+    // Générer le token JWT pour connecter l'utilisateur
+    const token = generateToken(user.id);
+
+    // Créer la réponse avec le cookie
+    const response = NextResponse.json({
+      message: "Connexion réussie et code QR activé",
       success: true,
+      user: {
+        id: user.id,
+        email: user.email,
+      },
     });
-  } catch (error) {
+
+    // Définir le cookie JWT pour connecter l'utilisateur
+    response.cookies.set("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      maxAge: 7 * 24 * 60 * 60, // 7 jours
+    });
+
+    return response;
+  } catch (error: any) {
     console.error("Erreur lors de l'activation:", error);
+
+    // Gérer les erreurs spécifiques de Prisma
+    if (error.code === "P2002") {
+      return NextResponse.json(
+        { error: "Ce lien Google est déjà utilisé par un autre QR code" },
+        { status: 400 }
+      );
+    }
+
     return NextResponse.json(
       { error: "Erreur interne du serveur" },
       { status: 500 }

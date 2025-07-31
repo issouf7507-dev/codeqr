@@ -101,7 +101,8 @@ export async function POST(request: NextRequest) {
       await sendPurchaseConfirmationEmail(
         order.email,
         qrCodes[0].code,
-        qrCodes[0].id
+        qrCodes[0].id,
+        order.id
       );
     }
 

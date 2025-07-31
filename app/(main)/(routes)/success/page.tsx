@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
@@ -17,7 +17,7 @@ interface Order {
   }>;
 }
 
-export default function Success() {
+function SuccessContent() {
   const searchParams = useSearchParams();
   const orderId = searchParams.get("order_id");
   const [order, setOrder] = useState<Order | null>(null);
@@ -214,5 +214,19 @@ export default function Success() {
         </div>
       </main>
     </div>
+  );
+}
+
+export default function Success() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-orange-50 flex items-center justify-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-red-500"></div>
+        </div>
+      }
+    >
+      <SuccessContent />
+    </Suspense>
   );
 }

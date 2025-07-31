@@ -1,8 +1,13 @@
 import { createMollieClient } from "@mollie/api-client";
 
-const mollieClient = createMollieClient({
-  apiKey: process.env.MOLLIE_API_KEY || "",
-});
+// Ne créer le client que si la clé API est disponible
+const getMollieClient = () => {
+  const apiKey = process.env.MOLLIE_API_KEY;
+  if (!apiKey) {
+    throw new Error("MOLLIE_API_KEY is not configured");
+  }
+  return createMollieClient({ apiKey });
+};
 
 export interface CreatePaymentData {
   amount: number;
@@ -18,6 +23,8 @@ export interface CreatePaymentData {
 
 export async function createPayment(data: CreatePaymentData) {
   try {
+    const mollieClient = getMollieClient();
+
     const paymentData: any = {
       amount: {
         currency: data.currency,
@@ -43,6 +50,7 @@ export async function createPayment(data: CreatePaymentData) {
 
 export async function getPayment(paymentId: string) {
   try {
+    const mollieClient = getMollieClient();
     const payment = await mollieClient.payments.get(paymentId);
     return payment;
   } catch (error) {
@@ -53,6 +61,7 @@ export async function getPayment(paymentId: string) {
 
 export async function cancelPayment(paymentId: string) {
   try {
+    const mollieClient = getMollieClient();
     const payment = await mollieClient.payments.cancel(paymentId);
     return payment;
   } catch (error) {

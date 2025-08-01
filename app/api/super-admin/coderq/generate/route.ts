@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
 
       // Générer l'URL complète pour le QR code
       const baseUrl =
-        process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+        process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
       const qrCodeUrl = `${baseUrl}/qr/${code}/activation`;
 
       // Générer l'image QR code (base64)

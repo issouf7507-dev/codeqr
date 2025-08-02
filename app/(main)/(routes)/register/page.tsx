@@ -10,6 +10,7 @@ export default function Register() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -41,7 +42,8 @@ export default function Register() {
       const data = await response.json();
 
       if (response.ok) {
-        router.push("/login?message=Compte créé avec succès");
+        // Afficher la modal de succès
+        setShowSuccessModal(true);
       } else {
         setError(data.error || "Erreur lors de l'inscription");
       }
@@ -53,8 +55,39 @@ export default function Register() {
     }
   };
 
+  const handleOkClick = () => {
+    setShowSuccessModal(false);
+    window.location.href = "/";
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      {/* Modal de succès */}
+      {showSuccessModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl">
+            <div className="text-center">
+              <div className="mx-auto h-16 w-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
+                <span className="text-green-600 text-2xl font-bold">✓</span>
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-4">
+                Compte créé avec succès !
+              </h3>
+              <p className="text-gray-600 mb-6">
+                Vous pouvez maintenant acheter nos produits et activer vos codes
+                QR. L'activation d'un code QR nécessite d'être enregistré.
+              </p>
+              <button
+                onClick={handleOkClick}
+                className="w-full bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white font-medium py-3 px-6 rounded-xl transition-all duration-200 transform hover:scale-105"
+              >
+                OK
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Animated Background */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob"></div>

@@ -4,6 +4,12 @@ import Link from "next/link";
 import { useState } from "react";
 
 export default function Contact() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -55,17 +61,18 @@ export default function Contact() {
       <header className="relative bg-white/80 backdrop-blur-md border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-6">
+            {/* Logo */}
             <div className="flex items-center">
-              <Link href="/" className="flex items-center">
-                <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-blue-500 rounded-xl flex items-center justify-center">
-                  <span className="text-white font-bold text-xl">Q</span>
-                </div>
-                <h1 className="ml-3 text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
-                  CodeQR
-                </h1>
-              </Link>
+              <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-blue-500 rounded-xl flex items-center justify-center">
+                <span className="text-white font-bold text-xl">Q</span>
+              </div>
+              <h1 className="ml-3 text-xl sm:text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+                CodeQR
+              </h1>
             </div>
-            <nav className="hidden md:flex space-x-8">
+
+            {/* Desktop Navigation */}
+            <nav className="hidden lg:flex space-x-8">
               <Link
                 href="/"
                 className="text-gray-600 hover:text-gray-900 transition-colors"
@@ -90,25 +97,130 @@ export default function Contact() {
               >
                 À propos
               </Link>
-              <Link href="/contact" className="text-purple-600 font-medium">
+              <Link
+                href="/contact"
+                className="text-purple-600 hover:text-gray-900 transition-colors"
+              >
                 Contact
               </Link>
             </nav>
-            <div className="flex space-x-4">
+
+            {/* Desktop Buttons */}
+            <div className="hidden lg:flex space-x-4">
               <Link
-                href="/login"
-                className="text-gray-600 hover:text-gray-900 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-gray-100"
+                href="/checkout"
+                className="px-6 py-3 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-2xl font-semibold hover:from-purple-600 hover:to-blue-600 transition-all duration-200 transform hover:scale-105 inline-flex items-center space-x-2"
               >
-                Connexion
+                Acheter maintenant
               </Link>
               <Link
                 href="/register"
-                className="bg-gradient-to-r from-purple-500 to-blue-500 text-white px-6 py-2 rounded-lg text-sm font-medium hover:from-purple-600 hover:to-blue-600 transition-all duration-200"
+                className="px-6 py-3 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-2xl font-semibold hover:from-purple-600 hover:to-blue-600 transition-all duration-200 transform hover:scale-105 inline-flex items-center space-x-2"
               >
                 Inscription
               </Link>
             </div>
+
+            {/* Mobile Menu Button */}
+            <div className="lg:hidden">
+              <button
+                onClick={toggleMenu}
+                className="p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors"
+                aria-label="Toggle menu"
+              >
+                {isMenuOpen ? (
+                  <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 6h16M4 12h16M4 18h16"
+                    />
+                  </svg>
+                )}
+              </button>
+            </div>
           </div>
+
+          {/* Mobile Menu */}
+          {isMenuOpen && (
+            <div className="lg:hidden border-t border-gray-200 py-4">
+              <nav className="flex flex-col space-y-4">
+                <Link
+                  href="/"
+                  className="text-gray-600 hover:text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Accueil
+                </Link>
+                <Link
+                  href="/produits"
+                  className="text-gray-600 hover:text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Produits
+                </Link>
+                <Link
+                  href="/temoignages"
+                  className="text-gray-600 hover:text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Témoignages
+                </Link>
+                <Link
+                  href="/a-propos"
+                  className="text-gray-600 hover:text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  À propos
+                </Link>
+                <Link
+                  href="/contact"
+                  className="text-purple-600 hover:text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Contact
+                </Link>
+              </nav>
+
+              {/* Mobile Buttons */}
+              <div className="flex flex-col space-y-3 mt-6 px-4">
+                <Link
+                  href="/checkout"
+                  className="w-full px-6 py-3 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-2xl font-semibold hover:from-purple-600 hover:to-blue-600 transition-all duration-200 text-center"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Acheter maintenant
+                </Link>
+                <Link
+                  href="/register"
+                  className="w-full px-6 py-3 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-2xl font-semibold hover:from-purple-600 hover:to-blue-600 transition-all duration-200 text-center"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Inscription
+                </Link>
+              </div>
+            </div>
+          )}
         </div>
       </header>
 

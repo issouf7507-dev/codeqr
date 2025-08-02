@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import * as XLSX from "xlsx";
+import { useAuth } from "@/hooks/useAuth";
 
 interface QRCode {
   id: string;
@@ -81,7 +82,7 @@ export default function SuperAdminCodeQR() {
   const [activeTab, setActiveTab] = useState<TabType>("all");
   const [selectedQRCode, setSelectedQRCode] = useState<QRCode | null>(null);
   const [showQRModal, setShowQRModal] = useState(false);
-
+  const { user, loading } = useAuth();
   // Modal states
   const [month, setMonth] = useState("");
   const [count, setCount] = useState(1);
@@ -290,6 +291,13 @@ export default function SuperAdminCodeQR() {
     };
   };
 
+  const handleLogout = async () => {
+    await fetch("/api/super-admin/auth/logout", {
+      method: "POST",
+    });
+    window.location.href = "/super-admin/login";
+  };
+
   const tabCounts = getTabCounts();
 
   if (isLoading && !data) {
@@ -306,6 +314,27 @@ export default function SuperAdminCodeQR() {
         <div className="text-center">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Erreur</h2>
           <p className="text-gray-600">{error}</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-orange-50 flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            Non authentifié
+          </h2>
+          <p className="text-gray-600">
+            Veuillez vous connecter pour accéder à cette page
+          </p>
+          <Link
+            href="/super-admin/login"
+            className="text-red-600 hover:text-red-700 text-sm font-medium"
+          >
+            Se connecter
+          </Link>
         </div>
       </div>
     );
@@ -350,6 +379,14 @@ export default function SuperAdminCodeQR() {
                 className="text-gray-600 hover:text-gray-900 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-gray-100"
               >
                 Commandes
+              </Link>
+
+              <Link
+                href="#"
+                onClick={handleLogout}
+                className="text-red-600 hover:text-red-700 text-sm font-medium"
+              >
+                Se déconnecter
               </Link>
             </div>
           </div>

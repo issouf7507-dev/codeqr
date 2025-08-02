@@ -38,7 +38,8 @@ export default function SuperAdminLogin() {
       const data = await response.json();
 
       if (response.ok) {
-        router.push("/super-admin/dashboard");
+        // router.push("/super-admin/dashboard");
+        window.location.href = "/super-admin/dashboard";
       } else {
         setError(data.error || "Erreur de connexion");
       }

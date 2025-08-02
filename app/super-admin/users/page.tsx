@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
+import { useAuth } from "@/hooks/useAuth";
+
 interface User {
   id: string;
   email: string;
@@ -43,7 +45,7 @@ export default function SuperAdminUsers() {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
-
+  const { user, loading } = useAuth();
   useEffect(() => {
     fetchUsers();
   }, [currentPage, searchTerm]);
@@ -99,10 +101,38 @@ export default function SuperAdminUsers() {
     }
   };
 
+  const handleLogout = async () => {
+    await fetch("/api/super-admin/auth/logout", {
+      method: "POST",
+    });
+    window.location.href = "/super-admin/login";
+  };
+
   if (isLoading && !data) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-orange-50 flex items-center justify-center">
         <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-red-500"></div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-orange-50 flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            Non authentifié
+          </h2>
+          <p className="text-gray-600">
+            Veuillez vous connecter pour accéder à cette page
+          </p>
+          <Link
+            href="/super-admin/login"
+            className="text-red-600 hover:text-red-700 text-sm font-medium"
+          >
+            Se connecter
+          </Link>
+        </div>
       </div>
     );
   }
@@ -147,6 +177,14 @@ export default function SuperAdminUsers() {
                 className="text-gray-600 hover:text-gray-900 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-gray-100"
               >
                 Commandes
+              </Link>
+
+              <Link
+                href="#"
+                onClick={handleLogout}
+                className="text-red-600 hover:text-red-700 text-sm font-medium"
+              >
+                Se déconnecter
               </Link>
             </div>
           </div>

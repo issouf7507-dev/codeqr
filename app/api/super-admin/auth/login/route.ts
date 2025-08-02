@@ -3,7 +3,7 @@ import { verifyPassword } from "@/libs/auth";
 import prisma from "@/libs/prisma";
 import jwt from "jsonwebtoken";
 
-const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key";
+const JWT_SECRET = process.env.JWT_SECRET_ADMIN || "your-secret-key";
 
 export async function POST(request: NextRequest) {
   try {

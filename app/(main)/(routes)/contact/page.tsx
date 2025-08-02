@@ -202,7 +202,7 @@ export default function Contact() {
                 </Link>
               </nav>
 
-              {/* Mobile Buttons */}
+              {/* Mobile Buttons u? */}
               <div className="flex flex-col space-y-3 mt-6 px-4">
                 <Link
                   href="/checkout"

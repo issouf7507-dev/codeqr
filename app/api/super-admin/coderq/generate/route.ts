@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/libs/prisma";
 import QRCode from "qrcode";
 
-// Génère un code alphanumérique unique (8 caractères, uppercase)
-function generateCode(length = 8) {
+// Génère un code alphanumérique unique (5 caractères, uppercase)
+function generateCode(length = 5) {
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   let result = "";
   for (let i = 0; i < length; i++) {

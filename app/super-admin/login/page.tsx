@@ -136,7 +136,7 @@ export default function SuperAdminLogin() {
           </form>
 
           {/* Footer */}
-          <div className="mt-8 text-center">
+          {/* <div className="mt-8 text-center">
             <p className="text-sm text-gray-600">
               Nouveau Super Admin ?{" "}
               <Link
@@ -146,7 +146,7 @@ export default function SuperAdminLogin() {
                 Créer un compte
               </Link>
             </p>
-          </div>
+          </div> */}
         </div>
 
         {/* Security Notice */}

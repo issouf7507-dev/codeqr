@@ -34,7 +34,6 @@ export default function QRCodeActivationPage({
   // Validation states
   const [passwordError, setPasswordError] = useState("");
   const [urlError, setUrlError] = useState("");
-
   useEffect(() => {
     const loadParams = async () => {
       const resolvedParams = await params;
@@ -346,7 +345,6 @@ export default function QRCodeActivationPage({
                 : "Vous devez d'abord créer un compte sur notre plateforme."}
             </p>
           </div>
-
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Lien Google Avis

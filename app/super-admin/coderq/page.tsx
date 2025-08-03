@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import * as XLSX from "xlsx";
+import JSZip from "jszip";
 import { useAuth } from "@/hooks/useAuth";
 
 interface QRCode {
@@ -175,6 +176,7 @@ export default function SuperAdminCodeQR() {
     if (qrCode.imageUrl) {
       const link = document.createElement("a");
       link.href = qrCode.imageUrl;
+
       link.download = `qr-${qrCode.code}.png`;
       link.click();
     }
@@ -222,8 +224,9 @@ export default function SuperAdminCodeQR() {
         Code: qrCode.code,
         Période: `${String(qrCode.month).padStart(2, "0")}/${qrCode.year}`,
         État: qrCode.isActivated ? "Activé" : "Inactif",
-        "QR Code (Lien)": qrCode.imageUrl || "Non disponible",
-        "Lien de téléchargement": qrCode.imageUrl || "Non disponible",
+        "Fichier QR Code": qrCode.imageUrl
+          ? `qr-${qrCode.code}.png`
+          : "Non disponible",
         "Créé le": new Date(qrCode.createdAt).toLocaleDateString("fr-FR"),
       }));
 
@@ -236,8 +239,7 @@ export default function SuperAdminCodeQR() {
         { wch: 15 }, // Code
         { wch: 10 }, // Période
         { wch: 10 }, // État
-        { wch: 50 }, // QR Code (Lien)
-        { wch: 50 }, // Lien de téléchargement
+        { wch: 25 }, // Fichier QR Code
         { wch: 15 }, // Créé le
       ];
       worksheet["!cols"] = columnWidths;
@@ -256,6 +258,37 @@ export default function SuperAdminCodeQR() {
       const fileName = `codes-qr-${filterStr}-${dateStr}.xlsx`;
 
       XLSX.writeFile(workbook, fileName);
+
+      // Télécharger les images QR Code séparément
+      const qrCodesWithImages = codesToExport.filter(
+        (qr: QRCode) => qr.imageUrl
+      );
+      if (qrCodesWithImages.length > 0) {
+        alert(
+          `Export Excel terminé ! ${qrCodesWithImages.length} image(s) QR Code à télécharger.`
+        );
+
+        // Créer un ZIP avec toutes les images QR Code
+        const zip = new JSZip();
+
+        for (const qrCode of qrCodesWithImages) {
+          if (qrCode.imageUrl && qrCode.imageUrl.startsWith("data:image")) {
+            // Extraire les données base64
+            const base64Data = qrCode.imageUrl.split(",")[1];
+            const fileName = `qr-${qrCode.code}.png`;
+            zip.file(fileName, base64Data, { base64: true });
+          }
+        }
+
+        // Télécharger le ZIP
+        const zipBlob = await zip.generateAsync({ type: "blob" });
+        const zipUrl = URL.createObjectURL(zipBlob);
+        const link = document.createElement("a");
+        link.href = zipUrl;
+        link.download = `qr-codes-images-${filterStr}-${dateStr}.zip`;
+        link.click();
+        URL.revokeObjectURL(zipUrl);
+      }
     } catch (error) {
       console.error("Erreur lors de l'export:", error);
       alert("Erreur lors de l'export Excel");
@@ -473,7 +506,9 @@ export default function SuperAdminCodeQR() {
                 className="bg-green-500 text-white px-6 py-2 rounded-lg font-medium hover:bg-green-600 transition-all duration-200 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <span>{exportLoading ? "⏳" : "📊"}</span>
-                {exportLoading ? "Export en cours..." : "Exporter Excel"}
+                {exportLoading
+                  ? "Export en cours..."
+                  : "Exporter Excel + Images"}
               </button>
               <button
                 onClick={() => setShowModal(true)}
@@ -798,7 +833,7 @@ export default function SuperAdminCodeQR() {
                         className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
                       >
                         <div className="flex items-center space-x-3">
-                          <span className="font-mono text-sm font-medium">
+                          <span className="font-mono text-sm font-medium text-black">
                             {qr.code}
                           </span>
                           {qr.imageUrl && (
@@ -955,6 +990,7 @@ export default function SuperAdminCodeQR() {
                       if (selectedQRCode.imageUrl) {
                         const link = document.createElement("a");
                         link.href = selectedQRCode.imageUrl;
+
                         link.download = `qr-${selectedQRCode.code}.png`;
                         link.click();
                       }

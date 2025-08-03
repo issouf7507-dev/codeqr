@@ -86,7 +86,7 @@ export default function SuperAdminRegister() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-orange-50 flex items-center justify-center p-4">
       {/* Animated Background */}
-      <div className="absolute inset-0 overflow-hidden">
+      {/* <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-red-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob"></div>
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-orange-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-2000"></div>
         <div className="absolute top-40 left-40 w-80 h-80 bg-yellow-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-4000"></div>
@@ -94,7 +94,7 @@ export default function SuperAdminRegister() {
 
       <div className="relative w-full max-w-md">
         <div className="bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200 p-8 shadow-2xl">
-          {/* Header */}
+
           <div className="text-center mb-8">
             <div className="w-16 h-16 bg-gradient-to-r from-red-500 to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
               <span className="text-white font-bold text-2xl">⚡</span>
@@ -105,7 +105,7 @@ export default function SuperAdminRegister() {
             <p className="text-gray-600">Accès complet à l'administration</p>
           </div>
 
-          {/* Form */}
+
           <form onSubmit={handleSubmit} className="space-y-6">
             {error && (
               <div className="bg-red-50 border border-red-200 rounded-xl p-4">
@@ -229,7 +229,6 @@ export default function SuperAdminRegister() {
             </button>
           </form>
 
-          {/* Footer */}
           <div className="mt-8 text-center">
             <p className="text-sm text-gray-600">
               Déjà un Super Admin ?{" "}
@@ -243,13 +242,12 @@ export default function SuperAdminRegister() {
           </div>
         </div>
 
-        {/* Security Notice */}
         <div className="mt-6 text-center">
           <p className="text-xs text-gray-500">
             ⚠️ Accès restreint - Zone d'administration sécurisée
           </p>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

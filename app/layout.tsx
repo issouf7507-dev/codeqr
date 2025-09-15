@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { CartProvider } from "./contexts/CartContext";
 import { ToastProvider } from "./components/toast";
+// import { ToastProvider } from "./components/Toast";
 
 export const metadata: Metadata = {
   title: "CodeQR - Plaques QR Code pour Avis Google",

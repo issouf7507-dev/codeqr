@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
 
     for (let i = 0; i < count; i++) {
       // Générer un code unique
-      let code: string;
+      let code = "";
       let exists = true;
 
       while (exists) {

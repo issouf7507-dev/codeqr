@@ -172,7 +172,7 @@ export default function ProductDetail({
   }
 
   const selectedPackageData = product.packages.find(
-    (p) => p.id === selectedPackage
+    (p: { id: string | number }) => p.id === selectedPackage
   );
 
   const addToCart = () => {
@@ -220,7 +220,7 @@ export default function ProductDetail({
 
               {/* Thumbnail Images */}
               <div className="grid grid-cols-4 gap-4">
-                {product.images.map((image, index) => (
+                {product.images.map((image: string, index: number) => (
                   <motion.button
                     key={index}
                     whileHover={{ scale: 1.05 }}
@@ -273,7 +273,7 @@ export default function ProductDetail({
 
               {/* Features */}
               <div className="space-y-2">
-                {product.features.map((feature, index) => (
+                {product.features.map((feature: string, index: number) => (
                   <div key={index} className="flex items-center gap-3">
                     <Check className="w-5 h-5 text-[#40C49A]" />
                     <span className="text-black/80">{feature}</span>
@@ -287,7 +287,7 @@ export default function ProductDetail({
                   Choisissez votre pack
                 </h3>
                 <div className="space-y-3">
-                  {product.packages.map((pkg) => (
+                  {product.packages.map((pkg: any) => (
                     <motion.div
                       key={pkg.id}
                       whileHover={{ scale: 1.02 }}
@@ -344,15 +344,17 @@ export default function ProductDetail({
 
                       {pkg.features.length > 0 && (
                         <div className="mt-2 space-y-1">
-                          {pkg.features.map((feature, index) => (
-                            <div
-                              key={index}
-                              className="text-sm text-black/70 flex items-center gap-2"
-                            >
-                              <Plus className="w-3 h-3 text-[#40C49A]" />
-                              {feature}
-                            </div>
-                          ))}
+                          {pkg.features.map(
+                            (feature: string, index: number) => (
+                              <div
+                                key={index}
+                                className="text-sm text-black/70 flex items-center gap-2"
+                              >
+                                <Plus className="w-3 h-3 text-[#40C49A]" />
+                                {feature}
+                              </div>
+                            )
+                          )}
                         </div>
                       )}
                     </motion.div>

@@ -6,7 +6,7 @@ import { ArrowLeft, ShoppingCart, Trash2, Plus, Minus } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCart } from "../../../contexts/CartContext";
-import { useToast } from "../../../components/toast";
+import { useToast } from "../../../components/toastaa";
 import Header from "../../../components/header";
 import Footer from "../../../components/footer";
 

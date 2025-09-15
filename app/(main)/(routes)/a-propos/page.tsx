@@ -1,466 +1,527 @@
 "use client";
 
-import Link from "next/link";
-import { useState } from "react";
+import React from "react";
+import { motion } from "motion/react";
+import {
+  Target,
+  Heart,
+  Users,
+  Award,
+  Calendar,
+  TrendingUp,
+  MapPin,
+  Mail,
+  Phone,
+  QrCode,
+  Lightbulb,
+  Shield,
+  Zap,
+  Star,
+  ArrowRight,
+  CheckCircle,
+  Globe,
+  Building,
+} from "lucide-react";
+import Header from "../../../components/header";
+import Footer from "../../../components/footer";
 
 export default function APropos() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const stats = [
+    {
+      icon: <Users className="w-8 h-8" />,
+      value: "500+",
+      label: "Commerçants satisfaits",
+      description: "Entreprises qui nous font confiance",
+    },
+    {
+      icon: <QrCode className="w-8 h-8" />,
+      value: "15 000+",
+      label: "Avis collectés",
+      description: "Grâce à nos solutions QR Code",
+    },
+    {
+      icon: <Calendar className="w-8 h-8" />,
+      value: "3+",
+      label: "Années d'expérience",
+      description: "Dans la collecte d'avis digitale",
+    },
+    {
+      icon: <TrendingUp className="w-8 h-8" />,
+      value: "98%",
+      label: "Taux de satisfaction",
+      description: "De nos clients entreprises",
+    },
+  ];
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  const values = [
+    {
+      icon: <Target className="w-12 h-12" />,
+      title: "Innovation",
+      description:
+        "Nous développons constamment de nouvelles solutions pour simplifier la collecte d'avis et améliorer la réputation en ligne de nos clients.",
+    },
+    {
+      icon: <Heart className="w-12 h-12" />,
+      title: "Proximité",
+      description:
+        "Entreprise française basée à Paris, nous privilégions le contact humain et l'accompagnement personnalisé de chaque client.",
+    },
+    {
+      icon: <Shield className="w-12 h-12" />,
+      title: "Qualité",
+      description:
+        "Nos produits sont fabriqués avec des matériaux premium pour garantir une durabilité exceptionnelle, même en utilisation intensive.",
+    },
+  ];
+
+  const timeline = [
+    {
+      year: "2021",
+      title: "Création de CodeQR",
+      description:
+        "Fondation de l'entreprise avec l'objectif de démocratiser la collecte d'avis Google pour tous les commerçants.",
+      icon: <Lightbulb className="w-6 h-6" />,
+    },
+    {
+      year: "2022",
+      title: "Premiers clients",
+      description:
+        "Lancement des premières plaques QR Code et conquête de 100 commerçants satisfaits en région parisienne.",
+      icon: <Users className="w-6 h-6" />,
+    },
+    {
+      year: "2023",
+      title: "Expansion nationale",
+      description:
+        "Déploiement dans toute la France avec plus de 300 clients et lancement des cartes QR Code nomades.",
+      icon: <Globe className="w-6 h-6" />,
+    },
+    {
+      year: "2024",
+      title: "Solutions entreprises",
+      description:
+        "Lancement des offres B2B avec personnalisation complète et tarifs préférentiels pour les gros volumes.",
+      icon: <Building className="w-6 h-6" />,
+    },
+  ];
 
   const team = [
     {
       name: "Thomas Martin",
       role: "Fondateur & CEO",
       description:
-        "Expert en marketing digital avec 10 ans d'expérience dans l'optimisation des avis clients.",
-      image: "thomas",
+        "Expert en marketing digital et réputation en ligne, Thomas a créé CodeQR pour aider les commerçants à booster leurs avis clients.",
+      avatar: "TM",
     },
     {
-      name: "Sarah Dubois",
+      name: "Sophie Dubois",
       role: "Directrice Technique",
       description:
-        "Spécialiste en développement web et technologies QR Code avec une passion pour l'innovation.",
-      image: "sarah",
+        "Ingénieure spécialisée dans les solutions QR Code, Sophie supervise la qualité et l'innovation de nos produits.",
+      avatar: "SD",
     },
     {
-      name: "Marc Leroy",
+      name: "Pierre Leroy",
       role: "Responsable Commercial",
       description:
-        "Expert en relation client et développement commercial dans le secteur des solutions digitales.",
-      image: "marc",
-    },
-  ];
-
-  const stats = [
-    { number: "1000+", label: "Plaques vendues" },
-    { number: "500+", label: "Entreprises satisfaites" },
-    { number: "98%", label: "Taux de satisfaction" },
-    { number: "24h", label: "Support client" },
-  ];
-
-  const values = [
-    {
-      icon: "🎯",
-      title: "Innovation",
-      description:
-        "Nous développons constamment de nouvelles solutions pour améliorer l'expérience de nos clients.",
-    },
-    {
-      icon: "🤝",
-      title: "Service client",
-      description:
-        "Notre équipe est disponible 24h/24 pour vous accompagner dans votre réussite.",
-    },
-    {
-      icon: "💎",
-      title: "Qualité",
-      description:
-        "Chaque produit est conçu avec des matériaux premium pour une durabilité maximale.",
-    },
-    {
-      icon: "🚀",
-      title: "Performance",
-      description:
-        "Nos solutions vous permettent d'augmenter significativement vos avis Google.",
+        "Ancien commercial dans la tech, Pierre accompagne nos clients entreprises dans leurs projets de grande envergure.",
+      avatar: "PL",
     },
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
-      {/* Animated Background */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-2000"></div>
-        <div className="absolute top-40 left-40 w-80 h-80 bg-pink-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-4000"></div>
-      </div>
+    <div className="min-h-screen bg-white pt-24">
+      <Header />
 
-      {/* Header */}
-      <header className="relative bg-white/80 backdrop-blur-md border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-6">
-            {/* Logo */}
-            <div className="flex items-center">
-              <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-blue-500 rounded-xl flex items-center justify-center">
-                <span className="text-white font-bold text-xl">Q</span>
-              </div>
-              <h1 className="ml-3 text-xl sm:text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
-                CodeQR
-              </h1>
-            </div>
-
-            {/* Desktop Navigation */}
-            <nav className="hidden lg:flex space-x-8">
-              <Link
-                href="/"
-                className="text-gray-600 hover:text-gray-900 transition-colors"
-              >
-                Accueil
-              </Link>
-              <Link
-                href="/produits"
-                className="text-gray-600 hover:text-gray-900 transition-colors"
-              >
-                Produits
-              </Link>
-              <Link
-                href="/temoignages"
-                className="text-gray-600 hover:text-gray-900 transition-colors"
-              >
-                Témoignages
-              </Link>
-              <Link
-                href="/a-propos"
-                className="text-purple-600 hover:text-gray-900 transition-colors"
-              >
-                À propos
-              </Link>
-              <Link
-                href="/contact"
-                className="text-gray-600 hover:text-gray-900 transition-colors"
-              >
-                Contact
-              </Link>
-            </nav>
-
-            {/* Desktop Buttons */}
-            <div className="hidden lg:flex space-x-4">
-              <Link
-                href="/checkout"
-                className="px-6 py-3 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-2xl font-semibold hover:from-purple-600 hover:to-blue-600 transition-all duration-200 transform hover:scale-105 inline-flex items-center space-x-2"
-              >
-                Acheter maintenant
-              </Link>
-              <Link
-                href="/register"
-                className="px-6 py-3 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-2xl font-semibold hover:from-purple-600 hover:to-blue-600 transition-all duration-200 transform hover:scale-105 inline-flex items-center space-x-2"
-              >
-                Inscription
-              </Link>
-            </div>
-
-            {/* Mobile Menu Button */}
-            <div className="lg:hidden">
-              <button
-                onClick={toggleMenu}
-                className="p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors"
-                aria-label="Toggle menu"
-              >
-                {isMenuOpen ? (
-                  <svg
-                    className="w-6 h-6"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
-                ) : (
-                  <svg
-                    className="w-6 h-6"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M4 6h16M4 12h16M4 18h16"
-                    />
-                  </svg>
-                )}
-              </button>
-            </div>
-          </div>
-
-          {/* Mobile Menu */}
-          {isMenuOpen && (
-            <div className="lg:hidden border-t border-gray-200 py-4">
-              <nav className="flex flex-col space-y-4">
-                <Link
-                  href="/"
-                  className="text-gray-600 hover:text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Accueil
-                </Link>
-                <Link
-                  href="/produits"
-                  className="text-gray-600 hover:text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Produits
-                </Link>
-                <Link
-                  href="/temoignages"
-                  className="text-gray-600 hover:text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Témoignages
-                </Link>
-                <Link
-                  href="/a-propos"
-                  className="text-purple-600 hover:text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  À propos
-                </Link>
-                <Link
-                  href="/contact"
-                  className="text-gray-600 hover:text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Contact
-                </Link>
-              </nav>
-
-              {/* Mobile Buttons */}
-              <div className="flex flex-col space-y-3 mt-6 px-4">
-                <Link
-                  href="/checkout"
-                  className="w-full px-6 py-3 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-2xl font-semibold hover:from-purple-600 hover:to-blue-600 transition-all duration-200 text-center"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Acheter maintenant
-                </Link>
-                <Link
-                  href="/register"
-                  className="w-full px-6 py-3 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-2xl font-semibold hover:from-purple-600 hover:to-blue-600 transition-all duration-200 text-center"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Inscription
-                </Link>
+      {/* Hero Section */}
+      <section className="pt-32 bg-gradient-to-b from-white to-gray-50 flex items-center justify-center">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center max-w-4xl mx-auto"
+          >
+            <div className="flex justify-center mb-6">
+              <div className="border border-[#40C49A] text-[#40C49A] py-2 px-4 rounded-lg text-sm font-medium">
+                À Propos de CodeQR
               </div>
             </div>
-          )}
-        </div>
-      </header>
-
-      {/* Main Content */}
-      <main className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        {/* Hero Section */}
-        <div className="text-center mb-16">
-          <h1 className="text-5xl font-bold sm:text-6xl md:text-7xl mb-8">
-            <span className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-700 bg-clip-text text-transparent">
-              À propos de{" "}
-            </span>
-            <span className="bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent">
-              CodeQR
-            </span>
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Nous révolutionnons la collecte d'avis clients avec des solutions QR
-            Code innovantes et efficaces
-          </p>
-        </div>
-
-        {/* Mission Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-32">
-          <div>
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">
-              Notre mission
-            </h2>
-            <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-              Chez CodeQR, nous croyons que chaque entreprise mérite d'être
-              visible et recommandée par ses clients. Notre mission est de
-              simplifier la collecte d'avis Google en proposant des solutions
-              innovantes, élégantes et efficaces.
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-black mb-6">
+              Révolutionner la{" "}
+              <span className="text-[#40C49A]">collecte d'avis</span> pour tous
+            </h1>
+            <p className="text-xl text-black/70 mb-8 leading-relaxed">
+              CodeQR est née de la volonté de simplifier la collecte d'avis
+              Google pour tous les commerçants. Nous concevons et fabriquons des
+              solutions QR Code innovantes qui transforment l'expérience client.
             </p>
-            <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-              Nous aidons les entreprises de toutes tailles à augmenter leur
-              visibilité en ligne, à améliorer leur réputation digitale et à
-              générer plus de clients grâce à des avis positifs.
-            </p>
-            <div className="flex space-x-4">
-              <Link
-                href="/produits"
-                className="bg-gradient-to-r from-purple-500 to-blue-500 text-white px-6 py-3 rounded-lg font-semibold hover:from-purple-600 hover:to-blue-600 transition-all duration-200"
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <motion.a
+                href="#mission"
+                className="px-8 py-4 bg-[#40C49A] text-white rounded-full font-semibold hover:bg-[#40C49A]/90 transition-colors text-center flex justify-center items-center gap-2  md:inline-flex"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                Découvrir nos produits
-              </Link>
-              <Link
-                href="/contact"
-                className="border border-gray-300 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-all duration-200"
+                Notre mission
+                <ArrowRight className="w-4 h-4" />
+              </motion.a>
+              <motion.a
+                href="#equipe"
+                className="px-8 py-4 border-2 border-[#40C49A] text-[#40C49A] rounded-full font-semibold hover:bg-[#40C49A] hover:text-white transition-colors"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                Nous contacter
-              </Link>
+                Rencontrer l'équipe
+              </motion.a>
             </div>
-          </div>
-          <div className="relative">
-            <div className="bg-white rounded-3xl p-8 transform rotate-2 hover:rotate-0 transition-transform duration-500">
-              <div className="w-full h-80 bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl border-2 border-gray-200 flex items-center justify-center relative overflow-hidden">
-                {/* QR Code Pattern */}
-                <div className="grid grid-cols-12 gap-1 p-6">
-                  {Array.from({ length: 144 }, (_, i) => (
-                    <div
-                      key={i}
-                      className={`w-2 h-2 rounded-sm ${
-                        Math.random() > 0.6 ? "bg-gray-800" : "bg-transparent"
-                      }`}
-                    />
-                  ))}
-                </div>
-
-                {/* Corner Markers */}
-                <div className="absolute top-6 left-6 w-10 h-10 border-4 border-gray-800 rounded-lg"></div>
-                <div className="absolute top-6 right-6 w-10 h-10 border-4 border-gray-800 rounded-lg"></div>
-                <div className="absolute bottom-6 left-6 w-10 h-10 border-4 border-gray-800 rounded-lg"></div>
-              </div>
-              <div className="absolute -inset-2 bg-gradient-to-r from-purple-500 to-blue-500 rounded-3xl -z-10 blur-sm opacity-30"></div>
-            </div>
-          </div>
+          </motion.div>
         </div>
+      </section>
 
-        {/* Stats Section */}
-        <div className="bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200 p-8 mb-32">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+      {/* Stats Section */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
-              <div key={index}>
-                <div className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent mb-2">
-                  {stat.number}
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="text-center p-6 bg-gray-50 rounded-xl border border-gray-200 hover:border-[#40C49A]/50 transition-colors"
+              >
+                <div className="w-16 h-16 bg-[#40C49A]/10 rounded-full flex items-center justify-center mx-auto mb-4 text-[#40C49A]">
+                  {stat.icon}
                 </div>
-                <div className="text-gray-600">{stat.label}</div>
-              </div>
+                <div className="text-3xl font-bold text-black mb-2">
+                  {stat.value}
+                </div>
+                <div className="text-lg font-semibold text-black mb-1">
+                  {stat.label}
+                </div>
+                <div className="text-sm text-black/70">{stat.description}</div>
+              </motion.div>
             ))}
           </div>
         </div>
+      </section>
 
-        {/* History Section */}
-        <div className="mb-32">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">
-            Notre histoire
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white font-bold text-xl">2022</span>
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">Création</h3>
-              <p className="text-gray-600">
-                Fondation de CodeQR avec l'objectif de révolutionner la collecte
-                d'avis clients
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white font-bold text-xl">2023</span>
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">
-                Expansion
-              </h3>
-              <p className="text-gray-600">
-                Lancement de notre première gamme de plaques QR Code et
-                acquisition de nos 100 premiers clients
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white font-bold text-xl">2024</span>
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">
-                Innovation
-              </h3>
-              <p className="text-gray-600">
-                Développement de nouvelles solutions et expansion de notre
-                équipe pour servir plus de 500 entreprises
-              </p>
-            </div>
-          </div>
-        </div>
+      {/* Mission & Values */}
+      <section id="mission" className="py-20 bg-gray-50">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
+              Notre mission et nos valeurs
+            </h2>
+            <p className="text-xl text-black/70 max-w-2xl mx-auto">
+              Ce qui nous anime au quotidien
+            </p>
+          </motion.div>
 
-        {/* Values Section */}
-        <div className="mb-32">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">
-            Nos valeurs
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {values.map((value, index) => (
-              <div
+              <motion.div
                 key={index}
-                className="bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200 p-6 text-center hover:transform hover:scale-105 transition-all duration-300"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: index * 0.2 }}
+                viewport={{ once: true }}
+                className="text-center p-8 bg-white rounded-xl border border-gray-200 hover:shadow-lg transition-shadow"
               >
-                <div className="text-4xl mb-4">{value.icon}</div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">
+                <div className="w-20 h-20 bg-[#40C49A]/10 rounded-full flex items-center justify-center mx-auto mb-6 text-[#40C49A]">
+                  {value.icon}
+                </div>
+                <h3 className="text-2xl font-bold text-black mb-4">
                   {value.title}
                 </h3>
-                <p className="text-gray-600">{value.description}</p>
-              </div>
+                <p className="text-black/70 leading-relaxed">
+                  {value.description}
+                </p>
+              </motion.div>
             ))}
           </div>
         </div>
+      </section>
 
-        {/* Team Section */}
-        <div className="mb-32">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">
-            Notre équipe
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {/* Timeline */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
+              Notre histoire
+            </h2>
+            <p className="text-xl text-black/70 max-w-2xl mx-auto">
+              L'évolution de CodeQR depuis sa création
+            </p>
+          </motion.div>
+
+          <div className="max-w-4xl mx-auto">
+            <div className="relative">
+              {/* Timeline Line */}
+              <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-[#40C49A]/20 hidden md:block"></div>
+
+              <div className="space-y-12">
+                {timeline.map((event, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.8, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                    className="relative flex gap-8 items-start"
+                  >
+                    {/* Timeline Dot */}
+                    <div className="w-16 h-16 bg-[#40C49A] rounded-full flex items-center justify-center text-white flex-shrink-0 relative z-10">
+                      {event.icon}
+                    </div>
+
+                    {/* Content */}
+                    <div className="flex-1 bg-gray-50 rounded-xl p-6 border border-gray-200">
+                      <div className="flex flex-col md:flex-row md:items-center gap-4 mb-3">
+                        <h3 className="text-xl font-bold text-black">
+                          {event.title}
+                        </h3>
+                        <span className="bg-[#40C49A] text-white px-3 py-1 rounded-full text-sm font-medium">
+                          {event.year}
+                        </span>
+                      </div>
+                      <p className="text-black/70 leading-relaxed">
+                        {event.description}
+                      </p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Team Section */}
+      <section id="equipe" className="py-20 bg-gray-50">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
+              Rencontrez notre équipe
+            </h2>
+            <p className="text-xl text-black/70 max-w-2xl mx-auto">
+              Les experts qui rendent CodeQR possible
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             {team.map((member, index) => (
-              <div
+              <motion.div
                 key={index}
-                className="bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200 p-6 text-center hover:transform hover:scale-105 transition-all duration-300"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: index * 0.2 }}
+                viewport={{ once: true }}
+                className="text-center p-6 bg-white rounded-xl border border-gray-200 hover:shadow-lg transition-shadow"
               >
-                <div className="w-24 h-24 bg-gradient-to-br from-purple-100 to-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl font-bold text-gray-600">
-                    {member.name
-                      .split(" ")
-                      .map((n) => n[0])
-                      .join("")}
-                  </span>
+                <div className="w-20 h-20 bg-[#40C49A] rounded-full flex items-center justify-center mx-auto mb-4 text-white font-bold text-xl">
+                  {member.avatar}
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-1">
+                <h3 className="text-xl font-bold text-black mb-1">
                   {member.name}
                 </h3>
-                <p className="text-purple-600 font-medium mb-3">
+                <div className="text-[#40C49A] font-semibold mb-4">
                   {member.role}
+                </div>
+                <p className="text-black/70 text-sm leading-relaxed">
+                  {member.description}
                 </p>
-                <p className="text-gray-600">{member.description}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
+      </section>
 
-        {/* CTA Section */}
-        <div className="bg-gradient-to-r from-purple-500 to-blue-500 rounded-2xl p-8 text-center text-white">
-          <h2 className="text-3xl font-bold mb-4">
-            Prêt à booster vos avis Google ?
-          </h2>
-          <p className="text-xl mb-6 opacity-90">
-            Rejoignez les centaines d'entreprises qui font confiance à CodeQR
-          </p>
-          <Link
-            href="/produits"
-            className="bg-white text-purple-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-all duration-200 inline-block"
+      {/* Mission Statement */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="max-w-4xl mx-auto"
           >
-            Commander maintenant
-          </Link>
-        </div>
-      </main>
-
-      {/* Footer */}
-      <footer className="relative bg-white/80 backdrop-blur-md border-t border-gray-200 py-12 mt-32">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <div className="flex items-center justify-center mb-4">
-              <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">Q</span>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <h2 className="text-3xl md:text-4xl font-bold text-black mb-6">
+                  Notre mission
+                </h2>
+                <p className="text-xl text-black/70 mb-6 leading-relaxed">
+                  Chez CodeQR, nous croyons que chaque commerçant mérite d'avoir
+                  une excellente réputation en ligne. C'est pourquoi nous avons
+                  développé des solutions simples, efficaces et accessibles pour
+                  collecter des avis Google.
+                </p>
+                <div className="space-y-4">
+                  {[
+                    "Simplifier la collecte d'avis pour tous",
+                    "Améliorer la visibilité des commerçants",
+                    "Proposer des solutions durables et qualitatives",
+                    "Accompagner nos clients dans leur réussite",
+                  ].map((mission, index) => (
+                    <div key={index} className="flex items-center gap-3">
+                      <CheckCircle className="w-5 h-5 text-[#40C49A]" />
+                      <span className="text-black/80">{mission}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <span className="ml-2 text-gray-900 font-semibold">CodeQR</span>
+              <div className="relative">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8 }}
+                  viewport={{ once: true }}
+                  className="bg-gray-50 rounded-2xl p-8 border border-gray-200"
+                >
+                  <img
+                    src="/imgs/Photos_new_produits_47.png"
+                    alt="Produits CodeQR"
+                    className="w-full h-64 object-contain"
+                  />
+                </motion.div>
+                {/* Decorative elements */}
+                <div className="absolute -top-4 -right-4 w-8 h-8 bg-[#40C49A]/20 rounded-full"></div>
+                <div className="absolute -bottom-4 -left-4 w-12 h-12 bg-[#40C49A]/10 rounded-full"></div>
+              </div>
             </div>
-            <p className="text-gray-600">
-              &copy; 2024 CodeQR. Tous droits réservés.
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Contact Info */}
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
+              Nous contacter
+            </h2>
+            <p className="text-xl text-black/70 max-w-2xl mx-auto">
+              Une question ? Un projet ? Notre équipe est là pour vous aider
             </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+              viewport={{ once: true }}
+              className="text-center p-6 bg-white rounded-xl border border-gray-200"
+            >
+              <div className="w-16 h-16 bg-[#40C49A]/10 rounded-full flex items-center justify-center mx-auto mb-4 text-[#40C49A]">
+                <Mail className="w-8 h-8" />
+              </div>
+              <h3 className="text-lg font-semibold text-black mb-2">Email</h3>
+              <p className="text-black/70">contact@codeqr.fr</p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="text-center p-6 bg-white rounded-xl border border-gray-200"
+            >
+              <div className="w-16 h-16 bg-[#40C49A]/10 rounded-full flex items-center justify-center mx-auto mb-4 text-[#40C49A]">
+                <Phone className="w-8 h-8" />
+              </div>
+              <h3 className="text-lg font-semibold text-black mb-2">
+                Téléphone
+              </h3>
+              <p className="text-black/70">+33 1 23 45 67 89</p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              viewport={{ once: true }}
+              className="text-center p-6 bg-white rounded-xl border border-gray-200"
+            >
+              <div className="w-16 h-16 bg-[#40C49A]/10 rounded-full flex items-center justify-center mx-auto mb-4 text-[#40C49A]">
+                <MapPin className="w-8 h-8" />
+              </div>
+              <h3 className="text-lg font-semibold text-black mb-2">Adresse</h3>
+              <p className="text-black/70">Paris, France</p>
+            </motion.div>
           </div>
         </div>
-      </footer>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 bg-[#40C49A]">
+        <div className="container mx-auto px-6 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <QrCode className="w-16 h-16 text-white mx-auto mb-6" />
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Rejoignez l'aventure CodeQR
+            </h2>
+            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+              Découvrez comment nos solutions peuvent transformer votre collecte
+              d'avis et booster votre réputation en ligne
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <motion.a
+                href="/produits"
+                className="px-8 py-4 bg-white text-[#40C49A] rounded-full font-semibold hover:bg-gray-100 transition-colors text-center flex justify-center items-center gap-2  md:inline-flex"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Découvrir nos produits
+                <ArrowRight className="w-4 h-4" />
+              </motion.a>
+              <motion.a
+                href="/achat-en-gros"
+                className="px-8 py-4 border-2 border-white text-white rounded-full font-semibold hover:bg-white hover:text-[#40C49A] transition-colors"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Solutions entreprises
+              </motion.a>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      <Footer />
     </div>
   );
 }

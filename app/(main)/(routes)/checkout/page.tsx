@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 interface Product {
   id: string;
@@ -59,6 +60,7 @@ export default function Checkout() {
         if (data.length > 0) {
           setSelectedProduct(data[0]); // Sélectionner le premier produit par défaut
         }
+        console.log(data);
       }
     } catch (error) {
       console.error("Erreur lors du chargement des produits:", error);
@@ -116,21 +118,21 @@ export default function Checkout() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-orange-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-red-500"></div>
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-purple-500"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-orange-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
       {/* Header */}
       <header className="bg-white/80 backdrop-blur-md border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-6">
             <div className="flex items-center">
               <Link href="/" className="flex items-center">
-                <div className="w-10 h-10 bg-gradient-to-r from-red-500 to-orange-500 rounded-xl flex items-center justify-center">
+                <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-blue-500 rounded-xl flex items-center justify-center">
                   <span className="text-white font-bold text-xl">Q</span>
                 </div>
                 <h1 className="ml-3 text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
@@ -181,11 +183,17 @@ export default function Checkout() {
                   key={product.id}
                   className={`border-2 rounded-xl p-4 cursor-pointer transition-all duration-200 ${
                     selectedProduct?.id === product.id
-                      ? "border-red-500 bg-red-50"
+                      ? "border-purple-500 bg-purple-50"
                       : "border-gray-200 hover:border-gray-300"
                   }`}
                   onClick={() => setSelectedProduct(product)}
                 >
+                  <Image
+                    src={product.image}
+                    alt={product.name}
+                    width={1000}
+                    height={1000}
+                  />
                   <div className="flex items-center justify-between">
                     <div>
                       <h3 className="text-lg font-semibold text-gray-900">
@@ -200,7 +208,7 @@ export default function Checkout() {
                             .slice(0, 3)
                             .map((feature, index) => (
                               <li key={index} className="flex items-center">
-                                <span className="text-red-500 mr-2">✓</span>
+                                <span className="text-purple-500 mr-2">✓</span>
                                 {feature}
                               </li>
                             ))}
@@ -208,11 +216,11 @@ export default function Checkout() {
                       </div>
                     </div>
                     <div className="text-right">
-                      <div className="text-2xl font-bold text-red-600">
+                      <div className="text-2xl font-bold text-purple-600">
                         {product.price}€
                       </div>
                       {selectedProduct?.id === product.id && (
-                        <div className="text-sm text-red-600 font-medium mt-1">
+                        <div className="text-sm text-purple-600 font-medium mt-1">
                           Sélectionné
                         </div>
                       )}
@@ -239,7 +247,7 @@ export default function Checkout() {
                   value={formData.email}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent text-gray-700"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-700"
                   placeholder="votre@email.com"
                 />
               </div>
@@ -255,7 +263,7 @@ export default function Checkout() {
                     value={formData.firstName}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent text-gray-700"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-700"
                     placeholder="Prénom"
                   />
                 </div>
@@ -269,7 +277,7 @@ export default function Checkout() {
                     value={formData.lastName}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent text-gray-700"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-700"
                     placeholder="Nom"
                   />
                 </div>
@@ -284,7 +292,7 @@ export default function Checkout() {
                   name="company"
                   value={formData.company}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent text-gray-700"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-700"
                   placeholder="Nom de l'entreprise"
                 />
               </div>
@@ -299,7 +307,7 @@ export default function Checkout() {
                   value={formData.address}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent text-gray-700"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-700"
                   placeholder="123 Rue de la Paix"
                 />
               </div>
@@ -313,7 +321,7 @@ export default function Checkout() {
                   name="address2"
                   value={formData.address2}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent text-gray-700"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-700"
                   placeholder="Appartement, bureau, etc."
                 />
               </div>
@@ -329,7 +337,7 @@ export default function Checkout() {
                     value={formData.city}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent text-gray-700"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-700"
                     placeholder="Paris"
                   />
                 </div>
@@ -343,7 +351,7 @@ export default function Checkout() {
                     value={formData.postalCode}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent text-gray-700"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-700"
                     placeholder="75001"
                   />
                 </div>
@@ -363,7 +371,7 @@ export default function Checkout() {
                         country: e.target.value,
                       }))
                     }
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent text-gray-700"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-700"
                   >
                     <option value="France">France</option>
                     <option value="Belgique">Belgique</option>
@@ -381,7 +389,7 @@ export default function Checkout() {
                     value={formData.phone}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent text-gray-700"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-700"
                     placeholder="+33 1 23 45 67 89"
                   />
                 </div>
@@ -397,7 +405,7 @@ export default function Checkout() {
                     <span className="text-gray-600">
                       {selectedProduct.name}
                     </span>
-                    <span className="font-medium">
+                    <span className="font-medium text-gray-600">
                       {selectedProduct.price}€
                     </span>
                   </div>
@@ -410,7 +418,7 @@ export default function Checkout() {
                       <span className="text-lg font-bold text-gray-900">
                         Total
                       </span>
-                      <span className="text-xl font-bold text-red-600">
+                      <span className="text-xl font-bold text-purple-600">
                         {selectedProduct.price}€
                       </span>
                     </div>
@@ -421,7 +429,7 @@ export default function Checkout() {
               <button
                 type="submit"
                 disabled={!selectedProduct || isProcessing}
-                className="w-full bg-gradient-to-r from-red-500 to-orange-500 text-white py-3 px-6 rounded-xl font-semibold hover:from-red-600 hover:to-orange-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-105"
+                className="w-full bg-gradient-to-r from-purple-500 to-blue-500 text-white py-3 px-6 rounded-xl font-semibold hover:from-purple-600 hover:to-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-105"
               >
                 {isProcessing ? (
                   <div className="flex items-center justify-center">

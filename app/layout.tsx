@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { CartProvider } from "./contexts/CartContext";
+import { ToastProvider } from "./components/toast";
 
 export const metadata: Metadata = {
   title: "CodeQR - Plaques QR Code pour Avis Google",
@@ -14,7 +16,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr">
-      <body className="font-sans antialiased">{children}</body>
+      <body className="font-sans antialiased">
+        <ToastProvider>
+          <CartProvider>{children}</CartProvider>
+        </ToastProvider>
+      </body>
     </html>
   );
 }

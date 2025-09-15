@@ -4,50 +4,34 @@ const prisma = new PrismaClient();
 
 const products = [
   {
-    name: "Plaque QR Code Standard",
+    name: "Plaque QR Code Google Avis",
     description:
-      "Notre plaque la plus populaire, parfaite pour la plupart des entreprises",
-    price: 29.0,
+      "Plaque professionnelle pour collecter des avis Google facilement",
+    price: 34.9,
     features: JSON.stringify([
       "Design professionnel en PVC",
       "QR Code haute résolution",
       "Adhésif double-face inclus",
-      "Taille: 15x15 cm",
+      "Résistant aux intempéries",
       "Livraison gratuite",
       "Configuration incluse",
     ]),
-    image: "standard",
+    image: "/imgs/Photos_new_produits_47.png",
     isActive: true,
   },
   {
-    name: "Plaque QR Code Premium",
-    description:
-      "Pour les entreprises qui veulent se démarquer avec un design exclusif",
-    price: 49.0,
+    name: "Carte QR Code Google Avis",
+    description: "Carte compacte et pratique pour vos clients nomades",
+    price: 49.9,
     features: JSON.stringify([
-      "Design premium en aluminium",
+      "Format carte de visite",
       "QR Code haute résolution",
-      "Support mural inclus",
-      "Taille: 20x20 cm",
+      "Design moderne et élégant",
+      "Facile à transporter",
       "Livraison express",
       "Configuration + support personnalisé",
     ]),
-    image: "premium",
-    isActive: true,
-  },
-  {
-    name: "Pack Multi-Plaques",
-    description: "Idéal pour les entreprises avec plusieurs emplacements",
-    price: 79.0,
-    features: JSON.stringify([
-      "3 plaques standard",
-      "QR Code identique pour toutes",
-      "Adhésifs inclus",
-      "Taille: 15x15 cm chacune",
-      "Livraison gratuite",
-      "Configuration pour toutes",
-    ]),
-    image: "pack",
+    image: "/imgs/16_1 (1).png",
     isActive: true,
   },
 ];

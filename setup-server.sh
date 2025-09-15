@@ -45,10 +45,10 @@ echo "⚙️ Configuration de Nginx..."
 sudo tee /etc/nginx/sites-available/codeqrapp << EOF
 server {
     listen 80;
-    server_name ci-cargo.com; # Remplacez par votre domaine
+    server_name gdigitalgroup.com; # Remplacez par votre domaine
 
     location / {
-        proxy_pass http://localhost:3003;
+        proxy_pass http://localhost:3000
         proxy_http_version 1.1;
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection 'upgrade';

@@ -108,8 +108,7 @@ const Section2: React.FC<SectionProps> = ({ scrollYProgress }) => {
 };
 
 // const Section3: React.FC<SectionProps> = ({ scrollYProgress }) => {
-//   return (
-//     <motion.section className="min-h-screen bg-white text-black">
+//   return (k">
 //       <div className="container mx-auto px-8">
 //         {/* Statistiques */}
 //         <div className="pt-20 pb-16">

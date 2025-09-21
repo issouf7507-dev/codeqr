@@ -91,7 +91,7 @@ export default function OrderPage() {
       <div className="min-h-screen bg-white">
         <Header />
         <div className="pt-32 flex items-center justify-center min-h-[400px]">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#40C49A]"></div>
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#019090]"></div>
         </div>
       </div>
     );
@@ -107,7 +107,7 @@ export default function OrderPage() {
             <p className="text-black/70">{error}</p>
             <Link
               href="/"
-              className="mt-4 inline-block bg-[#40C49A] text-white px-6 py-2 rounded-lg hover:bg-[#40C49A]/90 transition-colors"
+              className="mt-4 inline-block bg-[#019090] text-white px-6 py-2 rounded-lg hover:bg-[#019090]/90 transition-colors"
             >
               Retour à l'accueil
             </Link>
@@ -135,7 +135,7 @@ export default function OrderPage() {
             <div
               className={`mx-auto w-24 h-24 rounded-full flex items-center justify-center mb-8 ${
                 order.status === "PAID"
-                  ? "bg-[#40C49A]/10 border-2 border-[#40C49A]"
+                  ? "bg-[#019090]/10 border-2 border-[#019090]"
                   : order.status === "PENDING"
                   ? "bg-yellow-50 border-2 border-yellow-300"
                   : "bg-red-50 border-2 border-red-300"
@@ -143,7 +143,7 @@ export default function OrderPage() {
             >
               {order.status === "PAID" ? (
                 <svg
-                  className="w-12 h-12 text-[#40C49A]"
+                  className="w-12 h-12 text-[#019090]"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -204,8 +204,8 @@ export default function OrderPage() {
 
             {order.status === "PENDING" && (
               <div className="flex items-center justify-center mb-8">
-                <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-[#40C49A] mr-3"></div>
-                <span className="text-[#40C49A]">
+                <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-[#019090] mr-3"></div>
+                <span className="text-[#019090]">
                   Vérification automatique en cours...
                 </span>
               </div>
@@ -238,7 +238,7 @@ export default function OrderPage() {
                   <span
                     className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
                       order.status === "PAID"
-                        ? "bg-[#40C49A]/10 text-[#40C49A] border border-[#40C49A]/20"
+                        ? "bg-[#019090]/10 text-[#019090] border border-[#019090]/20"
                         : order.status === "PENDING"
                         ? "bg-yellow-100 text-yellow-800 border border-yellow-200"
                         : "bg-red-100 text-red-800 border border-red-200"
@@ -254,7 +254,7 @@ export default function OrderPage() {
 
                 <div className="flex justify-between items-center">
                   <span className="text-black/70">Total :</span>
-                  <span className="text-xl font-bold text-[#40C49A]">
+                  <span className="text-xl font-bold text-[#019090]">
                     {order.totalAmount.toFixed(2).replace(".", ",")}€
                   </span>
                 </div>
@@ -269,8 +269,8 @@ export default function OrderPage() {
                 )}
 
                 {order.qrCodes && order.qrCodes.length > 0 && (
-                  <div className="mt-6 p-4 bg-[#40C49A]/5 border border-[#40C49A]/20 rounded-lg">
-                    <h3 className="font-semibold text-[#40C49A] mb-2">
+                  <div className="mt-6 p-4 bg-[#019090]/5 border border-[#019090]/20 rounded-lg">
+                    <h3 className="font-semibold text-[#019090] mb-2">
                       Codes QR générés :
                     </h3>
                     <div className="space-y-2">
@@ -279,13 +279,13 @@ export default function OrderPage() {
                           key={qrCode.id}
                           className="flex justify-between items-center"
                         >
-                          <span className="font-mono text-[#40C49A]">
+                          <span className="font-mono text-[#019090]">
                             {qrCode.code}
                           </span>
                           <span
                             className={`text-xs px-2 py-1 rounded ${
                               qrCode.isActivated
-                                ? "bg-[#40C49A]/20 text-[#40C49A]"
+                                ? "bg-[#019090]/20 text-[#019090]"
                                 : "bg-yellow-100 text-yellow-800"
                             }`}
                           >
@@ -324,7 +324,7 @@ export default function OrderPage() {
                       </p>
                     </div>
                     <div className="text-right">
-                      <div className="font-bold text-[#40C49A]">
+                      <div className="font-bold text-[#019090]">
                         {(item.price * item.quantity)
                           .toFixed(2)
                           .replace(".", ",")}
@@ -342,14 +342,14 @@ export default function OrderPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.6 }}
-                className="bg-[#40C49A]/5 border border-[#40C49A]/20 rounded-2xl p-8 mb-8"
+                className="bg-[#019090]/5 border border-[#019090]/20 rounded-2xl p-8 mb-8"
               >
-                <h2 className="text-2xl font-bold text-[#40C49A] mb-6">
+                <h2 className="text-2xl font-bold text-[#019090] mb-6">
                   Prochaines étapes
                 </h2>
                 <div className="space-y-4 text-left">
                   <div className="flex items-start gap-4">
-                    <div className="w-8 h-8 bg-[#40C49A] text-white rounded-full flex items-center justify-center font-bold text-sm">
+                    <div className="w-8 h-8 bg-[#019090] text-white rounded-full flex items-center justify-center font-bold text-sm">
                       1
                     </div>
                     <p className="text-black/80 pt-1">
@@ -357,7 +357,7 @@ export default function OrderPage() {
                     </p>
                   </div>
                   <div className="flex items-start gap-4">
-                    <div className="w-8 h-8 bg-[#40C49A] text-white rounded-full flex items-center justify-center font-bold text-sm">
+                    <div className="w-8 h-8 bg-[#019090] text-white rounded-full flex items-center justify-center font-bold text-sm">
                       2
                     </div>
                     <p className="text-black/80 pt-1">
@@ -365,7 +365,7 @@ export default function OrderPage() {
                     </p>
                   </div>
                   <div className="flex items-start gap-4">
-                    <div className="w-8 h-8 bg-[#40C49A] text-white rounded-full flex items-center justify-center font-bold text-sm">
+                    <div className="w-8 h-8 bg-[#019090] text-white rounded-full flex items-center justify-center font-bold text-sm">
                       3
                     </div>
                     <p className="text-black/80 pt-1">
@@ -373,7 +373,7 @@ export default function OrderPage() {
                     </p>
                   </div>
                   <div className="flex items-start gap-4">
-                    <div className="w-8 h-8 bg-[#40C49A] text-white rounded-full flex items-center justify-center font-bold text-sm">
+                    <div className="w-8 h-8 bg-[#019090] text-white rounded-full flex items-center justify-center font-bold text-sm">
                       4
                     </div>
                     <p className="text-black/80 pt-1">
@@ -396,7 +396,7 @@ export default function OrderPage() {
                   onClick={refreshStatus}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="bg-[#40C49A] text-white px-8 py-3 rounded-xl font-semibold hover:bg-[#40C49A]/90 transition-all duration-200"
+                  className="bg-[#019090] text-white px-8 py-3 rounded-xl font-semibold hover:bg-[#019090]/90 transition-all duration-200"
                 >
                   Vérifier le statut
                 </motion.button>
@@ -407,7 +407,7 @@ export default function OrderPage() {
                     href="/register"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="bg-[#40C49A] text-white px-8 py-3 rounded-xl font-semibold hover:bg-[#40C49A]/90 transition-all duration-200"
+                    className="bg-[#019090] text-white px-8 py-3 rounded-xl font-semibold hover:bg-[#019090]/90 transition-all duration-200"
                   >
                     Créer mon compte
                   </motion.a>
@@ -415,7 +415,7 @@ export default function OrderPage() {
                     href="/"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="border-2 border-[#40C49A] text-[#40C49A] px-8 py-3 rounded-xl font-semibold hover:bg-[#40C49A] hover:text-white transition-all duration-200"
+                    className="border-2 border-[#019090] text-[#019090] px-8 py-3 rounded-xl font-semibold hover:bg-[#019090] hover:text-white transition-all duration-200"
                   >
                     Retour à l'accueil
                   </motion.a>
@@ -426,7 +426,7 @@ export default function OrderPage() {
                     href="/checkout-cart"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="bg-[#40C49A] text-white px-8 py-3 rounded-xl font-semibold hover:bg-[#40C49A]/90 transition-all duration-200"
+                    className="bg-[#019090] text-white px-8 py-3 rounded-xl font-semibold hover:bg-[#019090]/90 transition-all duration-200"
                   >
                     Réessayer
                   </motion.a>
@@ -434,7 +434,7 @@ export default function OrderPage() {
                     href="/"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="border-2 border-[#40C49A] text-[#40C49A] px-8 py-3 rounded-xl font-semibold hover:bg-[#40C49A] hover:text-white transition-all duration-200"
+                    className="border-2 border-[#019090] text-[#019090] px-8 py-3 rounded-xl font-semibold hover:bg-[#019090] hover:text-white transition-all duration-200"
                   >
                     Retour à l'accueil
                   </motion.a>

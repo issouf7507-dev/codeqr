@@ -41,7 +41,7 @@ export default function CartDropdown() {
           <motion.span
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
-            className="absolute -top-1 -right-1 bg-white text-[#40C49A] text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center"
+            className="absolute -top-1 -right-1 bg-white text-[#019090] text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center"
           >
             {itemCount}
           </motion.span>
@@ -90,7 +90,7 @@ export default function CartDropdown() {
                       </p>
                       <button
                         onClick={() => setIsOpen(false)}
-                        className="px-6 py-3 bg-[#40C49A] text-white rounded-lg font-semibold hover:bg-[#40C49A]/90 transition-colors"
+                        className="px-6 py-3 bg-[#019090] text-white rounded-lg font-semibold hover:bg-[#019090]/90 transition-colors"
                       >
                         Continuer les achats
                       </button>
@@ -118,7 +118,7 @@ export default function CartDropdown() {
                               <h4 className="font-semibold text-black text-sm">
                                 {item.name}
                               </h4>
-                              <p className="text-[#40C49A] font-semibold text-sm">
+                              <p className="text-[#019090] font-semibold text-sm">
                                 {formatPrice(item.price)}
                               </p>
                               {item.originalPrice && (
@@ -169,7 +169,7 @@ export default function CartDropdown() {
                         <span className="text-xl font-bold text-black">
                           Total:
                         </span>
-                        <span className="text-2xl font-bold text-[#40C49A]">
+                        <span className="text-2xl font-bold text-[#019090]">
                           {formatPrice(total)}
                         </span>
                       </div>
@@ -179,7 +179,7 @@ export default function CartDropdown() {
                           href="/checkout-cart"
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
-                          className="w-full bg-[#40C49A] text-white py-4 rounded-xl font-semibold hover:bg-[#40C49A]/90 transition-colors flex items-center justify-center gap-2 text-lg"
+                          className="w-full bg-[#019090] text-white py-4 rounded-xl font-semibold hover:bg-[#019090]/90 transition-colors flex items-center justify-center gap-2 text-lg"
                           onClick={() => setIsOpen(false)}
                         >
                           Commander
@@ -248,7 +248,7 @@ export default function CartDropdown() {
                             <h4 className="font-semibold text-black text-sm truncate">
                               {item.name}
                             </h4>
-                            <p className="text-[#40C49A] font-semibold text-sm">
+                            <p className="text-[#019090] font-semibold text-sm">
                               {formatPrice(item.price)}
                             </p>
                             {item.originalPrice && (
@@ -299,7 +299,7 @@ export default function CartDropdown() {
                       <span className="text-lg font-semibold text-black">
                         Total:
                       </span>
-                      <span className="text-xl font-bold text-[#40C49A]">
+                      <span className="text-xl font-bold text-[#019090]">
                         {formatPrice(total)}
                       </span>
                     </div>
@@ -309,7 +309,7 @@ export default function CartDropdown() {
                         href="/checkout-cart"
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
-                        className="w-full bg-[#40C49A] text-white py-3 rounded-xl font-semibold hover:bg-[#40C49A]/90 transition-colors flex items-center justify-center gap-2"
+                        className="w-full bg-[#019090] text-white py-3 rounded-xl font-semibold hover:bg-[#019090]/90 transition-colors flex items-center justify-center gap-2"
                         onClick={() => setIsOpen(false)}
                       >
                         Commander

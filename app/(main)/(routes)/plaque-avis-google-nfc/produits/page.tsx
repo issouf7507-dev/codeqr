@@ -113,13 +113,13 @@ export default function Produits() {
             className="text-center max-w-4xl mx-auto"
           >
             <div className="flex justify-center mb-6">
-              <div className="border border-[#40C49A] text-[#40C49A] py-2 px-4 rounded-lg text-sm font-medium">
+              <div className="border border-[#019090] text-[#019090] py-2 px-4 rounded-lg text-sm font-medium">
                 Nos Produits
               </div>
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-black mb-6">
               Boostez vos avis clients avec nos{" "}
-              <span className="text-[#40C49A]">plaques QR Code</span>
+              <span className="text-[#019090]">plaques QR Code</span>
             </h1>
           </motion.div>
         </div>
@@ -153,13 +153,13 @@ export default function Produits() {
                 viewport={{ once: true }}
                 className={`relative bg-white rounded-2xl border-2 p-8 hover:shadow-xl transition-all duration-300 ${
                   product.popular
-                    ? "border-[#40C49A] shadow-lg"
-                    : "border-gray-200 hover:border-[#40C49A]/50"
+                    ? "border-[#019090] shadow-lg"
+                    : "border-gray-200 hover:border-[#019090]/50"
                 }`}
               >
                 {product.badge && (
                   <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                    <span className="bg-[#40C49A] text-white px-4 py-2 rounded-full text-sm font-medium">
+                    <span className="bg-[#019090] text-white px-4 py-2 rounded-full text-sm font-medium">
                       {product.badge}
                     </span>
                   </div>
@@ -183,7 +183,7 @@ export default function Produits() {
                   </h3>
                   <p className="text-black/70 mb-4">{product.description}</p>
                   <div className="flex items-center justify-center gap-3">
-                    <div className="text-4xl font-bold text-[#40C49A]">
+                    <div className="text-4xl font-bold text-[#019090]">
                       {product.price}
                     </div>
                     {product.originalPrice && (
@@ -199,8 +199,8 @@ export default function Produits() {
                   href={`/produit/${product.id}`}
                   className={`w-full py-4 px-6 rounded-xl font-semibold transition-all duration-200 inline-block text-center ${
                     product.popular
-                      ? "bg-[#40C49A] text-white hover:bg-[#40C49A]/90"
-                      : "bg-gray-100 text-black hover:bg-[#40C49A] hover:text-white"
+                      ? "bg-[#019090] text-white hover:bg-[#019090]/90"
+                      : "bg-gray-100 text-black hover:bg-[#019090] hover:text-white"
                   }`}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
@@ -260,9 +260,9 @@ export default function Produits() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="text-center p-6 bg-white rounded-xl border border-gray-200 hover:border-[#40C49A]/50 transition-colors"
+                className="text-center p-6 bg-white rounded-xl border border-gray-200 hover:border-[#019090]/50 transition-colors"
               >
-                <div className="w-16 h-16 bg-[#40C49A]/10 rounded-full flex items-center justify-center mx-auto mb-4 text-[#40C49A]">
+                <div className="w-16 h-16 bg-[#019090]/10 rounded-full flex items-center justify-center mx-auto mb-4 text-[#019090]">
                   {benefit.icon}
                 </div>
                 <h3 className="text-xl font-semibold text-black mb-2">
@@ -360,7 +360,7 @@ export default function Produits() {
                   <h3 className="text-lg font-semibold text-black">
                     {faq.question}
                   </h3>
-                  <ChevronDown className="w-5 h-5 text-[#40C49A] group-open:rotate-180 transition-transform duration-200" />
+                  <ChevronDown className="w-5 h-5 text-[#019090] group-open:rotate-180 transition-transform duration-200" />
                 </summary>
                 <div className="px-6 pb-6">
                   <p className="text-black/70 leading-relaxed">{faq.answer}</p>
@@ -372,7 +372,7 @@ export default function Produits() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-[#40C49A]">
+      <section className="py-20 bg-[#019090]">
         <div className="container mx-auto px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -391,7 +391,7 @@ export default function Produits() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.a
                 href="/checkout"
-                className="px-8 py-4 bg-white text-[#40C49A] rounded-full font-semibold hover:bg-gray-100 transition-colors text-center flex justify-center items-center gap-2  md:inline-flex"
+                className="px-8 py-4 bg-white text-[#019090] rounded-full font-semibold hover:bg-gray-100 transition-colors text-center flex justify-center items-center gap-2  md:inline-flex"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -400,7 +400,7 @@ export default function Produits() {
               </motion.a>
               <motion.a
                 href="/contact"
-                className="px-8 py-4 border-2 border-white text-white rounded-full font-semibold hover:bg-white hover:text-[#40C49A] transition-colors"
+                className="px-8 py-4 border-2 border-white text-white rounded-full font-semibold hover:bg-white hover:text-[#019090] transition-colors"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >

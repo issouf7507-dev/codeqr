@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Menu, X, QrCode } from "lucide-react";
 import CartDropdown from "./cart-dropdown";
+import Image from "next/image";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -25,49 +26,77 @@ export default function Header() {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-[#40C49A] shadow-lg">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-[#019090] shadow-lg">
       <div className="container mx-auto px-4">
         {/* Main Header */}
-        <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center group-hover:scale-105 transition-transform">
-              <QrCode className="w-6 h-6 text-[#40C49A]" />
-            </div>
-            <span className="text-white font-bold text-xl hidden sm:block">
-              CodeQR
-            </span>
-          </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-white hover:text-white/80 transition-colors font-medium"
+        <div className="hidden lg:block">
+          <div className="md:flex items-center justify-center h-20 border-b border-white/20 hidden">
+            <Image src="/logo.svg" alt="CodeQR.ma" width={300} height={300} />
+          </div>
+
+          <div className="flex items-center justify-center h-20">
+            {/* Desktop Navigation */}
+            <nav className="hidden lg:flex items-center space-x-8">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="text-white hover:text-white/80 transition-colors font-medium"
+                >
+                  {link.label}
+                </Link>
+              ))}
+              <div className="flex items-center gap-4">
+                <CartDropdown />
+
+                {/* Mobile Menu Button */}
+                <button
+                  onClick={toggleMenu}
+                  className="lg:hidden p-2 text-white hover:text-white/80 transition-colors"
+                  aria-label="Toggle menu"
+                >
+                  {isMenuOpen ? (
+                    <X className="w-6 h-6" />
+                  ) : (
+                    <Menu className="w-6 h-6" />
+                  )}
+                </button>
+              </div>
+            </nav>
+
+            {/* Right Side - Cart & Mobile Menu */}
+          </div>
+        </div>
+
+        <div className="lg:hidden">
+          {/* <div> */}
+          <div className="flex items-center justify-between h-20 ">
+            <Image
+              src="/logo.svg"
+              alt="CodeQR.ma"
+              width={150}
+              height={150}
+              objectFit="contain"
+              className=" block"
+            />
+
+            <div className="flex items-center gap-4">
+              <CartDropdown />
+              <button
+                onClick={toggleMenu}
+                className="p-2 rounded-lg text-white hover:text-white/80 transition-colors "
+                aria-label="Toggle menu"
               >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
+                {isMenuOpen ? (
+                  <X className="w-6 h-6" />
+                ) : (
+                  <Menu className="w-6 h-6" />
+                )}
+              </button>
+            </div>
 
-          {/* Right Side - Cart & Mobile Menu */}
-          <div className="flex items-center gap-4">
-            <CartDropdown />
-
-            {/* Mobile Menu Button */}
-            <button
-              onClick={toggleMenu}
-              className="lg:hidden p-2 text-white hover:text-white/80 transition-colors"
-              aria-label="Toggle menu"
-            >
-              {isMenuOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )}
-            </button>
+            {/* </div> */}
           </div>
         </div>
 

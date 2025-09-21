@@ -31,7 +31,7 @@ export default function ButtonUi() {
       <div className="rainbow relative z-0 bg-white/15 overflow-hidden p-0.5 flex items-center justify-center rounded-full hover:scale-105 transition duration-300 active:scale-100">
         <a
           href="/produits"
-          className="px-8 text-sm py-3 text-white rounded-full font-medium bg-[#40C49A] backdrop-blur block text-center hover:bg-[#40C49A]/80 transition-colors"
+          className="px-8 text-sm py-3 text-white rounded-full font-medium bg-[#019090] backdrop-blur block text-center hover:bg-[#019090]/80 transition-colors"
         >
           DÉCOUVRIR NOS PRODUITS
         </a>

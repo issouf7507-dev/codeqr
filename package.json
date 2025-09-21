@@ -10,7 +10,8 @@
     "test:email": "node scripts/test-email-simple.js",
     "init:qr-codes": "node scripts/init-qr-codes.js",
     "init:products": "node scripts/init-products.js",
-    "init:admin": "node scripts/init-admin.js"
+    "init:admin": "node scripts/init-admin.js",
+    "init:super-admin": "node scripts/init-super-admin.js"
   },
   "dependencies": {
     "@mollie/api-client": "^4.3.3",

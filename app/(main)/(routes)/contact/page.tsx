@@ -84,7 +84,7 @@ export default function Contact() {
     {
       type: "Email",
       time: "24h maximum",
-      color: "bg-[#40C49A]",
+      color: "bg-[#019090]",
     },
     {
       type: "Téléphone",
@@ -145,12 +145,12 @@ export default function Contact() {
             className="text-center max-w-4xl mx-auto"
           >
             <div className="flex justify-center mb-6">
-              <div className="border border-[#40C49A] text-[#40C49A] py-2 px-4 rounded-lg text-sm font-medium">
+              <div className="border border-[#019090] text-[#019090] py-2 px-4 rounded-lg text-sm font-medium">
                 Nous Contacter
               </div>
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-black mb-6">
-              Une question ? <span className="text-[#40C49A]">Parlons-en</span>
+              Une question ? <span className="text-[#019090]">Parlons-en</span>
             </h1>
             <p className="text-xl text-black/70 mb-8 leading-relaxed">
               Notre équipe est là pour vous accompagner dans votre projet de
@@ -160,7 +160,7 @@ export default function Contact() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.a
                 href="#contact-form"
-                className="px-8 py-4 bg-[#40C49A] text-white rounded-full font-semibold hover:bg-[#40C49A]/90 transition-colors text-center flex justify-center items-center gap-2  md:inline-flex"
+                className="px-8 py-4 bg-[#019090] text-white rounded-full font-semibold hover:bg-[#019090]/90 transition-colors text-center flex justify-center items-center gap-2  md:inline-flex"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -169,7 +169,7 @@ export default function Contact() {
               </motion.a>
               <motion.a
                 href="tel:+33123456789"
-                className="px-8 py-4 border-2 border-[#40C49A] text-[#40C49A] rounded-full font-semibold hover:bg-[#40C49A] hover:text-white transition-colors text-center flex justify-center items-center gap-2  md:inline-flex"
+                className="px-8 py-4 border-2 border-[#019090] text-[#019090] rounded-full font-semibold hover:bg-[#019090] hover:text-white transition-colors text-center flex justify-center items-center gap-2  md:inline-flex"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -207,9 +207,9 @@ export default function Contact() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="text-center p-6 bg-gray-50 rounded-xl border border-gray-200 hover:border-[#40C49A]/50 transition-colors"
+                className="text-center p-6 bg-gray-50 rounded-xl border border-gray-200 hover:border-[#019090]/50 transition-colors"
               >
-                <div className="w-16 h-16 bg-[#40C49A]/10 rounded-full flex items-center justify-center mx-auto mb-4 text-[#40C49A]">
+                <div className="w-16 h-16 bg-[#019090]/10 rounded-full flex items-center justify-center mx-auto mb-4 text-[#019090]">
                   {info.icon}
                 </div>
                 <h3 className="text-xl font-semibold text-black mb-3">
@@ -233,9 +233,9 @@ export default function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
             viewport={{ once: true }}
-            className="bg-[#40C49A]/5 border border-[#40C49A]/20 rounded-2xl p-8 max-w-2xl mx-auto"
+            className="bg-[#019090]/5 border border-[#019090]/20 rounded-2xl p-8 max-w-2xl mx-auto"
           >
-            <h3 className="text-2xl font-bold text-[#40C49A] mb-6 text-center flex items-center justify-center gap-2">
+            <h3 className="text-2xl font-bold text-[#019090] mb-6 text-center flex items-center justify-center gap-2">
               <Clock className="w-6 h-6" />
               Temps de réponse
             </h3>
@@ -274,7 +274,7 @@ export default function Contact() {
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="mb-6 p-4 bg-[#40C49A]/5 border border-[#40C49A]/20 text-[#40C49A] rounded-lg flex items-center gap-2"
+                  className="mb-6 p-4 bg-[#019090]/5 border border-[#019090]/20 text-[#019090] rounded-lg flex items-center gap-2"
                 >
                   <CheckCircle className="w-5 h-5" />
                   Votre message a été envoyé avec succès ! Nous vous répondrons
@@ -298,7 +298,7 @@ export default function Contact() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label className="text-sm font-medium text-black mb-2 flex items-center gap-2">
-                      <User className="w-4 h-4 text-[#40C49A]" />
+                      <User className="w-4 h-4 text-[#019090]" />
                       Nom complet *
                     </label>
                     <input
@@ -308,13 +308,13 @@ export default function Contact() {
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 text-black rounded-lg focus:ring-2 focus:ring-[#40C49A] focus:border-transparent transition-all duration-200"
+                      className="w-full px-4 py-3 border border-gray-300 text-black rounded-lg focus:ring-2 focus:ring-[#019090] focus:border-transparent transition-all duration-200"
                       placeholder="Votre nom"
                     />
                   </div>
                   <div>
                     <label className="text-sm font-medium text-black mb-2 flex items-center gap-2">
-                      <Mail className="w-4 h-4 text-[#40C49A]" />
+                      <Mail className="w-4 h-4 text-[#019090]" />
                       Email *
                     </label>
                     <input
@@ -324,7 +324,7 @@ export default function Contact() {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 text-black rounded-lg focus:ring-2 focus:ring-[#40C49A] focus:border-transparent transition-all duration-200"
+                      className="w-full px-4 py-3 border border-gray-300 text-black rounded-lg focus:ring-2 focus:ring-[#019090] focus:border-transparent transition-all duration-200"
                       placeholder="votre@email.com"
                     />
                   </div>
@@ -332,7 +332,7 @@ export default function Contact() {
 
                 <div>
                   <label className=" text-sm font-medium text-black mb-2 flex items-center gap-2">
-                    <MessageSquare className="w-4 h-4 text-[#40C49A]" />
+                    <MessageSquare className="w-4 h-4 text-[#019090]" />
                     Sujet *
                   </label>
                   <select
@@ -341,7 +341,7 @@ export default function Contact() {
                     value={formData.subject}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 text-black rounded-lg focus:ring-2 focus:ring-[#40C49A] focus:border-transparent transition-all duration-200"
+                    className="w-full px-4 py-3 border border-gray-300 text-black rounded-lg focus:ring-2 focus:ring-[#019090] focus:border-transparent transition-all duration-200"
                   >
                     <option value="">Sélectionnez un sujet</option>
                     <option value="commande">Question sur une commande</option>
@@ -366,7 +366,7 @@ export default function Contact() {
                     onChange={handleChange}
                     required
                     rows={6}
-                    className="w-full px-4 py-3 border border-gray-300 text-black rounded-lg focus:ring-2 focus:ring-[#40C49A] focus:border-transparent transition-all duration-200 resize-none"
+                    className="w-full px-4 py-3 border border-gray-300 text-black rounded-lg focus:ring-2 focus:ring-[#019090] focus:border-transparent transition-all duration-200 resize-none"
                     placeholder="Décrivez votre demande..."
                   />
                 </div>
@@ -376,7 +376,7 @@ export default function Contact() {
                   disabled={isSubmitting}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full bg-[#40C49A] text-white py-4 px-6 rounded-xl font-semibold hover:bg-[#40C49A]/90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  className="w-full bg-[#019090] text-white py-4 px-6 rounded-xl font-semibold hover:bg-[#019090]/90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
                   {isSubmitting ? (
                     <>
@@ -410,9 +410,9 @@ export default function Contact() {
                   <motion.a
                     href="mailto:contact@codeqr.fr"
                     whileHover={{ scale: 1.02 }}
-                    className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg hover:bg-[#40C49A]/5 transition-colors"
+                    className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg hover:bg-[#019090]/5 transition-colors"
                   >
-                    <div className="w-12 h-12 bg-[#40C49A]/10 rounded-lg flex items-center justify-center text-[#40C49A]">
+                    <div className="w-12 h-12 bg-[#019090]/10 rounded-lg flex items-center justify-center text-[#019090]">
                       <Mail className="w-6 h-6" />
                     </div>
                     <div>
@@ -424,9 +424,9 @@ export default function Contact() {
                   <motion.a
                     href="tel:+33123456789"
                     whileHover={{ scale: 1.02 }}
-                    className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg hover:bg-[#40C49A]/5 transition-colors"
+                    className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg hover:bg-[#019090]/5 transition-colors"
                   >
-                    <div className="w-12 h-12 bg-[#40C49A]/10 rounded-lg flex items-center justify-center text-[#40C49A]">
+                    <div className="w-12 h-12 bg-[#019090]/10 rounded-lg flex items-center justify-center text-[#019090]">
                       <Phone className="w-6 h-6" />
                     </div>
                     <div>
@@ -454,7 +454,7 @@ export default function Contact() {
                       key={index}
                       href={faq.link}
                       whileHover={{ x: 5 }}
-                      className="flex items-center gap-3 text-[#40C49A] hover:text-[#40C49A]/80 transition-colors group"
+                      className="flex items-center gap-3 text-[#019090] hover:text-[#019090]/80 transition-colors group"
                     >
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                       <span>{faq.question}</span>
@@ -469,9 +469,9 @@ export default function Contact() {
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
                 viewport={{ once: true }}
-                className="bg-[#40C49A]/5 border border-[#40C49A]/20 rounded-2xl p-8"
+                className="bg-[#019090]/5 border border-[#019090]/20 rounded-2xl p-8"
               >
-                <h3 className="text-2xl font-bold text-[#40C49A] mb-6 flex items-center gap-2">
+                <h3 className="text-2xl font-bold text-[#019090] mb-6 flex items-center gap-2">
                   <Clock className="w-6 h-6" />
                   Horaires d'ouverture
                 </h3>
@@ -526,7 +526,7 @@ export default function Contact() {
           >
             <div className="w-full h-96 bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl flex items-center justify-center">
               <div className="text-center">
-                <MapPin className="w-16 h-16 text-[#40C49A] mx-auto mb-4" />
+                <MapPin className="w-16 h-16 text-[#019090] mx-auto mb-4" />
                 <h3 className="text-xl font-semibold text-black mb-2">
                   CodeQR - Siège social
                 </h3>
@@ -541,7 +541,7 @@ export default function Contact() {
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="inline-flex items-center gap-2 bg-[#40C49A] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#40C49A]/90 transition-colors"
+                  className="inline-flex items-center gap-2 bg-[#019090] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#019090]/90 transition-colors"
                 >
                   <MapPin className="w-4 h-4" />
                   Voir sur Google Maps
@@ -553,7 +553,7 @@ export default function Contact() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-[#40C49A]">
+      <section className="py-20 bg-[#019090]">
         <div className="container mx-auto px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -572,7 +572,7 @@ export default function Contact() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.a
                 href="/produits"
-                className="px-8 py-4 bg-white text-[#40C49A] rounded-full font-semibold hover:bg-gray-100 transition-colors text-center flex justify-center items-center gap-2  md:inline-flex"
+                className="px-8 py-4 bg-white text-[#019090] rounded-full font-semibold hover:bg-gray-100 transition-colors text-center flex justify-center items-center gap-2  md:inline-flex"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -581,7 +581,7 @@ export default function Contact() {
               </motion.a>
               <motion.a
                 href="/achat-en-gros"
-                className="px-8 py-4 border-2 border-white text-white rounded-full font-semibold hover:bg-white hover:text-[#40C49A] transition-colors"
+                className="px-8 py-4 border-2 border-white text-white rounded-full font-semibold hover:bg-white hover:text-[#019090] transition-colors"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >

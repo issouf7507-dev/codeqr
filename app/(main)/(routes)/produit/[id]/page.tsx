@@ -159,7 +159,7 @@ export default function ProductDetail({
             </p>
             <a
               href="/produits"
-              className="inline-flex items-center gap-2 bg-[#40C49A] text-white px-6 py-3 rounded-xl font-semibold hover:bg-[#40C49A]/90 transition-colors"
+              className="inline-flex items-center gap-2 bg-[#019090] text-white px-6 py-3 rounded-xl font-semibold hover:bg-[#019090]/90 transition-colors"
             >
               Voir nos produits
               <ArrowRight className="w-4 h-4" />
@@ -228,7 +228,7 @@ export default function ProductDetail({
                     onClick={() => setActiveImage(index)}
                     className={`aspect-square rounded-lg border-2 overflow-hidden ${
                       activeImage === index
-                        ? "border-[#40C49A]"
+                        ? "border-[#019090]"
                         : "border-gray-200 hover:border-gray-300"
                     }`}
                   >
@@ -275,7 +275,7 @@ export default function ProductDetail({
               <div className="space-y-2">
                 {product.features.map((feature: string, index: number) => (
                   <div key={index} className="flex items-center gap-3">
-                    <Check className="w-5 h-5 text-[#40C49A]" />
+                    <Check className="w-5 h-5 text-[#019090]" />
                     <span className="text-black/80">{feature}</span>
                   </div>
                 ))}
@@ -293,9 +293,9 @@ export default function ProductDetail({
                       whileHover={{ scale: 1.02 }}
                       className={`relative border-2 rounded-xl p-4 cursor-pointer transition-all ${
                         selectedPackage === pkg.id
-                          ? "border-[#40C49A] bg-[#40C49A]/5"
+                          ? "border-[#019090] bg-[#019090]/5"
                           : "border-gray-200 hover:border-gray-300"
-                      } ${pkg.popular ? "ring-2 ring-[#40C49A]/20" : ""}`}
+                      } ${pkg.popular ? "ring-2 ring-[#019090]/20" : ""}`}
                       onClick={() => setSelectedPackage(pkg.id)}
                     >
                       {pkg.badge && (
@@ -311,7 +311,7 @@ export default function ProductDetail({
                           <div
                             className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
                               selectedPackage === pkg.id
-                                ? "border-[#40C49A] bg-[#40C49A]"
+                                ? "border-[#019090] bg-[#019090]"
                                 : "border-gray-300"
                             }`}
                           >
@@ -324,14 +324,14 @@ export default function ProductDetail({
                               {pkg.name}
                             </div>
                             {pkg.savings && (
-                              <div className="text-sm text-[#40C49A]">
+                              <div className="text-sm text-[#019090]">
                                 Économisez {pkg.savings}
                               </div>
                             )}
                           </div>
                         </div>
                         <div className="text-right">
-                          <div className="text-2xl font-bold text-[#40C49A]">
+                          <div className="text-2xl font-bold text-[#019090]">
                             {pkg.price} € HT
                           </div>
                           {pkg.originalPrice && (
@@ -350,7 +350,7 @@ export default function ProductDetail({
                                 key={index}
                                 className="text-sm text-black/70 flex items-center gap-2"
                               >
-                                <Plus className="w-3 h-3 text-[#40C49A]" />
+                                <Plus className="w-3 h-3 text-[#019090]" />
                                 {feature}
                               </div>
                             )
@@ -414,21 +414,21 @@ export default function ProductDetail({
               {/* Guarantees */}
               <div className="grid grid-cols-3 gap-4 pt-6 border-t border-gray-200">
                 <div className="text-center">
-                  <Truck className="w-8 h-8 text-[#40C49A] mx-auto mb-2" />
+                  <Truck className="w-8 h-8 text-[#019090] mx-auto mb-2" />
                   <div className="text-sm font-semibold text-black">
                     Livraison gratuite
                   </div>
                   <div className="text-xs text-black/60">3-5 jours ouvrés</div>
                 </div>
                 <div className="text-center">
-                  <Shield className="w-8 h-8 text-[#40C49A] mx-auto mb-2" />
+                  <Shield className="w-8 h-8 text-[#019090] mx-auto mb-2" />
                   <div className="text-sm font-semibold text-black">
                     Garantie qualité
                   </div>
                   <div className="text-xs text-black/60">100% satisfait</div>
                 </div>
                 <div className="text-center">
-                  <RotateCcw className="w-8 h-8 text-[#40C49A] mx-auto mb-2" />
+                  <RotateCcw className="w-8 h-8 text-[#019090] mx-auto mb-2" />
                   <div className="text-sm font-semibold text-black">
                     Retour gratuit
                   </div>

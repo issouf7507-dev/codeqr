@@ -47,7 +47,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-[#40C49A] text-white relative overflow-hidden">
+    <footer className="bg-[#019090] text-white relative overflow-hidden">
       {/* Decorative background elements */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-10 left-10 w-32 h-32 border border-white/20 rounded-full"></div>
@@ -69,7 +69,7 @@ export default function Footer() {
           >
             <div className="flex items-center gap-2 mb-6">
               <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
-                <QrCode className="w-6 h-6 text-[#40C49A]" />
+                <QrCode className="w-6 h-6 text-[#019090]" />
               </div>
               <h3 className="text-2xl font-bold">CodeQR</h3>
             </div>
@@ -158,7 +158,7 @@ export default function Footer() {
                 className="flex-1 px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/30 text-sm"
               />
               <motion.button
-                className="px-4 py-2 bg-white text-[#40C49A] rounded-lg font-medium hover:bg-white/90 transition-colors text-sm"
+                className="px-4 py-2 bg-white text-[#019090] rounded-lg font-medium hover:bg-white/90 transition-colors text-sm"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >

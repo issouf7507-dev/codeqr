@@ -24,6 +24,10 @@ export async function GET(request: NextRequest) {
       whereClause.isActivated = true;
     } else if (status === "inactive") {
       whereClause.isActivated = false;
+    } else if (status === "acheted") {
+      whereClause.order = {
+        status: "PAID",
+      };
     }
     // Pour "all", pas de filtre supplémentaire
 
@@ -54,11 +58,15 @@ export async function GET(request: NextRequest) {
     const inactiveCodes = await prisma.qRCode.count({
       where: { isActivated: false },
     });
+    const achetedCodes = await prisma.qRCode.count({
+      where: { order: { status: "PAID" } },
+    });
 
     const stats = {
       totalCodes,
       activeCodes,
       inactiveCodes,
+      achetedCodes,
       byMonth: await prisma.qRCode.groupBy({
         by: ["month", "year"],
         _count: {
@@ -70,6 +78,8 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({
       qrCodes,
+      orders: qrCodes.map((qr) => qr.order),
+      // qrCodes
       pagination: {
         page,
         limit,

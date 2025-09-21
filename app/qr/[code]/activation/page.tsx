@@ -251,7 +251,7 @@ export default function QRCodeActivationPage({
       <div className="min-h-screen bg-white">
         <Header />
         <div className="pt-32 flex items-center justify-center min-h-[400px]">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#40C49A]"></div>
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#019090]"></div>
         </div>
         <Footer />
       </div>
@@ -269,8 +269,8 @@ export default function QRCodeActivationPage({
             transition={{ duration: 0.5 }}
             className="bg-gray-50 rounded-2xl border border-gray-200 p-8 max-w-md w-full mx-4 text-center"
           >
-            <div className="w-16 h-16 bg-[#40C49A]/10 border-2 border-[#40C49A] rounded-full flex items-center justify-center mx-auto mb-6">
-              <Check className="w-8 h-8 text-[#40C49A]" />
+            <div className="w-16 h-16 bg-[#019090]/10 border-2 border-[#019090] rounded-full flex items-center justify-center mx-auto mb-6">
+              <Check className="w-8 h-8 text-[#019090]" />
             </div>
             <h1 className="text-2xl font-bold text-black mb-2">
               Code QR déjà activé
@@ -280,8 +280,8 @@ export default function QRCodeActivationPage({
               Vous allez être redirigé vers votre page Google Avis
             </p>
             <div className="flex items-center justify-center mt-6">
-              <Loader2 className="w-6 h-6 animate-spin text-[#40C49A] mr-2" />
-              <span className="text-[#40C49A] text-sm">
+              <Loader2 className="w-6 h-6 animate-spin text-[#019090] mr-2" />
+              <span className="text-[#019090] text-sm">
                 Redirection en cours...
               </span>
             </div>
@@ -316,7 +316,7 @@ export default function QRCodeActivationPage({
               href="/produits"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center gap-2 bg-[#40C49A] text-white px-6 py-3 rounded-xl font-semibold hover:bg-[#40C49A]/90 transition-colors"
+              className="inline-flex items-center gap-2 bg-[#019090] text-white px-6 py-3 rounded-xl font-semibold hover:bg-[#019090]/90 transition-colors"
             >
               Voir nos produits
               <ArrowRight className="w-4 h-4" />
@@ -343,15 +343,15 @@ export default function QRCodeActivationPage({
             {/* Header Section */}
             <div className="text-center mb-12">
               <div className="flex justify-center mb-6">
-                <div className="border border-[#40C49A] text-[#40C49A] py-2 px-4 rounded-lg text-sm font-medium">
+                <div className="border border-[#019090] text-[#019090] py-2 px-4 rounded-lg text-sm font-medium">
                   Activation QR Code
                 </div>
               </div>
-              <div className="w-20 h-20 bg-[#40C49A]/10 border-2 border-[#40C49A] rounded-full flex items-center justify-center mx-auto mb-6">
-                <QrCode className="w-10 h-10 text-[#40C49A]" />
+              <div className="w-20 h-20 bg-[#019090]/10 border-2 border-[#019090] rounded-full flex items-center justify-center mx-auto mb-6">
+                <QrCode className="w-10 h-10 text-[#019090]" />
               </div>
               <h1 className="text-3xl md:text-4xl font-bold text-black mb-4">
-                Activer votre <span className="text-[#40C49A]">Code QR</span>
+                Activer votre <span className="text-[#019090]">Code QR</span>
               </h1>
               <p className="text-xl text-black/70 mb-2">
                 Configurez votre plaque pour commencer à collecter des avis
@@ -372,7 +372,7 @@ export default function QRCodeActivationPage({
               <form onSubmit={handleActivation} className="space-y-6">
                 <div>
                   <label className="text-sm font-medium text-black mb-2 flex items-center gap-2">
-                    <Mail className="w-4 h-4 text-[#40C49A]" />
+                    <Mail className="w-4 h-4 text-[#019090]" />
                     Email
                   </label>
                   <div className="relative">
@@ -380,13 +380,13 @@ export default function QRCodeActivationPage({
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg text-black focus:ring-2 focus:ring-[#40C49A] focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg text-black focus:ring-2 focus:ring-[#019090] focus:border-transparent"
                       placeholder="votre@email.com"
                       required
                     />
                     {isCheckingUser && (
                       <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                        <Loader2 className="w-4 h-4 animate-spin text-[#40C49A]" />
+                        <Loader2 className="w-4 h-4 animate-spin text-[#019090]" />
                       </div>
                     )}
                   </div>
@@ -394,7 +394,7 @@ export default function QRCodeActivationPage({
                     <div
                       className={`mt-2 p-3 rounded-lg border ${
                         userExists
-                          ? "bg-[#40C49A]/5 border-[#40C49A]/20 text-[#40C49A]"
+                          ? "bg-[#019090]/5 border-[#019090]/20 text-[#019090]"
                           : "bg-red-50 border-red-200 text-red-600"
                       }`}
                     >
@@ -416,14 +416,14 @@ export default function QRCodeActivationPage({
 
                 <div>
                   <label className=" text-sm font-medium text-black mb-2 flex items-center gap-2">
-                    <Lock className="w-4 h-4 text-[#40C49A]" />
+                    <Lock className="w-4 h-4 text-[#019090]" />
                     Mot de passe
                   </label>
                   <input
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className={`w-full px-4 py-3 border rounded-lg text-black focus:ring-2 focus:ring-[#40C49A] focus:border-transparent ${
+                    className={`w-full px-4 py-3 border rounded-lg text-black focus:ring-2 focus:ring-[#019090] focus:border-transparent ${
                       passwordError ? "border-red-300" : "border-gray-300"
                     }`}
                     placeholder="Votre mot de passe"
@@ -444,14 +444,14 @@ export default function QRCodeActivationPage({
 
                 <div>
                   <label className=" text-sm font-medium text-black mb-2 flex items-center gap-2">
-                    <Code className="w-4 h-4 text-[#40C49A]" />
+                    <Code className="w-4 h-4 text-[#019090]" />
                     Code d'activation
                   </label>
                   <input
                     type="text"
                     value={codeActivation}
                     onChange={(e) => setCodeActivation(e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg text-black focus:ring-2 focus:ring-[#40C49A] focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg text-black focus:ring-2 focus:ring-[#019090] focus:border-transparent"
                     placeholder="Code d'activation"
                     // disabled
                     required
@@ -466,14 +466,14 @@ export default function QRCodeActivationPage({
 
                 <div>
                   <label className=" text-sm font-medium text-black mb-2 flex items-center gap-2">
-                    <Link2 className="w-4 h-4 text-[#40C49A]" />
+                    <Link2 className="w-4 h-4 text-[#019090]" />
                     Lien Google Avis
                   </label>
                   <input
                     type="url"
                     value={googleReviewUrl}
                     onChange={(e) => setGoogleReviewUrl(e.target.value)}
-                    className={`w-full px-4 py-3 border text-black rounded-lg focus:ring-2 focus:ring-[#40C49A] focus:border-transparent ${
+                    className={`w-full px-4 py-3 border text-black rounded-lg focus:ring-2 focus:ring-[#019090] focus:border-transparent ${
                       urlError ? "border-red-300" : "border-gray-300"
                     }`}
                     placeholder="https://g.page/r/..."
@@ -516,7 +516,7 @@ export default function QRCodeActivationPage({
                         )}`
                       )
                     }
-                    className="w-full bg-[#40C49A] text-white py-4 px-4 rounded-xl font-semibold hover:bg-[#40C49A]/90 transition-all duration-200 flex items-center justify-center gap-2"
+                    className="w-full bg-[#019090] text-white py-4 px-4 rounded-xl font-semibold hover:bg-[#019090]/90 transition-all duration-200 flex items-center justify-center gap-2"
                   >
                     <User className="w-4 h-4" />
                     Créer un compte
@@ -534,7 +534,7 @@ export default function QRCodeActivationPage({
                       !password ||
                       !googleReviewUrl
                     }
-                    className="w-full bg-[#40C49A] text-white py-4 px-4 rounded-xl font-semibold hover:bg-[#40C49A]/90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                    className="w-full bg-[#019090] text-white py-4 px-4 rounded-xl font-semibold hover:bg-[#019090]/90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   >
                     {isSubmitting ? (
                       <>
@@ -557,9 +557,9 @@ export default function QRCodeActivationPage({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="mt-8 p-6 bg-[#40C49A]/5 border border-[#40C49A]/20 rounded-2xl"
+              className="mt-8 p-6 bg-[#019090]/5 border border-[#019090]/20 rounded-2xl"
             >
-              <h3 className="font-semibold text-[#40C49A] mb-4 text-center flex items-center justify-center gap-2">
+              <h3 className="font-semibold text-[#019090] mb-4 text-center flex items-center justify-center gap-2">
                 <QrCode className="w-5 h-5" />
                 Comment ça marche ?
               </h3>
@@ -573,7 +573,7 @@ export default function QRCodeActivationPage({
                   "Les visiteurs seront redirigés vers vos avis",
                 ].map((step, index) => (
                   <div key={index} className="flex items-start gap-3">
-                    <div className="w-6 h-6 bg-[#40C49A] text-white rounded-full flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">
+                    <div className="w-6 h-6 bg-[#019090] text-white rounded-full flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">
                       {index + 1}
                     </div>
                     <p className="text-sm text-black/80">{step}</p>

@@ -54,7 +54,7 @@ export async function sendPurchaseConfirmationEmail(
   try {
     // Générer le QR code du lien d'activation
     const activationUrl = `${
-      process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
+      process.env.NEXT_PUBLIC_BASE_URL || "https://gdigitalgroup.com"
     }/qr/${code}/activation`;
 
     const mailOptions = {
@@ -128,7 +128,7 @@ export async function sendPurchaseConfirmationEmail(
             
             <div style="text-align: center;">
               <a href="${
-                process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
+                process.env.NEXT_PUBLIC_BASE_URL || "https://gdigitalgroup.com"
               }/register" class="button">Créer mon compte</a>
               <br>
               <a href="${activationUrl}" class="button">Activer ma plaque</a>

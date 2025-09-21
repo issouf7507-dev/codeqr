@@ -143,13 +143,13 @@ export default function APropos() {
             className="text-center max-w-4xl mx-auto"
           >
             <div className="flex justify-center mb-6">
-              <div className="border border-[#40C49A] text-[#40C49A] py-2 px-4 rounded-lg text-sm font-medium">
+              <div className="border border-[#019090] text-[#019090] py-2 px-4 rounded-lg text-sm font-medium">
                 À Propos de CodeQR
               </div>
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-black mb-6">
               Révolutionner la{" "}
-              <span className="text-[#40C49A]">collecte d'avis</span> pour tous
+              <span className="text-[#019090]">collecte d'avis</span> pour tous
             </h1>
             <p className="text-xl text-black/70 mb-8 leading-relaxed">
               CodeQR est née de la volonté de simplifier la collecte d'avis
@@ -159,7 +159,7 @@ export default function APropos() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.a
                 href="#mission"
-                className="px-8 py-4 bg-[#40C49A] text-white rounded-full font-semibold hover:bg-[#40C49A]/90 transition-colors text-center flex justify-center items-center gap-2  md:inline-flex"
+                className="px-8 py-4 bg-[#019090] text-white rounded-full font-semibold hover:bg-[#019090]/90 transition-colors text-center flex justify-center items-center gap-2  md:inline-flex"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -168,7 +168,7 @@ export default function APropos() {
               </motion.a>
               <motion.a
                 href="#equipe"
-                className="px-8 py-4 border-2 border-[#40C49A] text-[#40C49A] rounded-full font-semibold hover:bg-[#40C49A] hover:text-white transition-colors"
+                className="px-8 py-4 border-2 border-[#019090] text-[#019090] rounded-full font-semibold hover:bg-[#019090] hover:text-white transition-colors"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -190,9 +190,9 @@ export default function APropos() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="text-center p-6 bg-gray-50 rounded-xl border border-gray-200 hover:border-[#40C49A]/50 transition-colors"
+                className="text-center p-6 bg-gray-50 rounded-xl border border-gray-200 hover:border-[#019090]/50 transition-colors"
               >
-                <div className="w-16 h-16 bg-[#40C49A]/10 rounded-full flex items-center justify-center mx-auto mb-4 text-[#40C49A]">
+                <div className="w-16 h-16 bg-[#019090]/10 rounded-full flex items-center justify-center mx-auto mb-4 text-[#019090]">
                   {stat.icon}
                 </div>
                 <div className="text-3xl font-bold text-black mb-2">
@@ -236,7 +236,7 @@ export default function APropos() {
                 viewport={{ once: true }}
                 className="text-center p-8 bg-white rounded-xl border border-gray-200 hover:shadow-lg transition-shadow"
               >
-                <div className="w-20 h-20 bg-[#40C49A]/10 rounded-full flex items-center justify-center mx-auto mb-6 text-[#40C49A]">
+                <div className="w-20 h-20 bg-[#019090]/10 rounded-full flex items-center justify-center mx-auto mb-6 text-[#019090]">
                   {value.icon}
                 </div>
                 <h3 className="text-2xl font-bold text-black mb-4">
@@ -272,7 +272,7 @@ export default function APropos() {
           <div className="max-w-4xl mx-auto">
             <div className="relative">
               {/* Timeline Line */}
-              <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-[#40C49A]/20 hidden md:block"></div>
+              <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-[#019090]/20 hidden md:block"></div>
 
               <div className="space-y-12">
                 {timeline.map((event, index) => (
@@ -285,7 +285,7 @@ export default function APropos() {
                     className="relative flex gap-8 items-start"
                   >
                     {/* Timeline Dot */}
-                    <div className="w-16 h-16 bg-[#40C49A] rounded-full flex items-center justify-center text-white flex-shrink-0 relative z-10">
+                    <div className="w-16 h-16 bg-[#019090] rounded-full flex items-center justify-center text-white flex-shrink-0 relative z-10">
                       {event.icon}
                     </div>
 
@@ -295,7 +295,7 @@ export default function APropos() {
                         <h3 className="text-xl font-bold text-black">
                           {event.title}
                         </h3>
-                        <span className="bg-[#40C49A] text-white px-3 py-1 rounded-full text-sm font-medium">
+                        <span className="bg-[#019090] text-white px-3 py-1 rounded-full text-sm font-medium">
                           {event.year}
                         </span>
                       </div>
@@ -339,13 +339,13 @@ export default function APropos() {
                 viewport={{ once: true }}
                 className="text-center p-6 bg-white rounded-xl border border-gray-200 hover:shadow-lg transition-shadow"
               >
-                <div className="w-20 h-20 bg-[#40C49A] rounded-full flex items-center justify-center mx-auto mb-4 text-white font-bold text-xl">
+                <div className="w-20 h-20 bg-[#019090] rounded-full flex items-center justify-center mx-auto mb-4 text-white font-bold text-xl">
                   {member.avatar}
                 </div>
                 <h3 className="text-xl font-bold text-black mb-1">
                   {member.name}
                 </h3>
-                <div className="text-[#40C49A] font-semibold mb-4">
+                <div className="text-[#019090] font-semibold mb-4">
                   {member.role}
                 </div>
                 <p className="text-black/70 text-sm leading-relaxed">
@@ -386,7 +386,7 @@ export default function APropos() {
                     "Accompagner nos clients dans leur réussite",
                   ].map((mission, index) => (
                     <div key={index} className="flex items-center gap-3">
-                      <CheckCircle className="w-5 h-5 text-[#40C49A]" />
+                      <CheckCircle className="w-5 h-5 text-[#019090]" />
                       <span className="text-black/80">{mission}</span>
                     </div>
                   ))}
@@ -407,8 +407,8 @@ export default function APropos() {
                   />
                 </motion.div>
                 {/* Decorative elements */}
-                <div className="absolute -top-4 -right-4 w-8 h-8 bg-[#40C49A]/20 rounded-full"></div>
-                <div className="absolute -bottom-4 -left-4 w-12 h-12 bg-[#40C49A]/10 rounded-full"></div>
+                <div className="absolute -top-4 -right-4 w-8 h-8 bg-[#019090]/20 rounded-full"></div>
+                <div className="absolute -bottom-4 -left-4 w-12 h-12 bg-[#019090]/10 rounded-full"></div>
               </div>
             </div>
           </motion.div>
@@ -441,7 +441,7 @@ export default function APropos() {
               viewport={{ once: true }}
               className="text-center p-6 bg-white rounded-xl border border-gray-200"
             >
-              <div className="w-16 h-16 bg-[#40C49A]/10 rounded-full flex items-center justify-center mx-auto mb-4 text-[#40C49A]">
+              <div className="w-16 h-16 bg-[#019090]/10 rounded-full flex items-center justify-center mx-auto mb-4 text-[#019090]">
                 <Mail className="w-8 h-8" />
               </div>
               <h3 className="text-lg font-semibold text-black mb-2">Email</h3>
@@ -455,7 +455,7 @@ export default function APropos() {
               viewport={{ once: true }}
               className="text-center p-6 bg-white rounded-xl border border-gray-200"
             >
-              <div className="w-16 h-16 bg-[#40C49A]/10 rounded-full flex items-center justify-center mx-auto mb-4 text-[#40C49A]">
+              <div className="w-16 h-16 bg-[#019090]/10 rounded-full flex items-center justify-center mx-auto mb-4 text-[#019090]">
                 <Phone className="w-8 h-8" />
               </div>
               <h3 className="text-lg font-semibold text-black mb-2">
@@ -471,7 +471,7 @@ export default function APropos() {
               viewport={{ once: true }}
               className="text-center p-6 bg-white rounded-xl border border-gray-200"
             >
-              <div className="w-16 h-16 bg-[#40C49A]/10 rounded-full flex items-center justify-center mx-auto mb-4 text-[#40C49A]">
+              <div className="w-16 h-16 bg-[#019090]/10 rounded-full flex items-center justify-center mx-auto mb-4 text-[#019090]">
                 <MapPin className="w-8 h-8" />
               </div>
               <h3 className="text-lg font-semibold text-black mb-2">Adresse</h3>
@@ -482,7 +482,7 @@ export default function APropos() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-[#40C49A]">
+      <section className="py-20 bg-[#019090]">
         <div className="container mx-auto px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -501,7 +501,7 @@ export default function APropos() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.a
                 href="/produits"
-                className="px-8 py-4 bg-white text-[#40C49A] rounded-full font-semibold hover:bg-gray-100 transition-colors text-center flex justify-center items-center gap-2  md:inline-flex"
+                className="px-8 py-4 bg-white text-[#019090] rounded-full font-semibold hover:bg-gray-100 transition-colors text-center flex justify-center items-center gap-2  md:inline-flex"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -510,7 +510,7 @@ export default function APropos() {
               </motion.a>
               <motion.a
                 href="/achat-en-gros"
-                className="px-8 py-4 border-2 border-white text-white rounded-full font-semibold hover:bg-white hover:text-[#40C49A] transition-colors"
+                className="px-8 py-4 border-2 border-white text-white rounded-full font-semibold hover:bg-white hover:text-[#019090] transition-colors"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >

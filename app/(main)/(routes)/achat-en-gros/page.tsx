@@ -192,12 +192,12 @@ export default function AchatEnGros() {
             className="text-center max-w-4xl mx-auto"
           >
             <div className="flex justify-center mb-6">
-              <div className="border border-[#40C49A] text-[#40C49A] py-2 px-4 rounded-lg text-sm font-medium">
+              <div className="border border-[#019090] text-[#019090] py-2 px-4 rounded-lg text-sm font-medium">
                 Achat en Gros & Personnalisation
               </div>
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-black mb-6">
-              Solutions <span className="text-[#40C49A]">en volume</span> pour
+              Solutions <span className="text-[#019090]">en volume</span> pour
               entreprises
             </h1>
             <p className="text-xl text-black/70 mb-8 leading-relaxed">
@@ -208,7 +208,7 @@ export default function AchatEnGros() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.a
                 href="#pricing"
-                className="px-8 py-4 bg-[#40C49A] text-white rounded-full font-semibold hover:bg-[#40C49A]/90 transition-colors text-center flex justify-center items-center gap-2  md:inline-flex"
+                className="px-8 py-4 bg-[#019090] text-white rounded-full font-semibold hover:bg-[#019090]/90 transition-colors text-center flex justify-center items-center gap-2  md:inline-flex"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -217,7 +217,7 @@ export default function AchatEnGros() {
               </motion.a>
               <motion.a
                 href="#contact"
-                className="px-8 py-4 border-2 text-center border-[#40C49A] text-[#40C49A] rounded-full font-semibold hover:bg-[#40C49A] hover:text-white transition-colors"
+                className="px-8 py-4 border-2 text-center border-[#019090] text-[#019090] rounded-full font-semibold hover:bg-[#019090] hover:text-white transition-colors"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -254,9 +254,9 @@ export default function AchatEnGros() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="text-center p-6 bg-gray-50 rounded-xl border border-gray-200 hover:border-[#40C49A]/50 transition-colors"
+                className="text-center p-6 bg-gray-50 rounded-xl border border-gray-200 hover:border-[#019090]/50 transition-colors"
               >
-                <div className="w-16 h-16 bg-[#40C49A]/10 rounded-full flex items-center justify-center mx-auto mb-4 text-[#40C49A]">
+                <div className="w-16 h-16 bg-[#019090]/10 rounded-full flex items-center justify-center mx-auto mb-4 text-[#019090]">
                   {benefit.icon}
                 </div>
                 <h3 className="text-xl font-semibold text-black mb-2">
@@ -297,13 +297,13 @@ export default function AchatEnGros() {
                 viewport={{ once: true }}
                 className={`relative bg-white rounded-2xl p-6 border-2 hover:shadow-lg transition-all ${
                   tier.popular
-                    ? "border-[#40C49A] shadow-lg"
-                    : "border-gray-200 hover:border-[#40C49A]/50"
+                    ? "border-[#019090] shadow-lg"
+                    : "border-gray-200 hover:border-[#019090]/50"
                 }`}
               >
                 {tier.popular && (
                   <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                    <span className="bg-[#40C49A] text-white px-4 py-2 rounded-full text-sm font-medium">
+                    <span className="bg-[#019090] text-white px-4 py-2 rounded-full text-sm font-medium">
                       Le plus populaire
                     </span>
                   </div>
@@ -314,7 +314,7 @@ export default function AchatEnGros() {
                     {tier.quantity} unités
                   </h3>
                   <div className="mb-4">
-                    <span className="text-sm text-[#40C49A] font-semibold">
+                    <span className="text-sm text-[#019090] font-semibold">
                       Économies {tier.savings}
                     </span>
                   </div>
@@ -324,14 +324,14 @@ export default function AchatEnGros() {
                       <div className="text-sm text-black/70">
                         Plaque QR Code
                       </div>
-                      <div className="text-2xl font-bold text-[#40C49A]">
+                      <div className="text-2xl font-bold text-[#019090]">
                         {tier.plaque}€
                       </div>
                       <div className="text-xs text-black/60">par unité</div>
                     </div>
                     <div className="p-3 bg-gray-50 rounded-lg">
                       <div className="text-sm text-black/70">Carte QR Code</div>
-                      <div className="text-2xl font-bold text-[#40C49A]">
+                      <div className="text-2xl font-bold text-[#019090]">
                         {tier.carte}€
                       </div>
                       <div className="text-xs text-black/60">par unité</div>
@@ -344,8 +344,8 @@ export default function AchatEnGros() {
                     whileTap={{ scale: 0.98 }}
                     className={`w-full py-3 px-4 rounded-xl font-semibold transition-all duration-200 inline-block text-center  ${
                       tier.popular
-                        ? "bg-[#40C49A] text-white hover:bg-[#40C49A]/90"
-                        : "bg-gray-100 text-black hover:bg-[#40C49A] hover:text-white"
+                        ? "bg-[#019090] text-white hover:bg-[#019090]/90"
+                        : "bg-gray-100 text-black hover:bg-[#019090] hover:text-white"
                     }`}
                   >
                     Demander un devis
@@ -383,9 +383,9 @@ export default function AchatEnGros() {
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="flex gap-6 p-6 bg-gray-50 rounded-xl border border-gray-200 hover:border-[#40C49A]/50 transition-colors"
+                className="flex gap-6 p-6 bg-gray-50 rounded-xl border border-gray-200 hover:border-[#019090]/50 transition-colors"
               >
-                <div className="w-16 h-16 bg-[#40C49A]/10 rounded-xl flex items-center justify-center text-[#40C49A] flex-shrink-0">
+                <div className="w-16 h-16 bg-[#019090]/10 rounded-xl flex items-center justify-center text-[#019090] flex-shrink-0">
                   {option.icon}
                 </div>
                 <div className="flex-1">
@@ -394,8 +394,8 @@ export default function AchatEnGros() {
                   </h3>
                   <p className="text-black/70 mb-3">{option.description}</p>
                   <div className="flex items-center gap-2">
-                    <Check className="w-4 h-4 text-[#40C49A]" />
-                    <span className="text-sm text-[#40C49A] font-medium">
+                    <Check className="w-4 h-4 text-[#019090]" />
+                    <span className="text-sm text-[#019090] font-medium">
                       {option.included}
                     </span>
                   </div>
@@ -455,7 +455,7 @@ export default function AchatEnGros() {
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-sm text-[#40C49A] font-semibold">
+                    <div className="text-sm text-[#019090] font-semibold">
                       {testimonial.volume}
                     </div>
                   </div>
@@ -492,8 +492,8 @@ export default function AchatEnGros() {
                 transition={{ duration: 0.5 }}
                 className="text-center py-16"
               >
-                <div className="w-20 h-20 bg-[#40C49A]/10 border-2 border-[#40C49A] rounded-full flex items-center justify-center mx-auto mb-6">
-                  <CheckCircle className="w-10 h-10 text-[#40C49A]" />
+                <div className="w-20 h-20 bg-[#019090]/10 border-2 border-[#019090] rounded-full flex items-center justify-center mx-auto mb-6">
+                  <CheckCircle className="w-10 h-10 text-[#019090]" />
                 </div>
                 <h3 className="text-2xl font-bold text-black mb-4">
                   Demande envoyée avec succès !
@@ -506,7 +506,7 @@ export default function AchatEnGros() {
                   onClick={() => setIsSubmitted(false)}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-6 py-3 border-2 border-[#40C49A] text-[#40C49A] rounded-xl font-semibold hover:bg-[#40C49A] hover:text-white transition-colors"
+                  className="px-6 py-3 border-2 border-[#019090] text-[#019090] rounded-xl font-semibold hover:bg-[#019090] hover:text-white transition-colors"
                 >
                   Faire une nouvelle demande
                 </motion.button>
@@ -523,7 +523,7 @@ export default function AchatEnGros() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <label className=" text-sm font-medium text-black mb-2 flex items-center gap-2">
-                        <Building className="w-4 h-4 text-[#40C49A]" />
+                        <Building className="w-4 h-4 text-[#019090]" />
                         Nom de l'entreprise *
                       </label>
                       <input
@@ -532,14 +532,14 @@ export default function AchatEnGros() {
                         value={formData.company}
                         onChange={handleInputChange}
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg text-black focus:ring-2 focus:ring-[#40C49A] focus:border-transparent"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg text-black focus:ring-2 focus:ring-[#019090] focus:border-transparent"
                         placeholder="Votre entreprise"
                       />
                     </div>
 
                     <div>
                       <label className=" text-sm font-medium text-black mb-2 flex items-center gap-2">
-                        <Users className="w-4 h-4 text-[#40C49A]" />
+                        <Users className="w-4 h-4 text-[#019090]" />
                         Nom du contact *
                       </label>
                       <input
@@ -548,14 +548,14 @@ export default function AchatEnGros() {
                         value={formData.name}
                         onChange={handleInputChange}
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg text-black focus:ring-2 focus:ring-[#40C49A] focus:border-transparent"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg text-black focus:ring-2 focus:ring-[#019090] focus:border-transparent"
                         placeholder="Votre nom"
                       />
                     </div>
 
                     <div>
                       <label className=" text-sm font-medium text-black mb-2 flex items-center gap-2">
-                        <Mail className="w-4 h-4 text-[#40C49A]" />
+                        <Mail className="w-4 h-4 text-[#019090]" />
                         Email *
                       </label>
                       <input
@@ -564,14 +564,14 @@ export default function AchatEnGros() {
                         value={formData.email}
                         onChange={handleInputChange}
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg text-black focus:ring-2 focus:ring-[#40C49A] focus:border-transparent"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg text-black focus:ring-2 focus:ring-[#019090] focus:border-transparent"
                         placeholder="contact@entreprise.com"
                       />
                     </div>
 
                     <div>
                       <label className=" text-sm font-medium text-black mb-2 flex items-center gap-2">
-                        <Phone className="w-4 h-4 text-[#40C49A]" />
+                        <Phone className="w-4 h-4 text-[#019090]" />
                         Téléphone *
                       </label>
                       <input
@@ -580,14 +580,14 @@ export default function AchatEnGros() {
                         value={formData.phone}
                         onChange={handleInputChange}
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg text-black focus:ring-2 focus:ring-[#40C49A] focus:border-transparent"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg text-black focus:ring-2 focus:ring-[#019090] focus:border-transparent"
                         placeholder="+33 1 23 45 67 89"
                       />
                     </div>
 
                     <div>
                       <label className=" text-sm font-medium text-black mb-2 flex items-center gap-2">
-                        <Calculator className="w-4 h-4 text-[#40C49A]" />
+                        <Calculator className="w-4 h-4 text-[#019090]" />
                         Quantité souhaitée *
                       </label>
                       <input
@@ -596,21 +596,21 @@ export default function AchatEnGros() {
                         value={formData.quantity}
                         onChange={handleInputChange}
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg text-black focus:ring-2 focus:ring-[#40C49A] focus:border-transparent"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg text-black focus:ring-2 focus:ring-[#019090] focus:border-transparent"
                         placeholder="Ex: 100 unités"
                       />
                     </div>
 
                     <div>
                       <label className=" text-sm font-medium text-black mb-2 flex items-center gap-2">
-                        <Package className="w-4 h-4 text-[#40C49A]" />
+                        <Package className="w-4 h-4 text-[#019090]" />
                         Type de produit *
                       </label>
                       <select
                         name="productType"
                         value={formData.productType}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg text-black focus:ring-2 focus:ring-[#40C49A] focus:border-transparent"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg text-black focus:ring-2 focus:ring-[#019090] focus:border-transparent"
                       >
                         <option value="plaque">Plaques QR Code</option>
                         <option value="carte">Cartes QR Code</option>
@@ -624,7 +624,7 @@ export default function AchatEnGros() {
 
                   <div>
                     <label className=" text-sm font-medium text-black mb-2 flex items-center gap-2">
-                      <Palette className="w-4 h-4 text-[#40C49A]" />
+                      <Palette className="w-4 h-4 text-[#019090]" />
                       Besoins de personnalisation
                     </label>
                     <input
@@ -632,14 +632,14 @@ export default function AchatEnGros() {
                       name="customization"
                       value={formData.customization}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg text-black focus:ring-2 focus:ring-[#40C49A] focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg text-black focus:ring-2 focus:ring-[#019090] focus:border-transparent"
                       placeholder="Ex: Logo entreprise, couleurs spécifiques, format particulier..."
                     />
                   </div>
 
                   <div>
                     <label className=" text-sm font-medium text-black mb-2 flex items-center gap-2">
-                      <MessageSquare className="w-4 h-4 text-[#40C49A]" />
+                      <MessageSquare className="w-4 h-4 text-[#019090]" />
                       Message complémentaire
                     </label>
                     <textarea
@@ -647,7 +647,7 @@ export default function AchatEnGros() {
                       value={formData.message}
                       onChange={handleInputChange}
                       rows={4}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg text-black focus:ring-2 focus:ring-[#40C49A] focus:border-transparent resize-none"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg text-black focus:ring-2 focus:ring-[#019090] focus:border-transparent resize-none"
                       placeholder="Décrivez votre projet, vos contraintes, délais souhaités..."
                     />
                   </div>
@@ -657,7 +657,7 @@ export default function AchatEnGros() {
                     disabled={isSubmitting}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="w-full bg-[#40C49A] text-white py-4 px-6 rounded-xl font-semibold hover:bg-[#40C49A]/90 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center gap-2"
+                    className="w-full bg-[#019090] text-white py-4 px-6 rounded-xl font-semibold hover:bg-[#019090]/90 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center gap-2"
                   >
                     {isSubmitting ? (
                       <>
@@ -684,7 +684,7 @@ export default function AchatEnGros() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-[#40C49A]">
+      <section className="py-20 bg-[#019090]">
         <div className="container mx-auto px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -703,7 +703,7 @@ export default function AchatEnGros() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.a
                 href="#contact"
-                className="px-8 py-4 bg-white text-[#40C49A] rounded-full font-semibold hover:bg-gray-100 transition-colors text-center flex justify-center items-center gap-2  md:inline-flex"
+                className="px-8 py-4 bg-white text-[#019090] rounded-full font-semibold hover:bg-gray-100 transition-colors text-center flex justify-center items-center gap-2  md:inline-flex"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -712,7 +712,7 @@ export default function AchatEnGros() {
               </motion.a>
               <motion.a
                 href="/produits"
-                className="px-8 py-4 border-2 border-white text-white rounded-full font-semibold hover:bg-white hover:text-[#40C49A] transition-colors"
+                className="px-8 py-4 border-2 border-white text-white rounded-full font-semibold hover:bg-white hover:text-[#019090] transition-colors"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >

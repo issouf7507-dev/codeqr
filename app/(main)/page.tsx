@@ -92,7 +92,7 @@ export default function Home() {
             className="flex flex-col items-center justify-center max-w-[540px] mx-auto"
           >
             <div className="flex justify-center">
-              <div className="border border-[#40C49A] text-[#40C49A] py-1 px-4 rounded-lg">
+              <div className="border border-[#019090] text-[#019090] py-1 px-4 rounded-lg">
                 Témoignages
               </div>
             </div>
@@ -123,13 +123,13 @@ export default function Home() {
     );
   };
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
-        <img src="/load.svg" alt="Loading" className="w-32 h-32" />
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div className="min-h-screen bg-white flex items-center justify-center">
+  //       <img src="/load.svg" alt="Loading" className="w-32 h-32" />
+  //     </div>
+  //   );
+  // }
 
   return (
     <div>

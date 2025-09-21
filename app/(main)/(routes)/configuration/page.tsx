@@ -185,13 +185,13 @@ export default function Configuration() {
             className="text-center max-w-4xl mx-auto"
           >
             <div className="flex justify-center mb-6">
-              <div className="border border-[#40C49A] text-[#40C49A] py-2 px-4 rounded-lg text-sm font-medium">
+              <div className="border border-[#019090] text-[#019090] py-2 px-4 rounded-lg text-sm font-medium">
                 Configuration
               </div>
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-black mb-6">
               Configuration{" "}
-              <span className="text-[#40C49A]">simple et guidée</span>
+              <span className="text-[#019090]">simple et guidée</span>
             </h1>
             <p className="text-xl text-black/70 mb-8 leading-relaxed">
               Notre équipe vous accompagne pas à pas pour configurer votre QR
@@ -200,7 +200,7 @@ export default function Configuration() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.a
                 href="#process"
-                className="px-8 py-4 bg-[#40C49A] text-white rounded-full font-semibold hover:bg-[#40C49A]/90 transition-colors text-center flex justify-center items-center gap-2  md:inline-flex"
+                className="px-8 py-4 bg-[#019090] text-white rounded-full font-semibold hover:bg-[#019090]/90 transition-colors text-center flex justify-center items-center gap-2  md:inline-flex"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -209,7 +209,7 @@ export default function Configuration() {
               </motion.a>
               <motion.a
                 href="/produits"
-                className="px-8 py-4 border-2 border-[#40C49A] text-[#40C49A] rounded-full font-semibold hover:bg-[#40C49A] hover:text-white transition-colors"
+                className="px-8 py-4 border-2 border-[#019090] text-[#019090] rounded-full font-semibold hover:bg-[#019090] hover:text-white transition-colors"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -242,7 +242,7 @@ export default function Configuration() {
             <div className="relative">
               {/* Progress Line */}
               <div className="absolute top-8 left-0 right-0 h-0.5 bg-gray-200">
-                <div className="h-full bg-[#40C49A] transition-all duration-500 w-1/4"></div>
+                <div className="h-full bg-[#019090] transition-all duration-500 w-1/4"></div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -258,9 +258,9 @@ export default function Configuration() {
                     <div
                       className={`w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center relative z-10 ${
                         step.status === "completed"
-                          ? "bg-[#40C49A] text-white"
+                          ? "bg-[#019090] text-white"
                           : step.status === "active"
-                          ? "bg-[#40C49A] text-white"
+                          ? "bg-[#019090] text-white"
                           : "bg-gray-200 text-gray-500"
                       }`}
                     >
@@ -308,7 +308,7 @@ export default function Configuration() {
               >
                 <div className="flex flex-col lg:flex-row gap-6">
                   <div className="flex-shrink-0">
-                    <div className="w-16 h-16 bg-[#40C49A]/10 rounded-xl flex items-center justify-center text-[#40C49A]">
+                    <div className="w-16 h-16 bg-[#019090]/10 rounded-xl flex items-center justify-center text-[#019090]">
                       {step.icon}
                     </div>
                   </div>
@@ -316,7 +316,7 @@ export default function Configuration() {
                     <div className="flex flex-col lg:flex-row lg:items-start gap-4 mb-4">
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-2">
-                          <span className="bg-[#40C49A] text-white px-3 py-1 rounded-full text-sm font-medium">
+                          <span className="bg-[#019090] text-white px-3 py-1 rounded-full text-sm font-medium">
                             Étape {step.step}
                           </span>
                           <div className="flex items-center gap-2 text-black/60">
@@ -336,7 +336,7 @@ export default function Configuration() {
                           key={detailIndex}
                           className="flex items-center gap-3"
                         >
-                          <Check className="w-4 h-4 text-[#40C49A] flex-shrink-0" />
+                          <Check className="w-4 h-4 text-[#019090] flex-shrink-0" />
                           <span className="text-black/80 text-sm">
                             {detail}
                           </span>
@@ -417,7 +417,7 @@ export default function Configuration() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="text-center p-6 bg-gray-50 rounded-xl border border-gray-200 hover:border-[#40C49A]/50 transition-colors"
+                className="text-center p-6 bg-gray-50 rounded-xl border border-gray-200 hover:border-[#019090]/50 transition-colors"
               >
                 <div
                   className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 ${feature.color}`}
@@ -474,7 +474,7 @@ export default function Configuration() {
                   "{testimonial.text}"
                 </p>
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-[#40C49A] rounded-full flex items-center justify-center text-white font-bold">
+                  <div className="w-12 h-12 bg-[#019090] rounded-full flex items-center justify-center text-white font-bold">
                     {testimonial.avatar}
                   </div>
                   <div>
@@ -524,7 +524,7 @@ export default function Configuration() {
                   <h3 className="text-lg font-semibold text-black">
                     {faq.question}
                   </h3>
-                  <ChevronRight className="w-5 h-5 text-[#40C49A] group-open:rotate-90 transition-transform duration-200" />
+                  <ChevronRight className="w-5 h-5 text-[#019090] group-open:rotate-90 transition-transform duration-200" />
                 </summary>
                 <div className="px-6 pb-6">
                   <p className="text-black/70 leading-relaxed">{faq.answer}</p>
@@ -536,7 +536,7 @@ export default function Configuration() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-[#40C49A]">
+      <section className="py-20 bg-[#019090]">
         <div className="container mx-auto px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -555,7 +555,7 @@ export default function Configuration() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.a
                 href="/produits"
-                className="px-8 py-4 bg-white text-[#40C49A] rounded-full font-semibold hover:bg-gray-100 transition-colors text-center flex justify-center items-center gap-2  md:inline-flex"
+                className="px-8 py-4 bg-white text-[#019090] rounded-full font-semibold hover:bg-gray-100 transition-colors text-center flex justify-center items-center gap-2  md:inline-flex"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -564,7 +564,7 @@ export default function Configuration() {
               </motion.a>
               <motion.a
                 href="/contact"
-                className="px-8 py-4 border-2 border-white text-white rounded-full font-semibold hover:bg-white hover:text-[#40C49A] transition-colors"
+                className="px-8 py-4 border-2 border-white text-white rounded-full font-semibold hover:bg-white hover:text-[#019090] transition-colors"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >

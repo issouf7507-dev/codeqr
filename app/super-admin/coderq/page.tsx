@@ -2,8 +2,28 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { motion } from "motion/react";
 import * as XLSX from "xlsx";
 import JSZip from "jszip";
+import {
+  QrCode,
+  Shield,
+  Users,
+  Search,
+  Download,
+  Plus,
+  X,
+  Calendar,
+  Hash,
+  TrendingUp,
+  Activity,
+  LogOut,
+  FileSpreadsheet,
+  Eye,
+  Loader2,
+  AlertCircle,
+  CheckCircle,
+} from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 
 interface QRCode {
@@ -51,6 +71,8 @@ export interface QRCodeOrderItem {
 
 interface QRCodeData {
   qrCodes: QRCode[];
+  orders: Order[];
+
   pagination: {
     page: number;
     limit: number;
@@ -61,6 +83,7 @@ interface QRCodeData {
     totalCodes: number;
     activeCodes: number;
     inactiveCodes: number;
+    achetedCodes: number;
     byMonth: Array<{
       month: number;
       year: number;
@@ -71,7 +94,7 @@ interface QRCodeData {
   };
 }
 
-type TabType = "all" | "active" | "inactive";
+type TabType = "all" | "active" | "inactive" | "acheted";
 
 export default function SuperAdminCodeQR() {
   const [data, setData] = useState<QRCodeData | null>(null);
@@ -91,6 +114,14 @@ export default function SuperAdminCodeQR() {
   const [genLoading, setGenLoading] = useState(false);
   const [genError, setGenError] = useState("");
   const [exportLoading, setExportLoading] = useState(false);
+  const [showActivationModal, setShowActivationModal] = useState(false);
+  const [googleReviewUrl, setGoogleReviewUrl] = useState("");
+  const [activationLoading, setActivationLoading] = useState(false);
+  const [activationError, setActivationError] = useState("");
+  const [showEditLinkModal, setShowEditLinkModal] = useState(false);
+  const [editGoogleReviewUrl, setEditGoogleReviewUrl] = useState("");
+  const [editLinkLoading, setEditLinkLoading] = useState(false);
+  const [editLinkError, setEditLinkError] = useState("");
 
   useEffect(() => {
     fetchQRCodes();
@@ -109,7 +140,7 @@ export default function SuperAdminCodeQR() {
       const response = await fetch(`/api/super-admin/coderq?${params}`);
       if (response.ok) {
         const qrData = await response.json();
-        console.log("qrData", qrData);
+        // console.log("qrData", qrData);
         setData(qrData);
       } else {
         setError("Erreur lors du chargement des codes QR");
@@ -299,10 +330,16 @@ export default function SuperAdminCodeQR() {
 
   // Les données sont déjà filtrées par l'API, pas besoin de filtrer côté client
   const filteredQRCodes = data?.qrCodes || [];
+  // console.log(
+  //   "acheted",
+  //   data?.orders?.filter((order) => order?.status === "PAID")
+  // );
 
   // Pour les comptes des tabs, on utilise les stats globales
   const getTabCounts = () => {
-    if (!data) return { all: 0, active: 0, inactive: 0 };
+    if (!data) return { all: 0, active: 0, inactive: 0, acheted: 0 };
+
+    console.log("datasss", data);
 
     // Utiliser les stats globales de l'API
     if (data.stats) {
@@ -310,17 +347,22 @@ export default function SuperAdminCodeQR() {
         all: data.stats.totalCodes || 0,
         active: data.stats.activeCodes || 0,
         inactive: data.stats.inactiveCodes || 0,
+        acheted: data.stats.achetedCodes || 0,
       };
     }
 
     // Fallback: calculer basé sur les données actuelles
     const active = data.qrCodes.filter((qr) => qr.isActivated).length;
     const inactive = data.qrCodes.filter((qr) => !qr.isActivated).length;
+    const acheted = data?.orders?.filter(
+      (order) => order?.status === "PAID"
+    ).length;
 
     return {
       all: data.qrCodes.length,
       active,
       inactive,
+      acheted,
     };
   };
 
@@ -331,22 +373,122 @@ export default function SuperAdminCodeQR() {
     window.location.href = "/super-admin/login";
   };
 
+  const handleManualActivation = (qrCode: QRCode) => {
+    setSelectedQRCode(qrCode);
+    setShowActivationModal(true);
+    setGoogleReviewUrl("");
+    setActivationError("");
+  };
+
+  const handleActivateQR = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!selectedQRCode || !googleReviewUrl) return;
+
+    setActivationLoading(true);
+    setActivationError("");
+
+    try {
+      const response = await fetch(
+        `/api/qr/${selectedQRCode.code}/activatemanuel`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            googleReviewUrl: googleReviewUrl,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Succès - fermer le modal et rafraîchir la liste
+        setShowActivationModal(false);
+        setSelectedQRCode(null);
+        setGoogleReviewUrl("");
+        fetchQRCodes(); // Rafraîchir la liste
+        alert("Code QR activé avec succès !");
+      } else {
+        setActivationError(data.error || "Erreur lors de l'activation");
+      }
+    } catch (error) {
+      console.error("Erreur lors de l'activation:", error);
+      setActivationError("Erreur lors de l'activation du code QR");
+    } finally {
+      setActivationLoading(false);
+    }
+  };
+
+  const handleEditLink = (qrCode: QRCode) => {
+    setSelectedQRCode(qrCode);
+    setShowEditLinkModal(true);
+    setEditGoogleReviewUrl("");
+    setEditLinkError("");
+  };
+
+  const handleUpdateLink = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!selectedQRCode || !editGoogleReviewUrl) return;
+
+    setEditLinkLoading(true);
+    setEditLinkError("");
+
+    try {
+      const response = await fetch(
+        `/api/qr/${selectedQRCode.code}/update-link`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            googleReviewUrl: editGoogleReviewUrl,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Succès - fermer le modal et rafraîchir la liste
+        setShowEditLinkModal(false);
+        setSelectedQRCode(null);
+        setEditGoogleReviewUrl("");
+        fetchQRCodes(); // Rafraîchir la liste
+        alert("Lien Google mis à jour avec succès !");
+      } else {
+        setEditLinkError(data.error || "Erreur lors de la mise à jour");
+      }
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour:", error);
+      setEditLinkError("Erreur lors de la mise à jour du lien");
+    } finally {
+      setEditLinkLoading(false);
+    }
+  };
+
   const tabCounts = getTabCounts();
 
   if (isLoading && !data) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-orange-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-red-500"></div>
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center">
+          <Loader2 className="w-16 h-16 animate-spin text-[#019090] mx-auto mb-4" />
+          <p className="text-black/70">Chargement des codes QR...</p>
+        </div>
       </div>
     );
   }
 
   if (error && !data) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-orange-50 flex items-center justify-center">
+      <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Erreur</h2>
-          <p className="text-gray-600">{error}</p>
+          <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
+          <h2 className="text-2xl font-bold text-black mb-4">Erreur</h2>
+          <p className="text-black/70">{error}</p>
         </div>
       </div>
     );
@@ -354,18 +496,20 @@ export default function SuperAdminCodeQR() {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-orange-50 flex items-center justify-center">
+      <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">
+          <Shield className="w-16 h-16 text-[#019090] mx-auto mb-4" />
+          <h2 className="text-2xl font-bold text-black mb-4">
             Non authentifié
           </h2>
-          <p className="text-gray-600">
+          <p className="text-black/70 mb-6">
             Veuillez vous connecter pour accéder à cette page
           </p>
           <Link
             href="/super-admin/login"
-            className="text-red-600 hover:text-red-700 text-sm font-medium"
+            className="inline-flex items-center gap-2 bg-[#019090] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#019090]/90 transition-colors"
           >
+            <Shield className="w-4 h-4" />
             Se connecter
           </Link>
         </div>
@@ -374,53 +518,53 @@ export default function SuperAdminCodeQR() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-orange-50">
+    <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-md border-b border-gray-200">
+      <header className="bg-white border-b border-gray-200 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-6">
             <div className="flex items-center">
-              <div className="w-12 h-12 bg-gradient-to-r from-red-500 to-orange-500 rounded-2xl flex items-center justify-center">
-                <span className="text-white font-bold text-2xl">📱</span>
+              <div className="w-12 h-12 bg-[#019090] rounded-2xl flex items-center justify-center">
+                <QrCode className="w-6 h-6 text-white" />
               </div>
-              <h1 className="ml-4 text-3xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+              <h1 className="ml-4 text-3xl font-bold text-black">
                 Gestion des Codes QR
               </h1>
             </div>
             <div className="flex items-center space-x-4">
               <Link
                 href="/super-admin/dashboard"
-                className="text-gray-600 hover:text-gray-900 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-gray-100"
+                className="text-black/70 hover:text-black px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-gray-100"
               >
                 Dashboard
               </Link>
               <Link
                 href="/super-admin/coderq"
-                className="bg-red-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-red-600"
+                className="bg-[#019090] text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200"
               >
                 Code QR
               </Link>
               <Link
                 href="/super-admin/users"
-                className="text-gray-600 hover:text-gray-900 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-gray-100"
+                className="text-black/70 hover:text-black px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-gray-100"
               >
                 Utilisateurs
               </Link>
 
               <Link
                 href="/super-admin/orders"
-                className="text-gray-600 hover:text-gray-900 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-gray-100"
+                className="text-black/70 hover:text-black px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-gray-100"
               >
                 Commandes
               </Link>
 
-              <Link
-                href="#"
+              <button
                 onClick={handleLogout}
-                className="text-red-600 hover:text-red-700 text-sm font-medium"
+                className="flex items-center gap-2 text-red-600 hover:text-red-700 text-sm font-medium transition-colors"
               >
+                <LogOut className="w-4 h-4" />
                 Se déconnecter
-              </Link>
+              </button>
             </div>
           </div>
         </div>
@@ -428,61 +572,106 @@ export default function SuperAdminCodeQR() {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Welcome Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="mb-8"
+        >
+          <h2 className="text-2xl font-bold text-black mb-2">
+            Gestion des Codes QR
+          </h2>
+          <p className="text-black/70">
+            Visualisez, gérez et exportez tous vos codes QR générés
+          </p>
+        </motion.div>
+
         {/* Stats Cards */}
         {data && (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-500">
-                    Total Codes QR
-                  </p>
-                  <p className="text-3xl font-bold text-gray-900">
-                    {data.stats.totalCodes}
-                  </p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-lg transition-shadow"
+            >
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-12 h-12 bg-[#019090]/10 rounded-xl flex items-center justify-center text-[#019090]">
+                  <QrCode className="w-6 h-6" />
                 </div>
-                <div className="p-3 bg-red-50 rounded-full">
-                  <span className="text-2xl">📱</span>
-                </div>
+                <TrendingUp className="w-4 h-4 text-green-500" />
               </div>
-            </div>
+              <div>
+                <p className="text-sm font-medium text-black/70 mb-1">
+                  Total Codes QR
+                </p>
+                <p className="text-3xl font-bold text-black mb-2">
+                  {data.stats.totalCodes}
+                </p>
+                <p className="text-sm text-[#019090]">Codes générés</p>
+              </div>
+            </motion.div>
 
-            <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-500">
-                    Codes Actifs
-                  </p>
-                  <p className="text-3xl font-bold text-green-600">
-                    {data.stats.activeCodes}
-                  </p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-lg transition-shadow"
+            >
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center text-green-600">
+                  <CheckCircle className="w-6 h-6" />
                 </div>
-                <div className="p-3 bg-green-50 rounded-full">
-                  <span className="text-2xl">✅</span>
-                </div>
+                <TrendingUp className="w-4 h-4 text-green-500" />
               </div>
-            </div>
+              <div>
+                <p className="text-sm font-medium text-black/70 mb-1">
+                  Codes Actifs
+                </p>
+                <p className="text-3xl font-bold text-black mb-2">
+                  {data.stats.activeCodes}
+                </p>
+                <p className="text-sm text-green-600">
+                  Activés par les clients
+                </p>
+              </div>
+            </motion.div>
 
-            <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-500">
-                    Codes Inactifs
-                  </p>
-                  <p className="text-3xl font-bold text-yellow-600">
-                    {data.stats.inactiveCodes}
-                  </p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-lg transition-shadow"
+            >
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-12 h-12 bg-yellow-50 rounded-xl flex items-center justify-center text-yellow-600">
+                  <Activity className="w-6 h-6" />
                 </div>
-                <div className="p-3 bg-yellow-50 rounded-full">
-                  <span className="text-2xl">⏳</span>
-                </div>
+                <TrendingUp className="w-4 h-4 text-green-500" />
               </div>
-            </div>
+              <div>
+                <p className="text-sm font-medium text-black/70 mb-1">
+                  Codes Inactifs
+                </p>
+                <p className="text-3xl font-bold text-black mb-2">
+                  {data.stats.inactiveCodes}
+                </p>
+                <p className="text-sm text-yellow-600">
+                  En attente d'activation
+                </p>
+              </div>
+            </motion.div>
           </div>
         )}
 
         {/* Actions & Search */}
-        <div className="bg-white rounded-xl shadow-lg p-6 mb-8 border border-gray-100">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="bg-white rounded-2xl border border-gray-200 p-6 mb-8"
+        >
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <form onSubmit={handleSearch} className="flex-1 max-w-md">
               <div className="relative">
@@ -491,50 +680,61 @@ export default function SuperAdminCodeQR() {
                   placeholder="Rechercher un code..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 text-black"
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#019090] focus:border-transparent text-black"
                 />
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <span className="text-gray-400">🔍</span>
+                  <Search className="w-4 h-4 text-gray-400" />
                 </div>
               </div>
             </form>
 
             <div className="flex gap-3">
-              <button
+              <motion.button
                 onClick={handleExportExcel}
                 disabled={exportLoading}
-                className="bg-green-500 text-white px-6 py-2 rounded-lg font-medium hover:bg-green-600 transition-all duration-200 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-green-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-green-700 transition-all duration-200 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <span>{exportLoading ? "⏳" : "📊"}</span>
-                {exportLoading
-                  ? "Export en cours..."
-                  : "Exporter Excel + Images"}
-              </button>
-              <button
+                {exportLoading ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  <FileSpreadsheet className="w-4 h-4" />
+                )}
+                {exportLoading ? "Export en cours..." : "Exporter Excel"}
+              </motion.button>
+              <motion.button
                 onClick={() => setShowModal(true)}
-                className="bg-red-500 text-white px-6 py-2 rounded-lg font-medium hover:bg-red-600 transition-all duration-200 flex items-center gap-2"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-[#019090] text-white px-6 py-3 rounded-lg font-medium hover:bg-[#019090]/90 transition-all duration-200 flex items-center gap-2"
               >
-                <span>➕</span>
-                Générer des codes QR
-              </button>
+                <Plus className="w-4 h-4" />
+                Générer des codes
+              </motion.button>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Tabs */}
-        <div className="bg-white rounded-xl shadow-lg border border-gray-100 mb-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="bg-white rounded-2xl border border-gray-200 mb-6"
+        >
           <div className="border-b border-gray-200">
             <nav className="flex space-x-8 px-6" aria-label="Tabs">
               <button
                 onClick={() => handleTabChange("all")}
                 className={`py-4 px-1 border-b-2 font-medium text-sm transition-all duration-200 ${
                   activeTab === "all"
-                    ? "border-red-500 text-red-600"
-                    : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                    ? "border-[#019090] text-[#019090]"
+                    : "border-transparent text-black/60 hover:text-black hover:border-gray-300"
                 }`}
               >
                 Tous les codes
-                <span className="ml-2 bg-gray-100 text-gray-900 py-0.5 px-2.5 rounded-full text-xs font-medium">
+                <span className="ml-2 bg-gray-100 text-black py-0.5 px-2.5 rounded-full text-xs font-medium">
                   {tabCounts.all}
                 </span>
               </button>
@@ -543,7 +743,7 @@ export default function SuperAdminCodeQR() {
                 className={`py-4 px-1 border-b-2 font-medium text-sm transition-all duration-200 ${
                   activeTab === "active"
                     ? "border-green-500 text-green-600"
-                    : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                    : "border-transparent text-black/60 hover:text-black hover:border-gray-300"
                 }`}
               >
                 Codes actifs
@@ -556,7 +756,7 @@ export default function SuperAdminCodeQR() {
                 className={`py-4 px-1 border-b-2 font-medium text-sm transition-all duration-200 ${
                   activeTab === "inactive"
                     ? "border-yellow-500 text-yellow-600"
-                    : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                    : "border-transparent text-black/60 hover:text-black hover:border-gray-300"
                 }`}
               >
                 Codes inactifs
@@ -564,46 +764,93 @@ export default function SuperAdminCodeQR() {
                   {tabCounts.inactive}
                 </span>
               </button>
+
+              <button
+                onClick={() => handleTabChange("acheted")}
+                className={`py-4 px-1 border-b-2 font-medium text-sm transition-all duration-200 ${
+                  activeTab === "acheted"
+                    ? "border-yellow-500 text-yellow-600"
+                    : "border-transparent text-black/60 hover:text-black hover:border-gray-300"
+                }`}
+              >
+                Codes Achetés{" "}
+                <span className="ml-2 bg-yellow-100 text-yellow-800 py-0.5 px-2.5 rounded-full text-xs font-medium">
+                  {tabCounts.acheted}
+                </span>
+              </button>
             </nav>
           </div>
-        </div>
+        </motion.div>
 
         {/* QR Codes List */}
         {data && (
-          <div className="bg-white rounded-xl shadow-lg border border-gray-100">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="bg-white rounded-2xl border border-gray-200"
+          >
             <div className="p-6 border-b border-gray-200">
-              <h2 className="text-xl font-bold text-gray-900">
-                {activeTab === "all" && "Tous les codes QR"}
-                {activeTab === "active" && "Codes QR actifs"}
-                {activeTab === "inactive" && "Codes QR inactifs"}
-              </h2>
-              <p className="text-sm text-gray-500 mt-1">
-                {filteredQRCodes.length} code
-                {filteredQRCodes.length !== 1 ? "s" : ""} trouvé
-                {filteredQRCodes.length !== 1 ? "s" : ""}
-              </p>
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-[#019090]/10 rounded-lg flex items-center justify-center">
+                  <QrCode className="w-5 h-5 text-[#019090]" />
+                </div>
+                <div>
+                  <h2 className="text-xl font-bold text-black">
+                    {activeTab === "all" && "Tous les codes QR"}
+                    {activeTab === "active" && "Codes QR actifs"}
+                    {activeTab === "inactive" && "Codes QR inactifs"}
+                    {activeTab === "acheted" && "Codes QR achetés"}
+                  </h2>
+                  <p className="text-sm text-black/60 mt-1">
+                    {filteredQRCodes.length} code
+                    {filteredQRCodes.length !== 1 ? "s" : ""} trouvé
+                    {filteredQRCodes.length !== 1 ? "s" : ""}
+                  </p>
+                </div>
+              </div>
             </div>
 
             {filteredQRCodes.length === 0 ? (
-              <div className="p-8 text-center">
-                <div className="text-6xl mb-4">
-                  {activeTab === "all" && "📱"}
-                  {activeTab === "active" && "✅"}
-                  {activeTab === "inactive" && "⏳"}
+              <div className="p-12 text-center">
+                <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6">
+                  {activeTab === "all" && (
+                    <QrCode className="w-10 h-10 text-gray-400" />
+                  )}
+                  {activeTab === "active" && (
+                    <CheckCircle className="w-10 h-10 text-green-400" />
+                  )}
+                  {activeTab === "inactive" && (
+                    <Activity className="w-10 h-10 text-yellow-400" />
+                  )}
                 </div>
-                <p className="text-gray-500 text-lg">
+                <h3 className="text-xl font-semibold text-black mb-2">
                   {activeTab === "all" && "Aucun code QR trouvé"}
                   {activeTab === "active" && "Aucun code QR actif"}
                   {activeTab === "inactive" && "Aucun code QR inactif"}
-                </p>
-                <p className="text-gray-400 mt-2">
+                  {activeTab === "acheted" && "Aucun code QR acheté"}
+                </h3>
+                <p className="text-black/60 mb-6">
                   {activeTab === "all" &&
                     "Commencez par générer vos premiers codes QR"}
                   {activeTab === "active" &&
                     "Aucun code n'a été activé pour le moment"}
                   {activeTab === "inactive" &&
                     "Tous les codes sont actuellement actifs"}
+                  {activeTab === "acheted" &&
+                    "Aucun code n'a été acheté pour le moment"}
                 </p>
+                {activeTab === "all" && (
+                  <motion.button
+                    onClick={() => setShowModal(true)}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="bg-[#019090] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#019090]/90 transition-colors inline-flex items-center gap-2"
+                  >
+                    <Plus className="w-4 h-4" />
+                    Générer des codes QR
+                  </motion.button>
+                )}
               </div>
             ) : (
               <div className="overflow-x-auto">
@@ -649,13 +896,23 @@ export default function SuperAdminCodeQR() {
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <span
-                            className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                            className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
                               qrCode.isActivated
-                                ? "bg-green-100 text-green-800"
-                                : "bg-yellow-100 text-yellow-800"
+                                ? "bg-[#019090]/10 text-[#019090] border border-[#019090]/20"
+                                : "bg-yellow-100 text-yellow-800 border border-yellow-200"
                             }`}
                           >
-                            {qrCode.isActivated ? "✅ Activé" : "⏳ Inactif"}
+                            {qrCode.isActivated ? (
+                              <>
+                                <CheckCircle className="w-3 h-3 mr-1" />
+                                Activé
+                              </>
+                            ) : (
+                              <>
+                                <Activity className="w-3 h-3 mr-1" />
+                                Inactif
+                              </>
+                            )}
                           </span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
@@ -672,13 +929,55 @@ export default function SuperAdminCodeQR() {
                             "fr-FR"
                           )}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          <button
-                            onClick={(e) => handleDownloadQR(e, qrCode)}
-                            className="text-blue-600 hover:text-blue-800 font-medium"
-                          >
-                            📥 Télécharger
-                          </button>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm">
+                          <div className="flex items-center gap-2">
+                            <motion.button
+                              onClick={(e) => handleDownloadQR(e, qrCode)}
+                              whileHover={{ scale: 1.05 }}
+                              whileTap={{ scale: 0.95 }}
+                              className="flex items-center gap-1 text-[#019090] hover:text-[#019090]/80 font-medium transition-colors"
+                            >
+                              <Download className="w-4 h-4" />
+                              Télécharger
+                            </motion.button>
+                            <motion.button
+                              onClick={() => handleRowClick(qrCode)}
+                              whileHover={{ scale: 1.05 }}
+                              whileTap={{ scale: 0.95 }}
+                              className="flex items-center gap-1 text-blue-600 hover:text-blue-800 font-medium transition-colors"
+                            >
+                              <Eye className="w-4 h-4" />
+                              Voir
+                            </motion.button>
+                            {!qrCode.isActivated && (
+                              <motion.button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleManualActivation(qrCode);
+                                }}
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                className="flex items-center gap-1 text-green-600 hover:text-green-800 font-medium transition-colors"
+                              >
+                                <CheckCircle className="w-4 h-4" />
+                                Activer
+                              </motion.button>
+                            )}
+                            {qrCode.isActivated && (
+                              <motion.button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleEditLink(qrCode);
+                                }}
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                className="flex items-center gap-1 text-blue-600 hover:text-blue-800 font-medium transition-colors"
+                              >
+                                <Hash className="w-4 h-4" />
+                                Modifier le lien
+                              </motion.button>
+                            )}
+                          </div>
                         </td>
                       </tr>
                     ))}
@@ -689,9 +988,9 @@ export default function SuperAdminCodeQR() {
 
             {/* Pagination */}
             {data.pagination.pages > 1 && (
-              <div className="px-6 py-4 border-t border-gray-200">
+              <div className="px-6 py-4 border-t border-gray-200 bg-gray-50">
                 <div className="flex items-center justify-between">
-                  <div className="text-sm text-gray-700">
+                  <div className="text-sm text-black/70">
                     Affichage de {(currentPage - 1) * data.pagination.limit + 1}{" "}
                     à{" "}
                     {Math.min(
@@ -701,34 +1000,42 @@ export default function SuperAdminCodeQR() {
                     sur {data.pagination.total} résultats
                   </div>
                   <div className="flex items-center space-x-2">
-                    <button
+                    <motion.button
                       onClick={() =>
                         setCurrentPage((prev) => Math.max(1, prev - 1))
                       }
                       disabled={currentPage === 1}
-                      className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                      whileHover={{ scale: currentPage === 1 ? 1 : 1.05 }}
+                      whileTap={{ scale: currentPage === 1 ? 1 : 0.95 }}
+                      className="px-4 py-2 text-sm bg-white border border-gray-300 text-black rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                     >
                       Précédent
-                    </button>
-                    <span className="text-sm text-gray-700">
+                    </motion.button>
+                    <span className="text-sm text-black/70 px-3">
                       Page {currentPage} sur {data.pagination.pages}
                     </span>
-                    <button
+                    <motion.button
                       onClick={() =>
                         setCurrentPage((prev) =>
                           Math.min(data.pagination.pages, prev + 1)
                         )
                       }
                       disabled={currentPage === data.pagination.pages}
-                      className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                      whileHover={{
+                        scale: currentPage === data.pagination.pages ? 1 : 1.05,
+                      }}
+                      whileTap={{
+                        scale: currentPage === data.pagination.pages ? 1 : 0.95,
+                      }}
+                      className="px-4 py-2 text-sm bg-white border border-gray-300 text-black rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                     >
                       Suivant
-                    </button>
+                    </motion.button>
                   </div>
                 </div>
               </div>
             )}
-          </div>
+          </motion.div>
         )}
       </main>
 
@@ -1020,6 +1327,199 @@ export default function SuperAdminCodeQR() {
                   </p>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal for Manual QR Code Activation */}
+      {showActivationModal && selectedQRCode && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-xl shadow-xl max-w-lg w-full mx-4">
+            <div className="p-6 border-b border-gray-200">
+              <div className="flex justify-between items-center">
+                <h2 className="text-xl font-bold text-gray-900">
+                  Activer manuellement le code QR
+                </h2>
+                <button
+                  onClick={() => {
+                    setShowActivationModal(false);
+                    setSelectedQRCode(null);
+                    setGoogleReviewUrl("");
+                    setActivationError("");
+                  }}
+                  className="text-gray-400 hover:text-gray-600"
+                >
+                  <span className="text-2xl">×</span>
+                </button>
+              </div>
+            </div>
+
+            <div className="p-6">
+              <div className="mb-4 p-4 bg-gray-50 rounded-lg">
+                <p className="text-sm text-gray-600 mb-2">
+                  <strong>Code QR :</strong> {selectedQRCode.code}
+                </p>
+                <p className="text-sm text-gray-600">
+                  <strong>Période :</strong>{" "}
+                  {String(selectedQRCode.month).padStart(2, "0")}/
+                  {selectedQRCode.year}
+                </p>
+              </div>
+
+              <form onSubmit={handleActivateQR} className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    URL Google Review *
+                  </label>
+                  <input
+                    type="url"
+                    value={googleReviewUrl}
+                    onChange={(e) => setGoogleReviewUrl(e.target.value)}
+                    placeholder="https://g.page/r/... ou https://maps.app.goo.gl/..."
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#019090] focus:border-transparent text-black"
+                    required
+                  />
+                  <p className="text-xs text-gray-500 mt-1">
+                    Entrez l'URL de votre page Google Maps pour les avis
+                  </p>
+                </div>
+
+                {activationError && (
+                  <div className="text-red-500 text-sm bg-red-50 p-3 rounded-lg">
+                    {activationError}
+                  </div>
+                )}
+
+                <div className="flex gap-3">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowActivationModal(false);
+                      setSelectedQRCode(null);
+                      setGoogleReviewUrl("");
+                      setActivationError("");
+                    }}
+                    className="flex-1 bg-gray-500 text-white py-2 px-4 rounded-lg font-medium hover:bg-gray-600 transition-all duration-200"
+                  >
+                    Annuler
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={activationLoading || !googleReviewUrl}
+                    className="flex-1 bg-[#019090] text-white py-2 px-4 rounded-lg font-medium hover:bg-[#019090]/90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  >
+                    {activationLoading ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        Activation...
+                      </>
+                    ) : (
+                      <>
+                        <CheckCircle className="w-4 h-4" />
+                        Activer le code QR
+                      </>
+                    )}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal for Editing QR Code Link */}
+      {showEditLinkModal && selectedQRCode && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-xl shadow-xl max-w-lg w-full mx-4">
+            <div className="p-6 border-b border-gray-200">
+              <div className="flex justify-between items-center">
+                <h2 className="text-xl font-bold text-gray-900">
+                  Modifier le lien Google
+                </h2>
+                <button
+                  onClick={() => {
+                    setShowEditLinkModal(false);
+                    setSelectedQRCode(null);
+                    setEditGoogleReviewUrl("");
+                    setEditLinkError("");
+                  }}
+                  className="text-gray-400 hover:text-gray-600"
+                >
+                  <span className="text-2xl">×</span>
+                </button>
+              </div>
+            </div>
+
+            <div className="p-6">
+              <div className="mb-4 p-4 bg-gray-50 rounded-lg">
+                <p className="text-sm text-gray-600 mb-2">
+                  <strong>Code QR :</strong> {selectedQRCode.code}
+                </p>
+                <p className="text-sm text-gray-600">
+                  <strong>Période :</strong>{" "}
+                  {String(selectedQRCode.month).padStart(2, "0")}/
+                  {selectedQRCode.year}
+                </p>
+              </div>
+
+              <form onSubmit={handleUpdateLink} className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Nouvelle URL Google Review *
+                  </label>
+                  <input
+                    type="url"
+                    value={editGoogleReviewUrl}
+                    onChange={(e) => setEditGoogleReviewUrl(e.target.value)}
+                    placeholder="https://g.page/r/... ou https://maps.app.goo.gl/..."
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#019090] focus:border-transparent text-black"
+                    required
+                  />
+                  <p className="text-xs text-gray-500 mt-1">
+                    Entrez la nouvelle URL de votre page Google Maps pour les
+                    avis
+                  </p>
+                </div>
+
+                {editLinkError && (
+                  <div className="text-red-500 text-sm bg-red-50 p-3 rounded-lg">
+                    {editLinkError}
+                  </div>
+                )}
+
+                <div className="flex gap-3">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowEditLinkModal(false);
+                      setSelectedQRCode(null);
+                      setEditGoogleReviewUrl("");
+                      setEditLinkError("");
+                    }}
+                    className="flex-1 bg-gray-500 text-white py-2 px-4 rounded-lg font-medium hover:bg-gray-600 transition-all duration-200"
+                  >
+                    Annuler
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={editLinkLoading || !editGoogleReviewUrl}
+                    className="flex-1 bg-[#019090] text-white py-2 px-4 rounded-lg font-medium hover:bg-[#019090]/90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  >
+                    {editLinkLoading ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        Mise à jour...
+                      </>
+                    ) : (
+                      <>
+                        <Hash className="w-4 h-4" />
+                        Modifier le lien
+                      </>
+                    )}
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         </div>

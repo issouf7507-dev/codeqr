@@ -184,7 +184,7 @@ export default function CheckoutCart() {
           </p>
           <Link
             href="/produits"
-            className="px-6 py-3 bg-[#40C49A] text-white rounded-lg font-semibold hover:bg-[#40C49A]/90 transition-colors"
+            className="px-6 py-3 bg-[#019090] text-white rounded-lg font-semibold hover:bg-[#019090]/90 transition-colors"
           >
             Voir nos produits
           </Link>
@@ -244,7 +244,7 @@ export default function CheckoutCart() {
                         <h3 className="font-semibold text-black text-sm">
                           {item.name}
                         </h3>
-                        <p className="text-[#40C49A] font-semibold">
+                        <p className="text-[#019090] font-semibold">
                           {formatPrice(item.price)}
                         </p>
                         {item.originalPrice && (
@@ -350,7 +350,7 @@ export default function CheckoutCart() {
                   </div>
                   <div className="flex justify-between items-center text-xl font-bold">
                     <span className="text-black">Total</span>
-                    <span className="text-[#40C49A]">{formatPrice(total)}</span>
+                    <span className="text-[#019090]">{formatPrice(total)}</span>
                   </div>
                 </div>
               </div>
@@ -373,7 +373,7 @@ export default function CheckoutCart() {
                     value={formData.email}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#40C49A] focus:border-transparent text-black"
+                    className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#019090] focus:border-transparent text-black"
                     placeholder="votre@email.com"
                   />
                 </div>
@@ -389,7 +389,7 @@ export default function CheckoutCart() {
                       value={formData.firstName}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#40C49A] focus:border-transparent text-black"
+                      className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#019090] focus:border-transparent text-black"
                       placeholder="Prénom"
                     />
                   </div>
@@ -403,7 +403,7 @@ export default function CheckoutCart() {
                       value={formData.lastName}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#40C49A] focus:border-transparent text-black"
+                      className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#019090] focus:border-transparent text-black"
                       placeholder="Nom"
                     />
                   </div>
@@ -418,7 +418,7 @@ export default function CheckoutCart() {
                     name="company"
                     value={formData.company}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#40C49A] focus:border-transparent text-black"
+                    className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#019090] focus:border-transparent text-black"
                     placeholder="Nom de l'entreprise"
                   />
                 </div>
@@ -433,7 +433,7 @@ export default function CheckoutCart() {
                     value={formData.address}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#40C49A] focus:border-transparent text-black"
+                    className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#019090] focus:border-transparent text-black"
                     placeholder="123 Rue de la Paix"
                   />
                 </div>
@@ -447,7 +447,7 @@ export default function CheckoutCart() {
                     name="address2"
                     value={formData.address2}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#40C49A] focus:border-transparent text-black"
+                    className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#019090] focus:border-transparent text-black"
                     placeholder="Appartement, bureau, etc."
                   />
                 </div>
@@ -463,7 +463,7 @@ export default function CheckoutCart() {
                       value={formData.city}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#40C49A] focus:border-transparent text-black"
+                      className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#019090] focus:border-transparent text-black"
                       placeholder="Paris"
                     />
                   </div>
@@ -477,7 +477,7 @@ export default function CheckoutCart() {
                       value={formData.postalCode}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#40C49A] focus:border-transparent text-black"
+                      className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#019090] focus:border-transparent text-black"
                       placeholder="75001"
                     />
                   </div>
@@ -492,7 +492,7 @@ export default function CheckoutCart() {
                       name="country"
                       value={formData.country}
                       onChange={handleInputChange}
-                      className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#40C49A] focus:border-transparent text-black"
+                      className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#019090] focus:border-transparent text-black"
                     >
                       <option value="France">France</option>
                       <option value="Belgique">Belgique</option>
@@ -510,7 +510,7 @@ export default function CheckoutCart() {
                       value={formData.phone}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#40C49A] focus:border-transparent text-black"
+                      className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#019090] focus:border-transparent text-black"
                       placeholder="+33 1 23 45 67 89"
                     />
                   </div>
@@ -532,7 +532,7 @@ export default function CheckoutCart() {
                   className={`w-full py-4 px-6 rounded-xl font-semibold transition-all duration-200 mt-6 ${
                     stockStatus?.available === false
                       ? "bg-gray-400 text-white cursor-not-allowed"
-                      : "bg-[#40C49A] text-white hover:bg-[#40C49A]/90 disabled:opacity-50 disabled:cursor-not-allowed"
+                      : "bg-[#019090] text-white hover:bg-[#019090]/90 disabled:opacity-50 disabled:cursor-not-allowed"
                   }`}
                 >
                   {isProcessing ? (

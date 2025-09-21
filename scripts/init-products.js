@@ -16,7 +16,7 @@ const products = [
       "Livraison gratuite",
       "Configuration incluse",
     ]),
-    image: "/imgs/Photos_new_produits_47.png",
+    image: "/imgs/Plaque google.png",
     isActive: true,
   },
   {
@@ -31,7 +31,7 @@ const products = [
       "Livraison express",
       "Configuration + support personnalisé",
     ]),
-    image: "/imgs/16_1 (1).png",
+    image: "/imgs/Carte Google_.png",
     isActive: true,
   },
 ];

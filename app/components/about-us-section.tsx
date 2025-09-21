@@ -75,7 +75,7 @@ export default function AboutUsSection() {
     {
       icon: <Pen className="w-6 h-6" />,
       secondaryIcon: (
-        <Sparkles className="w-4 h-4 absolute -top-1 -right-1 text-[#40C49A]" />
+        <Sparkles className="w-4 h-4 absolute -top-1 -right-1 text-[#019090]" />
       ),
       title: "Conception",
       description:
@@ -85,7 +85,7 @@ export default function AboutUsSection() {
     {
       icon: <Home className="w-6 h-6" />,
       secondaryIcon: (
-        <CheckCircle className="w-4 h-4 absolute -top-1 -right-1 text-[#40C49A]" />
+        <CheckCircle className="w-4 h-4 absolute -top-1 -right-1 text-[#019090]" />
       ),
       title: "Fabrication",
       description:
@@ -95,7 +95,7 @@ export default function AboutUsSection() {
     {
       icon: <PenTool className="w-6 h-6" />,
       secondaryIcon: (
-        <Star className="w-4 h-4 absolute -top-1 -right-1 text-[#40C49A]" />
+        <Star className="w-4 h-4 absolute -top-1 -right-1 text-[#019090]" />
       ),
       title: "Configuration",
       description:
@@ -105,7 +105,7 @@ export default function AboutUsSection() {
     {
       icon: <PaintBucket className="w-6 h-6" />,
       secondaryIcon: (
-        <Sparkles className="w-4 h-4 absolute -top-1 -right-1 text-[#40C49A]" />
+        <Sparkles className="w-4 h-4 absolute -top-1 -right-1 text-[#019090]" />
       ),
       title: "Livraison",
       description:
@@ -115,7 +115,7 @@ export default function AboutUsSection() {
     {
       icon: <Ruler className="w-6 h-6" />,
       secondaryIcon: (
-        <CheckCircle className="w-4 h-4 absolute -top-1 -right-1 text-[#40C49A]" />
+        <CheckCircle className="w-4 h-4 absolute -top-1 -right-1 text-[#019090]" />
       ),
       title: "Support",
       description:
@@ -125,7 +125,7 @@ export default function AboutUsSection() {
     {
       icon: <Building2 className="w-6 h-6" />,
       secondaryIcon: (
-        <Star className="w-4 h-4 absolute -top-1 -right-1 text-[#40C49A]" />
+        <Star className="w-4 h-4 absolute -top-1 -right-1 text-[#019090]" />
       ),
       title: "Suivi",
       description:
@@ -160,16 +160,16 @@ export default function AboutUsSection() {
       >
         {/* Decorative background elements */}
         <motion.div
-          className="absolute top-20 left-10 w-64 h-64 rounded-full bg-[#40C49A]/5 blur-3xl"
+          className="absolute top-20 left-10 w-64 h-64 rounded-full bg-[#019090]/5 blur-3xl"
           style={{ y: y1, rotate: rotate1 }}
           // variants={itemVariants}
         />
         <motion.div
-          className="absolute bottom-20 right-10 w-80 h-80 rounded-full bg-[#40C49A]/5 blur-3xl"
+          className="absolute bottom-20 right-10 w-80 h-80 rounded-full bg-[#019090]/5 blur-3xl"
           style={{ y: y2, rotate: rotate2 }}
         />
         <motion.div
-          className="absolute top-1/2 left-1/4 w-4 h-4 rounded-full bg-[#40C49A]/30"
+          className="absolute top-1/2 left-1/4 w-4 h-4 rounded-full bg-[#019090]/30"
           animate={{
             y: [0, -15, 0],
             opacity: [0.5, 1, 0.5],
@@ -181,7 +181,7 @@ export default function AboutUsSection() {
           }}
         />
         <motion.div
-          className="absolute bottom-1/3 right-1/4 w-6 h-6 rounded-full bg-[#40C49A]/30"
+          className="absolute bottom-1/3 right-1/4 w-6 h-6 rounded-full bg-[#019090]/30"
           animate={{
             y: [0, 20, 0],
             opacity: [0.5, 1, 0.5],
@@ -205,7 +205,7 @@ export default function AboutUsSection() {
             variants={itemVariants as Variants}
           >
             <motion.span
-              className="text-[#40C49A] font-medium mb-2 flex items-center gap-2"
+              className="text-[#019090] font-medium mb-2 flex items-center gap-2"
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -217,7 +217,7 @@ export default function AboutUsSection() {
               À Propos de CodeQR
             </h2>
             <motion.div
-              className="w-24 h-1 bg-[#40C49A]"
+              className="w-24 h-1 bg-[#019090]"
               initial={{ width: 0 }}
               animate={{ width: 96 }}
               transition={{ duration: 1, delay: 0.5 }}
@@ -267,7 +267,7 @@ export default function AboutUsSection() {
                   whileHover={{ scale: 1.03, transition: { duration: 0.3 } }}
                 >
                   <img
-                    src="/imgs/Photos_new_produits_47.png"
+                    src="/imgs/Plaque google descriptif 2.png"
                     alt="Plaque QR Code CodeQR"
                     className="w-full h-full object-cover"
                   />
@@ -279,7 +279,7 @@ export default function AboutUsSection() {
                   >
                     <motion.a
                       href="/produits"
-                      className="bg-[#40C49A] text-white px-4 py-2 rounded-full flex items-center gap-2 text-sm font-medium hover:bg-[#40C49A]/80 transition-colors"
+                      className="bg-[#019090] text-white px-4 py-2 rounded-full flex items-center gap-2 text-sm font-medium hover:bg-[#019090]/80 transition-colors"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
@@ -296,14 +296,14 @@ export default function AboutUsSection() {
 
                 {/* Floating accent elements */}
                 <motion.div
-                  className="absolute -top-4 -right-8 w-16 h-16 rounded-full bg-[#40C49A]/10"
+                  className="absolute -top-4 -right-8 w-16 h-16 rounded-full bg-[#019090]/10"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 1, delay: 0.9 }}
                   style={{ y: y1 }}
                 ></motion.div>
                 <motion.div
-                  className="absolute -bottom-6 -left-10 w-20 h-20 rounded-full bg-[#40C49A]/15"
+                  className="absolute -bottom-6 -left-10 w-20 h-20 rounded-full bg-[#019090]/15"
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 1, delay: 1.1 }}
@@ -312,7 +312,7 @@ export default function AboutUsSection() {
 
                 {/* Additional decorative elements */}
                 <motion.div
-                  className="absolute -top-10 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-[#40C49A]"
+                  className="absolute -top-10 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-[#019090]"
                   animate={{
                     y: [0, -10, 0],
                     opacity: [0.5, 1, 0.5],
@@ -324,7 +324,7 @@ export default function AboutUsSection() {
                   }}
                 ></motion.div>
                 <motion.div
-                  className="absolute -bottom-12 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-[#40C49A]"
+                  className="absolute -bottom-12 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-[#019090]"
                   animate={{
                     y: [0, 10, 0],
                     opacity: [0.5, 1, 0.5],
@@ -380,7 +380,7 @@ export default function AboutUsSection() {
 
           {/* CTA Section */}
           <motion.div
-            className="mt-12 sm:mt-16 lg:mt-20 bg-[#40C49A] text-white p-6 sm:p-8 rounded-xl flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6"
+            className="mt-12 sm:mt-16 lg:mt-20 bg-[#019090] text-white p-6 sm:p-8 rounded-xl flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6"
             initial={{ opacity: 0, y: 30 }}
             animate={
               isStatsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }
@@ -397,7 +397,7 @@ export default function AboutUsSection() {
             </div>
             <motion.a
               href="/produits"
-              className="bg-white text-[#40C49A] hover:bg-gray-100 px-6 py-3 rounded-lg flex items-center gap-2 font-medium transition-colors text-sm sm:text-base"
+              className="bg-white text-[#019090] hover:bg-gray-100 px-6 py-3 rounded-lg flex items-center gap-2 font-medium transition-colors text-sm sm:text-base"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -450,7 +450,7 @@ function ServiceItem({
         transition={{ duration: 0.6, delay: delay + 0.2 }}
       >
         <motion.div
-          className="text-[#40C49A] bg-[#40C49A]/10 p-3 rounded-lg transition-colors duration-300 group-hover:bg-[#40C49A]/20 relative"
+          className="text-[#019090] bg-[#019090]/10 p-3 rounded-lg transition-colors duration-300 group-hover:bg-[#019090]/20 relative"
           whileHover={{
             rotate: [0, -10, 10, -5, 0],
             transition: { duration: 0.5 },
@@ -459,7 +459,7 @@ function ServiceItem({
           {icon}
           {secondaryIcon}
         </motion.div>
-        <h3 className="text-xl font-medium text-black group-hover:text-[#40C49A] transition-colors duration-300">
+        <h3 className="text-xl font-medium text-black group-hover:text-[#019090] transition-colors duration-300">
           {title}
         </h3>
       </motion.div>
@@ -472,7 +472,7 @@ function ServiceItem({
         {description}
       </motion.p>
       <motion.div
-        className="mt-3 pl-12 flex items-center text-[#40C49A] text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        className="mt-3 pl-12 flex items-center text-[#019090] text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300"
         initial={{ opacity: 0 }}
         animate={{ opacity: 0 }}
       >
@@ -530,7 +530,7 @@ function StatCounter({ icon, value, label, suffix, delay }: StatCounterProps) {
       whileHover={{ y: -5, transition: { duration: 0.2 } }}
     >
       <motion.div
-        className="w-14 h-14 rounded-full bg-black/5 flex items-center justify-center mb-4 text-[#40C49A] group-hover:bg-[#40C49A]/10 transition-colors duration-300"
+        className="w-14 h-14 rounded-full bg-black/5 flex items-center justify-center mb-4 text-[#019090] group-hover:bg-[#019090]/10 transition-colors duration-300"
         whileHover={{ rotate: 360, transition: { duration: 0.8 } }}
       >
         {icon}
@@ -543,7 +543,7 @@ function StatCounter({ icon, value, label, suffix, delay }: StatCounterProps) {
         <span>{suffix}</span>
       </motion.div>
       <p className="text-black/70 text-sm mt-1">{label}</p>
-      <motion.div className="w-10 h-0.5 bg-[#40C49A] mt-3 group-hover:w-16 transition-all duration-300" />
+      <motion.div className="w-10 h-0.5 bg-[#019090] mt-3 group-hover:w-16 transition-all duration-300" />
     </motion.div>
   );
 }

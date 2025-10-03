@@ -50,7 +50,7 @@ export default function CheckoutCart() {
   // Vérifier le stock quand le panier change
   useEffect(() => {
     // if (items.length === 0) {
-    //   router.push("/produits");
+    //   router.push("/plaque-avis-google-nfc/produits");
     //   return;
     // }
 
@@ -183,7 +183,7 @@ export default function CheckoutCart() {
             Ajoutez des produits pour continuer
           </p>
           <Link
-            href="/produits"
+            href="/plaque-avis-google-nfc/produits"
             className="px-6 py-3 bg-[#019090] text-white rounded-lg font-semibold hover:bg-[#019090]/90 transition-colors"
           >
             Voir nos produits
@@ -197,12 +197,12 @@ export default function CheckoutCart() {
     <div className="min-h-screen bg-white">
       <Header />
 
-      <div className="pt-32 pb-20">
+      <div className="pt-32 lg:pt-44 pb-20">
         <div className="container mx-auto px-6">
           {/* Header */}
           <div className="flex items-center gap-4 mb-8">
             <Link
-              href="/produits"
+              href="/plaque-avis-google-nfc/produits"
               className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
             >
               <ArrowLeft className="w-6 h-6 text-black" />

@@ -399,7 +399,7 @@ export default function Produits() {
                 <ArrowRight className="w-4 h-4" />
               </motion.a>
               <motion.a
-                href="/contact"
+                href="/plaque-avis-google-nfc/contact"
                 className="px-8 py-4 border-2 border-white text-white rounded-full font-semibold hover:bg-white hover:text-[#019090] transition-colors"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}

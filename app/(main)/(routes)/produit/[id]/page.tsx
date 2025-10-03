@@ -158,7 +158,7 @@ export default function ProductDetail({
               Ce produit n'existe pas ou n'est plus disponible.
             </p>
             <a
-              href="/produits"
+              href="/plaque-avis-google-nfc/produits"
               className="inline-flex items-center gap-2 bg-[#019090] text-white px-6 py-3 rounded-xl font-semibold hover:bg-[#019090]/90 transition-colors"
             >
               Voir nos produits

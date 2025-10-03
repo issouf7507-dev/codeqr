@@ -313,7 +313,7 @@ export default function QRCodeActivationPage({
               Le code QR que vous avez scanné n'existe pas.
             </p>
             <motion.a
-              href="/produits"
+              href="/plaque-avis-google-nfc/produits"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="inline-flex items-center gap-2 bg-[#019090] text-white px-6 py-3 rounded-xl font-semibold hover:bg-[#019090]/90 transition-colors"

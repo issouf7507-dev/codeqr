@@ -278,7 +278,7 @@ export default function AboutUsSection() {
                     transition={{ duration: 0.8, delay: 0.9 }}
                   >
                     <motion.a
-                      href="/produits"
+                      href="/plaque-avis-google-nfc/produits"
                       className="bg-[#019090] text-white px-4 py-2 rounded-full flex items-center gap-2 text-sm font-medium hover:bg-[#019090]/80 transition-colors"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
@@ -396,7 +396,7 @@ export default function AboutUsSection() {
               </p>
             </div>
             <motion.a
-              href="/produits"
+              href="/plaque-avis-google-nfc/produits"
               className="bg-white text-[#019090] hover:bg-gray-100 px-6 py-3 rounded-lg flex items-center gap-2 font-medium transition-colors text-sm sm:text-base"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}

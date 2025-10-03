@@ -18,11 +18,14 @@ export default function Header() {
 
   const navLinks = [
     { href: "/", label: "Accueil" },
-    { href: "/plaque-avis-google-nfc/produits", label: "Nos Produits" },
-    { href: "/configuration", label: "Configuration" },
-    { href: "/achat-en-gros", label: "Achat en lot" },
-    { href: "/a-propos", label: "À propos" },
-    { href: "/contact", label: "Contact" },
+    {
+      href: "/plaque-avis-google-nfc/produits",
+      label: "Nos Produits",
+    },
+    { href: "/plaque-avis-google-nfc/configuration", label: "Configuration" },
+    { href: "/plaque-avis-google-nfc/achat-en-gros", label: "Achat en lot" },
+    { href: "/plaque-avis-google-nfc/a-propos", label: "À propos" },
+    { href: "/plaque-avis-google-nfc/contact", label: "Contact" },
   ];
 
   return (

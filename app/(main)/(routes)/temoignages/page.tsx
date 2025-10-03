@@ -141,7 +141,7 @@ export default function Temoignages() {
                 Accueil
               </Link>
               <Link
-                href="/produits"
+                href="/plaque-avis-google-nfc/produits"
                 className="text-gray-600 hover:text-gray-900 transition-colors"
               >
                 Produits
@@ -153,13 +153,13 @@ export default function Temoignages() {
                 Témoignages
               </Link>
               <Link
-                href="/a-propos"
+                href="/plaque-avis-google-nfc/a-propos"
                 className="text-gray-600 hover:text-gray-900 transition-colors"
               >
                 À propos
               </Link>
               <Link
-                href="/contact"
+                href="/plaque-avis-google-nfc/contact"
                 className="text-gray-600 hover:text-gray-900 transition-colors"
               >
                 Contact
@@ -234,7 +234,7 @@ export default function Temoignages() {
                   Accueil
                 </Link>
                 <Link
-                  href="/produits"
+                  href="/plaque-avis-google-nfc/produits"
                   className="text-gray-600 hover:text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors"
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -248,14 +248,14 @@ export default function Temoignages() {
                   Témoignages
                 </Link>
                 <Link
-                  href="/a-propos"
+                  href="/plaque-avis-google-nfc/a-propos"
                   className="text-gray-600 hover:text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   À propos
                 </Link>
                 <Link
-                  href="/contact"
+                  href="/plaque-avis-google-nfc/contact"
                   className="text-gray-600 hover:text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors"
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -525,7 +525,7 @@ export default function Temoignages() {
             Commencez à collecter plus d'avis Google dès aujourd'hui
           </p>
           <Link
-            href="/produits"
+            href="/plaque-avis-google-nfc/produits"
             className="bg-white text-purple-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-all duration-200 text-center flex justify-center items-center gap-2  md:inline-flex"
           >
             Commander maintenant

@@ -126,7 +126,7 @@ const Section2: React.FC<SectionProps> = ({ scrollYProgress }) => {
                   49,90€
                 </p>
                 <a
-                  href="/produits"
+                  href="/plaque-avis-google-nfc/produits"
                   className="inline-block bg-[#019090] text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full font-semibold hover:bg-[#019090]/80 transition-all duration-300 transform hover:scale-105 text-sm sm:text-base"
                 >
                   Acheter maintenant

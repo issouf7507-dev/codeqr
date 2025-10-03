@@ -22,7 +22,7 @@
                   Accueil
                 </Link>
                 <Link
-                  href="/produits"
+                  href="/plaque-avis-google-nfc/produits"
                   className="text-gray-600 hover:text-gray-900 transition-colors"
                 >
                   Produits
@@ -34,13 +34,13 @@
                   Témoignages
                 </Link>
                 <Link
-                  href="/a-propos"
+                  href="/plaque-avis-google-nfc/a-propos"
                   className="text-gray-600 hover:text-gray-900 transition-colors"
                 >
                   À propos
                 </Link>
                 <Link
-                  href="/contact"
+                  href="/plaque-avis-google-nfc/contact"
                   className="text-gray-600 hover:text-gray-900 transition-colors"
                 >
                   Contact
@@ -112,7 +112,7 @@
                     Accueil
                   </Link>
                   <Link
-                    href="/produits"
+                    href="/plaque-avis-google-nfc/produits"
                     className="text-gray-600 hover:text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors"
                     onClick={() => setIsMenuOpen(false)}
                   >
@@ -126,14 +126,14 @@
                     Témoignages
                   </Link>
                   <Link
-                    href="/a-propos"
+                    href="/plaque-avis-google-nfc/a-propos"
                     className="text-gray-600 hover:text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     À propos
                   </Link>
                   <Link
-                    href="/contact"
+                    href="/plaque-avis-google-nfc/contact"
                     className="text-gray-600 hover:text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors"
                     onClick={() => setIsMenuOpen(false)}
                   >

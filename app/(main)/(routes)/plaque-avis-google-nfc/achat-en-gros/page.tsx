@@ -21,8 +21,8 @@ import {
   CheckCircle,
   Loader2,
 } from "lucide-react";
-import Header from "../../../components/header";
-import Footer from "../../../components/footer";
+import Header from "../../../../components/header";
+import Footer from "../../../../components/footer";
 
 interface ContactForm {
   company: string;
@@ -711,7 +711,7 @@ export default function AchatEnGros() {
                 <ArrowRight className="w-4 h-4" />
               </motion.a>
               <motion.a
-                href="/produits"
+                href="/plaque-avis-google-nfc/produits"
                 className="px-8 py-4 border-2 border-white text-white rounded-full font-semibold hover:bg-white hover:text-[#019090] transition-colors"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}

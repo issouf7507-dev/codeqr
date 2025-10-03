@@ -22,8 +22,10 @@ import {
   Download,
   Upload,
 } from "lucide-react";
-import Header from "../../../components/header";
-import Footer from "../../../components/footer";
+import Header from "@/app/components/header";
+import Footer from "@/app/components/footer";
+// import Header from "../../../components/header";
+// import Footer from "../../../components/footer";
 
 export default function Configuration() {
   const [activeStep, setActiveStep] = useState(1);
@@ -208,7 +210,7 @@ export default function Configuration() {
                 <ArrowRight className="w-4 h-4" />
               </motion.a>
               <motion.a
-                href="/produits"
+                href="/plaque-avis-google-nfc/produits"
                 className="px-8 py-4 border-2 border-[#019090] text-[#019090] rounded-full font-semibold hover:bg-[#019090] hover:text-white transition-colors"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -554,7 +556,7 @@ export default function Configuration() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.a
-                href="/produits"
+                href="/plaque-avis-google-nfc/produits"
                 className="px-8 py-4 bg-white text-[#019090] rounded-full font-semibold hover:bg-gray-100 transition-colors text-center flex justify-center items-center gap-2  md:inline-flex"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -563,7 +565,7 @@ export default function Configuration() {
                 <ArrowRight className="w-4 h-4" />
               </motion.a>
               <motion.a
-                href="/contact"
+                href="/plaque-avis-google-nfc/contact"
                 className="px-8 py-4 border-2 border-white text-white rounded-full font-semibold hover:bg-white hover:text-[#019090] transition-colors"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}

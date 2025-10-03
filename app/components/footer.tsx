@@ -20,13 +20,13 @@ export default function Footer() {
 
   const footerLinks = {
     company: [
-      { name: "À Propos", href: "/a-propos" },
-      { name: "Nos Produits", href: "/produits" },
-      { name: "Configuration", href: "/configuration" },
+      { name: "À Propos", href: "/plaque-avis-google-nfc/a-propos" },
+      { name: "Nos Produits", href: "/plaque-avis-google-nfc/produits" },
+      { name: "Configuration", href: "/plaque-avis-google-nfc/configuration" },
       { name: "Achat en gros", href: "/gros" },
     ],
     support: [
-      { name: "Nous Contacter", href: "/contact" },
+      { name: "Nous Contacter", href: "/plaque-avis-google-nfc/contact" },
       { name: "FAQ", href: "/faq" },
       { name: "Support Client", href: "/support" },
       { name: "Garantie", href: "/garantie" },

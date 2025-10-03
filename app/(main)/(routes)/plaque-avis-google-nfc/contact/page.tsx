@@ -16,8 +16,8 @@ import {
   ArrowRight,
   Loader2,
 } from "lucide-react";
-import Header from "../../../components/header";
-import Footer from "../../../components/footer";
+import Header from "@/app/components/header";
+import Footer from "@/app/components/footer";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -101,19 +101,19 @@ export default function Contact() {
   const faqLinks = [
     {
       question: "Comment fonctionnent nos plaques QR Code ?",
-      link: "/configuration",
+      link: "/plaque-avis-google-nfc/configuration",
     },
     {
       question: "Quels sont les délais de livraison ?",
-      link: "/produits",
+      link: "/plaque-avis-google-nfc/produits",
     },
     {
       question: "Comment configurer mon lien Google Reviews ?",
-      link: "/configuration",
+      link: "/plaque-avis-google-nfc/configuration",
     },
     {
       question: "Puis-je personnaliser le design ?",
-      link: "/achat-en-gros",
+      link: "/plaque-avis-google-nfc/achat-en-gros",
     },
   ];
 
@@ -571,7 +571,7 @@ export default function Contact() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.a
-                href="/produits"
+                href="/plaque-avis-google-nfc/produits"
                 className="px-8 py-4 bg-white text-[#019090] rounded-full font-semibold hover:bg-gray-100 transition-colors text-center flex justify-center items-center gap-2  md:inline-flex"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -580,7 +580,7 @@ export default function Contact() {
                 <ArrowRight className="w-4 h-4" />
               </motion.a>
               <motion.a
-                href="/achat-en-gros"
+                href="/plaque-avis-google-nfc/achat-en-gros"
                 className="px-8 py-4 border-2 border-white text-white rounded-full font-semibold hover:bg-white hover:text-[#019090] transition-colors"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}

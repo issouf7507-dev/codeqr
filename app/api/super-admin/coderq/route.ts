@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
 
     // Ajouter la recherche si fournie
     if (search) {
-      whereClause.OR = [{ code: { contains: search, mode: "insensitive" } }];
+      whereClause.OR = [{ code: { contains: search } }];
     }
 
     // Ajouter le filtrage par statut

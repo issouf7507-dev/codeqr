@@ -677,7 +677,7 @@ export default function SuperAdminCodeQR() {
               <div className="relative">
                 <input
                   type="text"
-                  placeholder="Rechercher un code..."
+                  placeholder="Rechercher par code QR (ex: ABC12)..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#019090] focus:border-transparent text-black"
@@ -685,7 +685,23 @@ export default function SuperAdminCodeQR() {
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <Search className="w-4 h-4 text-gray-400" />
                 </div>
+                {searchTerm && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSearchTerm("");
+                      setCurrentPage(1);
+                      fetchQRCodes();
+                    }}
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                )}
               </div>
+              <p className="text-xs text-gray-500 mt-1">
+                💡 Tapez le code QR exact (ex: ABC12) pour une recherche précise
+              </p>
             </form>
 
             <div className="flex gap-3">

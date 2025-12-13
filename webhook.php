@@ -26,7 +26,7 @@ if (!empty($secret)) {
     }
 }
 
-// Décoder le payload JSON
+// Décassoder le payload JSON
 $data = json_decode($payload, true);
 
 // Vérifier que c'est un push sur la branche main

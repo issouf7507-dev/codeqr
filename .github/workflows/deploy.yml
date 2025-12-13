@@ -79,7 +79,7 @@ jobs:
             lsof -ti:3000 | xargs kill -9 2>/dev/null || true
 
             # Démarrer le service PM2 sur le port 3000
-            pm2 start npm --name "codeqrapp" -- start -- -p 3000
+            pm2 start npm --name "codeqrappapp" -- start -- -p 3000
 
             # Sauvegarder la configuration PM2
             pm2 save

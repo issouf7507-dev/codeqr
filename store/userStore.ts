@@ -34,3 +34,10 @@ export const useUserStore = create<UserState>()(
     }
   )
 );
+
+// Processing image failed
+// unable to decode image data
+
+// Caused by:
+// - Format error decoding Ico: ICO image entry has too many color planes or too large hotspot value
+// - ICO image entry has too many color planes or too large hotspot value

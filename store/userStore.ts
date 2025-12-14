@@ -41,3 +41,9 @@ export const useUserStore = create<UserState>()(
 // Caused by:
 // - Format error decoding Ico: ICO image entry has too many color planes or too large hotspot value
 // - ICO image entry has too many color planes or too large hotspot value
+
+// j ai besion toi pour deplyer mon site
+// c est site fait avec next js
+// pour le clone github on a https://github.com/issouf7507-dev/codeqr.git  a la branch main
+
+// un va utilise nginx et pm2

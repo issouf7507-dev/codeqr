@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/libs/prisma";
+import { prisma } from "@/libs/prisma";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     const { id } = await params;
@@ -15,7 +15,7 @@ export async function GET(
     if (!product) {
       return NextResponse.json(
         { error: "Produit non trouvé" },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -30,7 +30,7 @@ export async function GET(
     console.error("Erreur lors de la récupération du produit:", error);
     return NextResponse.json(
       { error: "Erreur lors de la récupération du produit" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

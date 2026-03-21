@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/libs/prisma";
+import { prisma } from "@/libs/prisma";
 import { generateResetToken } from "@/libs/auth";
 import { sendPasswordResetEmail } from "@/libs/email";
 
@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
           message:
             "Si cet email existe dans notre base de données, vous recevrez un lien de réinitialisation.",
         },
-        { status: 200 }
+        { status: 200 },
       );
     }
 
@@ -49,13 +49,13 @@ export async function POST(request: NextRequest) {
         message:
           "Si cet email existe dans notre base de données, vous recevrez un lien de réinitialisation.",
       },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     console.error("Erreur lors de la demande de réinitialisation:", error);
     return NextResponse.json(
       { error: "Erreur interne du serveur" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

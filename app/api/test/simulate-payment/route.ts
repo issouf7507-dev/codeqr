@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/libs/prisma";
+import { prisma } from "@/libs/prisma";
 import { sendPurchaseConfirmationEmail } from "@/libs/email";
 
 // Fonction pour générer un code unique
@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
   if (process.env.NODE_ENV === "production") {
     return NextResponse.json(
       { error: "Cette fonctionnalité n'est disponible qu'en développement" },
-      { status: 403 }
+      { status: 403 },
     );
   }
 
@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
     if (!orderId) {
       return NextResponse.json(
         { error: "ID de commande manquant" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
     if (!order) {
       return NextResponse.json(
         { error: "Commande non trouvée" },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -76,11 +76,11 @@ export async function POST(request: NextRequest) {
         if (!availableQRCode) {
           console.error(
             "Aucun code QR inactif disponible pour la commande",
-            order.id
+            order.id,
           );
           return NextResponse.json(
             { error: "Aucun code QR disponible" },
-            { status: 500 }
+            { status: 500 },
           );
         }
 
@@ -102,7 +102,7 @@ export async function POST(request: NextRequest) {
         order.email,
         qrCodes[0].code,
         qrCodes[0].id,
-        order.id
+        order.id,
       );
     }
 
@@ -115,7 +115,7 @@ export async function POST(request: NextRequest) {
     console.error("Erreur lors de la simulation du paiement:", error);
     return NextResponse.json(
       { error: "Erreur lors de la simulation du paiement" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

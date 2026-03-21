@@ -162,7 +162,7 @@ export default function AboutUsSection() {
         <motion.div
           className="absolute top-20 left-10 w-64 h-64 rounded-full bg-[#019090]/5 blur-3xl"
           style={{ y: y1, rotate: rotate1 }}
-          // variants={itemVariants}
+        // variants={itemVariants}
         />
         <motion.div
           className="absolute bottom-20 right-10 w-80 h-80 rounded-full bg-[#019090]/5 blur-3xl"
@@ -205,7 +205,7 @@ export default function AboutUsSection() {
             variants={itemVariants as Variants}
           >
             <motion.span
-              className="text-[#019090] font-medium mb-2 flex items-center gap-2"
+              className="text-[#019090] font-medium mb-2 flex items-center gap-2 mt-10"
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}

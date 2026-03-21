@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/libs/prisma";
+import { prisma } from "@/libs/prisma";
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     const { googleReviewUrl } = await request.json();
@@ -13,7 +13,7 @@ export async function PUT(
     if (!googleReviewUrl || typeof googleReviewUrl !== "string") {
       return NextResponse.json(
         { error: "L'URL Google Review est requise" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -24,7 +24,7 @@ export async function PUT(
     ) {
       return NextResponse.json(
         { error: "Le lien Google Avis doit être un lien Google Maps valide" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -39,21 +39,21 @@ export async function PUT(
     if (!qrCode) {
       return NextResponse.json(
         { error: "Code QR non trouvé" },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
     if (!qrCode.isActivated) {
       return NextResponse.json(
         { error: "Ce code QR n'est pas activé" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     if (!qrCode.link) {
       return NextResponse.json(
         { error: "Aucun lien associé à ce code QR" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -70,7 +70,7 @@ export async function PUT(
     if (existingLink) {
       return NextResponse.json(
         { error: "Ce lien Google est déjà utilisé par un autre QR code" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -97,13 +97,13 @@ export async function PUT(
     if (error.code === "P2002") {
       return NextResponse.json(
         { error: "Ce lien Google est déjà utilisé par un autre QR code" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     return NextResponse.json(
       { error: "Erreur interne du serveur" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

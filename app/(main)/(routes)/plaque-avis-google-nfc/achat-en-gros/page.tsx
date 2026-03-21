@@ -295,11 +295,10 @@ export default function AchatEnGros() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className={`relative bg-white rounded-2xl p-6 border-2 hover:shadow-lg transition-all ${
-                  tier.popular
+                className={`relative bg-white rounded-2xl p-6 border-2 hover:shadow-lg transition-all ${tier.popular
                     ? "border-[#019090] shadow-lg"
                     : "border-gray-200 hover:border-[#019090]/50"
-                }`}
+                  }`}
               >
                 {tier.popular && (
                   <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
@@ -342,11 +341,10 @@ export default function AchatEnGros() {
                     href="#contact"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className={`w-full py-3 px-4 rounded-xl font-semibold transition-all duration-200 inline-block text-center  ${
-                      tier.popular
+                    className={`w-full py-3 px-4 rounded-xl font-semibold transition-all duration-200 inline-block text-center  ${tier.popular
                         ? "bg-[#019090] text-white hover:bg-[#019090]/90"
                         : "bg-gray-100 text-black hover:bg-[#019090] hover:text-white"
-                    }`}
+                      }`}
                   >
                     Demander un devis
                   </motion.a>

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { verifyPassword } from "@/libs/auth";
-import prisma from "@/libs/prisma";
+import { prisma } from "@/libs/prisma";
 import jwt from "jsonwebtoken";
 
 const JWT_SECRET = process.env.JWT_SECRET_ADMIN || "your-secret-key";
@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
     if (!username || !password) {
       return NextResponse.json(
         { error: "Username et mot de passe requis" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -24,19 +24,19 @@ export async function POST(request: NextRequest) {
     if (!superAdmin || !superAdmin.isActive) {
       return NextResponse.json(
         { error: "Identifiants invalides" },
-        { status: 401 }
+        { status: 401 },
       );
     }
 
     // Vérifier le mot de passe
     const isValidPassword = await verifyPassword(
       password,
-      superAdmin.passwordHash
+      superAdmin.passwordHash,
     );
     if (!isValidPassword) {
       return NextResponse.json(
         { error: "Identifiants invalides" },
-        { status: 401 }
+        { status: 401 },
       );
     }
 
@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
         role: "SUPER_ADMIN",
       },
       JWT_SECRET,
-      { expiresIn: "24h" }
+      { expiresIn: "24h" },
     );
 
     // Créer la réponse avec le cookie
@@ -81,7 +81,7 @@ export async function POST(request: NextRequest) {
     console.error("Erreur lors de la connexion super admin:", error);
     return NextResponse.json(
       { error: "Erreur interne du serveur" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

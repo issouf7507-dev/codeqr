@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Menu, X, QrCode } from "lucide-react";
 import CartDropdown from "./cart-dropdown";
@@ -28,15 +28,27 @@ export default function Header() {
     { href: "/plaque-avis-google-nfc/contact", label: "Contact" },
   ];
 
+
+  const [SCROLL_Y, setSCROLL_Y] = useState(0);
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY
+      setSCROLL_Y(scrollY);
+    }
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-[#019090] shadow-lg">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-[#019090] shadow-lg transition-all duration-300">
       <div className="container mx-auto px-4">
         {/* Main Header */}
 
-        <div className="hidden lg:block">
-          <div className="md:flex items-center justify-center h-20 border-b border-white/20 hidden">
+        <div className="hidden lg:block transition-all duration-300">
+          {SCROLL_Y < 300 && <div className="md:flex items-center justify-center h-20 border-b border-white/20 hidden transition-all duration-300">
             <Image src="/logo.svg" alt="CodeQR.ma" width={300} height={300} />
-          </div>
+          </div>}
 
           <div className="flex items-center justify-center h-20">
             {/* Desktop Navigation */}

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/libs/prisma";
+import { prisma } from "@/libs/prisma";
 
 export async function GET(request: NextRequest) {
   try {
@@ -92,7 +92,7 @@ export async function GET(request: NextRequest) {
     console.error("Erreur lors de la récupération des codes QR:", error);
     return NextResponse.json(
       { error: "Erreur interne du serveur" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

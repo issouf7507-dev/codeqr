@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/libs/prisma";
+import { prisma } from "@/libs/prisma";
 
 export async function GET(request: NextRequest) {
   try {
@@ -42,7 +42,7 @@ export async function GET(request: NextRequest) {
     console.error("Erreur lors de la vérification des codes QR:", error);
     return NextResponse.json(
       { error: "Erreur lors de la vérification" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -100,7 +100,7 @@ export async function POST(request: NextRequest) {
     console.error("Erreur lors de la génération des codes QR:", error);
     return NextResponse.json(
       { error: "Erreur lors de la génération" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

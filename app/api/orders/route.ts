@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/libs/prisma";
+import { prisma } from "@/libs/prisma";
 import { createPayment } from "@/libs/mollie";
 
 export async function POST(request: NextRequest) {
@@ -7,7 +7,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     console.log(
       "Données reçues pour la commande:",
-      JSON.stringify(body, null, 2)
+      JSON.stringify(body, null, 2),
     );
 
     const {
@@ -55,7 +55,7 @@ export async function POST(request: NextRequest) {
           } else {
             return NextResponse.json(
               { error: `Produit "${productName}" non trouvé en base` },
-              { status: 404 }
+              { status: 404 },
             );
           }
         }
@@ -79,7 +79,7 @@ export async function POST(request: NextRequest) {
       if (!product) {
         return NextResponse.json(
           { error: "Produit non trouvé" },
-          { status: 404 }
+          { status: 404 },
         );
       }
 
@@ -95,7 +95,7 @@ export async function POST(request: NextRequest) {
     } else {
       return NextResponse.json(
         { error: "Aucun produit spécifié" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -136,7 +136,7 @@ export async function POST(request: NextRequest) {
           error: `Stock insuffisant. ${totalQRCodesNeeded} codes QR nécessaires, ${availableQRCodes} disponibles.`,
           needsGeneration: true,
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -224,7 +224,7 @@ export async function POST(request: NextRequest) {
     console.error("Erreur lors de la création de la commande:", error);
     return NextResponse.json(
       { error: "Erreur lors de la création de la commande" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/libs/prisma";
+import { prisma } from "@/libs/prisma";
 import { hashPassword } from "@/libs/auth";
 
 export async function POST(request: NextRequest) {
@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
     if (!token || !password) {
       return NextResponse.json(
         { error: "Token et mot de passe requis" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
     if (!user) {
       return NextResponse.json(
         { error: "Token invalide ou expiré" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -45,13 +45,13 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(
       { message: "Mot de passe réinitialisé avec succès" },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     console.error("Erreur lors de la réinitialisation du mot de passe:", error);
     return NextResponse.json(
       { error: "Erreur interne du serveur" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

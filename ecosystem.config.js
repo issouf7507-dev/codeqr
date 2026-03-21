@@ -1,10 +1,10 @@
 module.exports = {
   apps: [
     {
-      name: "codeqrapp",
+      name: "codeqr",
       script: "npm",
       args: "start",
-      cwd: "/var/www/webapp/codeqrapp/current",
+      cwd: "/home/issouf/apps/codeqr",
       instances: 1,
       autorestart: true,
       watch: false,
@@ -13,14 +13,11 @@ module.exports = {
         NODE_ENV: "production",
         PORT: 3000,
       },
-      env_production: {
-        NODE_ENV: "production",
-        PORT: 3000,
-      },
-      error_file: "/var/www/webapp/codeqrapp/logs/err.log",
-      out_file: "/var/www/webapp/codeqrapp/logs/out.log",
-      log_file: "/var/www/webapp/codeqrapp/logs/combined.log",
+      error_file: "/home/issouf/apps/codeqr/logs/pm2-error.log",
+      out_file: "/home/issouf/apps/codeqr/logs/pm2-out.log",
+      log_file: "/home/issouf/apps/codeqr/logs/pm2-combined.log",
       time: true,
+      merge_logs: true,
     },
   ],
 };

@@ -1,9 +1,9 @@
 import { redirect } from "next/navigation";
-import prisma from "@/libs/prisma";
+import { prisma } from "@/libs/prisma";
 
 export async function GET(
   request: Request,
-  { params }: { params: Promise<{ code: string }> }
+  { params }: { params: Promise<{ code: string }> },
 ) {
   const { code } = await params;
   const qrCode = await prisma.qRCode.findUnique({

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/libs/prisma";
+import { prisma } from "@/libs/prisma";
 
 export async function POST(request: NextRequest) {
   try {
@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
     if (!items || !Array.isArray(items)) {
       return NextResponse.json(
         { error: "Format d'articles invalide" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
     console.error("Erreur lors de la vérification du stock:", error);
     return NextResponse.json(
       { error: "Erreur lors de la vérification du stock" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

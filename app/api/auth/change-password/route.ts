@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/libs/prisma";
+import { prisma } from "@/libs/prisma";
 import { verifyPassword, hashPassword } from "@/libs/auth";
 import { verifyToken } from "@/libs/auth";
 
@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
     if (!currentPassword || !newPassword) {
       return NextResponse.json(
         { error: "Mot de passe actuel et nouveau mot de passe requis" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -33,19 +33,19 @@ export async function POST(request: NextRequest) {
     if (!user) {
       return NextResponse.json(
         { error: "Utilisateur non trouvé" },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
     // Vérifier le mot de passe actuel
     const isCurrentPasswordValid = await verifyPassword(
       currentPassword,
-      user.passwordHash
+      user.passwordHash,
     );
     if (!isCurrentPasswordValid) {
       return NextResponse.json(
         { error: "Mot de passe actuel incorrect" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -62,13 +62,13 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(
       { message: "Mot de passe modifié avec succès" },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     console.error("Erreur lors du changement de mot de passe:", error);
     return NextResponse.json(
       { error: "Erreur interne du serveur" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

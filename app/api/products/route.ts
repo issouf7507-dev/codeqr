@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/libs/prisma";
+import { prisma } from "@/libs/prisma";
 
 export async function GET() {
   try {
@@ -23,7 +23,7 @@ export async function GET() {
     console.error("Erreur lors de la récupération des produits:", error);
     return NextResponse.json(
       { error: "Erreur lors de la récupération des produits" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

@@ -1,13 +1,22 @@
-const { PrismaClient } = require("../app/generated/prisma");
+require("dotenv/config");
+const { PrismaClient } = require("@prisma/client");
+const { PrismaMariaDb } = require("@prisma/adapter-mariadb");
 
-const prisma = new PrismaClient();
+const adapter = new PrismaMariaDb({
+  host: process.env.DATABASE_HOST,
+  user: process.env.DATABASE_USER,
+  password: process.env.DATABASE_PASSWORD,
+  database: process.env.DATABASE_NAME,
+  connectionLimit: 5,
+});
+const prisma = new PrismaClient({ adapter });
 
 const products = [
   {
-    name: "Plaque QR Code Google Avis",
+    name: "Collectez facilement des avis Google et boostez votre réputation en ligne !",
     description:
-      "Plaque professionnelle pour collecter des avis Google facilement",
-    price: 34.9,
+      "Encouragez vos clients à partager leur expérience en un simple geste. Approchez leur téléphone ou scannez le QR code",
+    price: 30,
     features: JSON.stringify([
       "Design professionnel en PVC",
       "QR Code haute résolution",
@@ -16,13 +25,14 @@ const products = [
       "Livraison gratuite",
       "Configuration incluse",
     ]),
-    image: "/imgs/Plaque google.png",
+    image: "/imgs/plaque-prod.jpeg",
     isActive: true,
   },
   {
-    name: "Carte QR Code Google Avis",
-    description: "Carte compacte et pratique pour vos clients nomades",
-    price: 49.9,
+    name: "Collectez facilement des avis Google et augmentez votre réputation en ligne !",
+    description:
+      "Encouragez vos clients à partager leur expérience en un simple geste. Approchez leur téléphone ou scannez le QR code",
+    price: 20,
     features: JSON.stringify([
       "Format carte de visite",
       "QR Code haute résolution",
@@ -31,7 +41,7 @@ const products = [
       "Livraison express",
       "Configuration + support personnalisé",
     ]),
-    image: "/imgs/Carte Google_.png",
+    image: "/imgs/carte-prod.jpeg",
     isActive: true,
   },
 ];

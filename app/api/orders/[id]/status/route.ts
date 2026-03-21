@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/libs/prisma";
+import { prisma } from "@/libs/prisma";
 import { getPayment } from "@/libs/mollie";
 import { sendPurchaseConfirmationEmail } from "@/libs/email";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     const { id } = await params;
@@ -60,11 +60,11 @@ export async function GET(
           if (!availableQRCode) {
             console.error(
               "Aucun code QR inactif disponible pour la commande",
-              order.id
+              order.id,
             );
             return NextResponse.json(
               { error: "Aucun code QR disponible" },
-              { status: 500 }
+              { status: 500 },
             );
           }
 
@@ -86,7 +86,7 @@ export async function GET(
           order.email,
           qrCodes[0].code,
           qrCodes[0].id,
-          qrCodes[0].imageUrl
+          qrCodes[0].imageUrl,
         );
       }
     }
@@ -96,7 +96,7 @@ export async function GET(
     if (!order) {
       return NextResponse.json(
         { error: "Commande non trouvée" },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -128,7 +128,7 @@ export async function GET(
         order.email,
         qrCodes[0].code,
         qrCodes[0].id,
-        qrCodes[0].imageUrl
+        qrCodes[0].imageUrl,
       );
     }
 
@@ -153,7 +153,7 @@ export async function GET(
     console.error("Erreur lors de la vérification du statut:", error);
     return NextResponse.json(
       { error: "Erreur lors de la vérification du statut" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

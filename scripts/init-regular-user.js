@@ -1,7 +1,16 @@
-const { PrismaClient } = require("../app/generated/prisma");
+require("dotenv/config");
+const { PrismaClient } = require("@prisma/client");
+const { PrismaMariaDb } = require("@prisma/adapter-mariadb");
 const bcrypt = require("bcryptjs");
 
-const prisma = new PrismaClient();
+const adapter = new PrismaMariaDb({
+  host: process.env.DATABASE_HOST,
+  user: process.env.DATABASE_USER,
+  password: process.env.DATABASE_PASSWORD,
+  database: process.env.DATABASE_NAME,
+  connectionLimit: 5,
+});
+const prisma = new PrismaClient({ adapter });
 const user = {
   email: "admin@qr.com",
   password: "09901432",

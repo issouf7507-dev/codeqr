@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/libs/prisma";
+import { prisma } from "@/libs/prisma";
 import { hashPassword, verifyPassword, generateToken } from "@/libs/auth";
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     const { email, password, googleReviewUrl } = await request.json();
@@ -14,7 +14,7 @@ export async function POST(
     if (!email || !password || !googleReviewUrl) {
       return NextResponse.json(
         { error: "Email, mot de passe et lien Google requis" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -23,7 +23,7 @@ export async function POST(
     if (!emailRegex.test(email)) {
       return NextResponse.json(
         { error: "Format d'email invalide" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -31,7 +31,7 @@ export async function POST(
     if (password.length < 6) {
       return NextResponse.json(
         { error: "Le mot de passe doit contenir au moins 6 caractères" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -42,7 +42,7 @@ export async function POST(
     ) {
       return NextResponse.json(
         { error: "Le lien Google Avis doit être un lien Google Maps valide" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -54,14 +54,14 @@ export async function POST(
     if (!qrCode) {
       return NextResponse.json(
         { error: "Code QR non trouvé" },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
     if (qrCode.isActivated) {
       return NextResponse.json(
         { error: "Ce code QR est déjà activé" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -77,7 +77,7 @@ export async function POST(
           error:
             "Compte non trouvé. Veuillez d'abord vous inscrire sur notre plateforme.",
         },
-        { status: 403 }
+        { status: 403 },
       );
     }
 
@@ -87,7 +87,7 @@ export async function POST(
     if (!isPasswordValid) {
       return NextResponse.json(
         { error: "Mot de passe incorrect pour cet email" },
-        { status: 401 }
+        { status: 401 },
       );
     }
 
@@ -119,7 +119,7 @@ export async function POST(
     console.log(
       `Code QR ${resolvedParams.id} activé par l'utilisateur: ${email} (ID: ${
         user.id
-      }) le ${new Date().toISOString()}`
+      }) le ${new Date().toISOString()}`,
     );
 
     // Générer le token JWT pour connecter l'utilisateur
@@ -151,13 +151,13 @@ export async function POST(
     if (error.code === "P2002") {
       return NextResponse.json(
         { error: "Ce lien Google est déjà utilisé par un autre QR code" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     return NextResponse.json(
       { error: "Erreur interne du serveur" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

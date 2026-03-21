@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { verify } from "jsonwebtoken";
-import prisma from "@/libs/prisma";
+import { prisma } from "@/libs/prisma";
 
 export async function GET(req: NextRequest) {
   try {
@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
       console.error("JWT_SECRET_ADMIN is not defined");
       return NextResponse.json(
         { error: "Configuration serveur manquante" },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
@@ -41,7 +41,7 @@ export async function GET(req: NextRequest) {
     if (!user) {
       return NextResponse.json(
         { error: "Utilisateur non trouvé" },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -51,7 +51,7 @@ export async function GET(req: NextRequest) {
     console.error("Error in /api/auth/me:", error);
     return NextResponse.json(
       { error: "Erreur lors de la récupération des informations" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

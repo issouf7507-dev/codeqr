@@ -31,7 +31,7 @@ export default function Produits() {
             price: `${product.price.toFixed(2).replace(".", ",")}€`,
             originalPrice: index === 0 ? "49,90€" : "69,90€", // Prix barrés pour l'affichage
             popular: index === 0, // Le premier produit est populaire
-            badge: index === 0 ? "Le plus populaire" : "Premium",
+            badge: index === 0 ? "Plaque d'avis Google" : "Carte d'avis Google",
           }));
           setProducts(adaptedProducts);
         }
@@ -104,7 +104,7 @@ export default function Produits() {
       <Header />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-gradient-to-b from-white to-gray-50 ">
+      <section className="pt-20  bg-gradient-to-b from-white to-gray-50 ">
         <div className="container mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -112,21 +112,21 @@ export default function Produits() {
             transition={{ duration: 0.8 }}
             className="text-center max-w-4xl mx-auto"
           >
-            <div className="flex justify-center mb-6">
-              <div className="border border-[#019090] text-[#019090] py-2 px-4 rounded-lg text-sm font-medium">
+            <div className="flex justify-center ">
+              <div className="border bg-[#019090] text-[#fff] py-2 px-4 rounded-lg text-sm font-medium">
                 Nos Produits
               </div>
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-black mb-6">
+            {/* <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-black mb-6">
               Boostez vos avis clients avec nos{" "}
               <span className="text-[#019090]">plaques QR Code</span>
-            </h1>
+            </h1> */}
           </motion.div>
         </div>
       </section>
 
       {/* Products Section */}
-      <section id="products" className="py-10 bg-white">
+      <section id="products" className="pb-10 bg-white">
         <div className="container mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -151,11 +151,10 @@ export default function Produits() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.2 }}
                 viewport={{ once: true }}
-                className={`relative bg-white rounded-2xl border-2 p-8 hover:shadow-xl transition-all duration-300 ${
-                  product.popular
-                    ? "border-[#019090] shadow-lg"
-                    : "border-gray-200 hover:border-[#019090]/50"
-                }`}
+                className={`relative bg-white rounded-2xl border-2 p-8 hover:shadow-xl transition-all duration-300 ${product.popular
+                  ? "border-[#019090] shadow-lg"
+                  : "border-gray-200 hover:border-[#019090]/50"
+                  }`}
               >
                 {product.badge && (
                   <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
@@ -167,7 +166,7 @@ export default function Produits() {
 
                 {/* Product Image */}
                 <div className="mb-6">
-                  <div className="w-full h-64 bg-gray-50 rounded-xl border border-gray-200 flex items-center justify-center relative overflow-hidden">
+                  <div className="w-full  bg-gray-50 rounded-xl  border-gray-200 flex items-center justify-center relative overflow-hidden">
                     <img
                       src={product.image}
                       alt={product.name}
@@ -186,22 +185,14 @@ export default function Produits() {
                     <div className="text-4xl font-bold text-[#019090]">
                       {product.price}
                     </div>
-                    {product.originalPrice && (
-                      <div className="text-xl text-gray-400 line-through">
-                        {product.originalPrice}
-                      </div>
-                    )}
+
                   </div>
                 </div>
 
                 {/* CTA Button */}
                 <motion.a
                   href={`/produit/${product.id}`}
-                  className={`w-full py-4 px-6 rounded-xl font-semibold transition-all duration-200 inline-block text-center ${
-                    product.popular
-                      ? "bg-[#019090] text-white hover:bg-[#019090]/90"
-                      : "bg-gray-100 text-black hover:bg-[#019090] hover:text-white"
-                  }`}
+                  className={`w-full py-4 px-6 rounded-xl font-semibold transition-all duration-200 inline-block text-center bg-[#019090] text-white hover:bg-[#019090]/90`}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >

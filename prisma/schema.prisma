@@ -6,12 +6,11 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../app/generated/prisma"
 }
 
 datasource db {
   provider = "mysql"
-
+  // Connection URL is configured in prisma.config.ts
 }
 
 model User {

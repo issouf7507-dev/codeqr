@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/libs/prisma";
+import { prisma } from "@/libs/prisma";
 import QRCode from "qrcode";
 
 // Génère un code alphanumérique unique (5 caractères, uppercase)
@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
     if (!month || !year || !count) {
       return NextResponse.json(
         { error: "month, year et count sont requis" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 

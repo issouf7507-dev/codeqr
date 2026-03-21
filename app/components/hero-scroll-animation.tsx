@@ -1,4 +1,4 @@
-// component.tsx
+//||//|\\|\\|//|||//|\\|\\|//|||//|\\|\\|//|||//|\\|\\|//|||//|\\|\\|//|||//|\\|\\|//|||//|\\|\\|//|||//|\\|\\|//|||//|\\|\\|//|||//|\\|\\|//|||//|\\|\\|//|||//|\\|\\|//|||//|\\|\\|//|||//|\\|\\|//|||//|\\|\\|//|||//|\\|\\|//|||//|\\|\\|//|||//|\\|\\|//|||//|\\|\\|//|||//|\\|\\|//|||//|\\|\\|//|||//|\\|\\|//|||//|\\|\\|//|||//|\\|\\|//|||//|\\|\\|//||
 "use client";
 
 import { useScroll, useTransform, motion, MotionValue } from "motion/react";
@@ -15,14 +15,23 @@ const Section1: React.FC<SectionProps> = ({ scrollYProgress }) => {
   return (
     <motion.section
       style={{ scale, rotate }}
-      className="sticky  font-semibold top-0 h-screen bg-white flex flex-col items-center justify-center text-black"
+      className="sticky font-semibold top-0 h-screen flex flex-col items-center justify-center text-[#fff]"
+      style={{
+        backgroundImage: "url('/images/hero.jpeg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
     >
       <div className="absolute bottom-0 left-0 right-0 top-0"></div>
+      {/* /overlay */}
+      <div className="absolute bottom-0 left-0 right-0 top-0 bg-black/50"></div>
 
-      <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl px-4 sm:px-8 font-semibold text-center tracking-tight leading-[120%]">
-        {/* An Hero section Animation <br /> Scroll Please 👇 */}
-        Boostez vos avis clients <br />
-        avec nos solutions QR Code
+
+      <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl px-4 sm:px-8 font-semibold text-center tracking-tight leading-[120%] z-10">
+
+        Ne laissez plus vos clients <br /> repartir sans avis
+
       </h1>
 
       <div className=" mt-10">
@@ -51,7 +60,7 @@ const Section2: React.FC<SectionProps> = ({ scrollYProgress }) => {
             price: `${product.price.toFixed(2).replace(".", ",")}€`,
             originalPrice: index === 0 ? "49,90€" : "69,90€", // Prix barrés pour l'affichage
             popular: index === 0, // Le premier produit est populaire
-            badge: index === 0 ? "Le plus populaire" : "Premium",
+            badge: index === 0 ? "Plaque d'avis Google" : "Carte d'avis Google",
           }));
           setProducts(adaptedProducts);
         }
@@ -70,7 +79,7 @@ const Section2: React.FC<SectionProps> = ({ scrollYProgress }) => {
       style={{ scale, rotate }}
       className="relative  h-screen bg-white text-black "
     >
-      {/* <div className="absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:54px_54px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div> */}
+
       <article className="container mx-auto relative z-10 px-4 sm:px-6 lg:px-8 ">
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[100%] py-6 sm:py-10 font-semibold tracking-tight">
           Nos produits
@@ -108,32 +117,7 @@ const Section2: React.FC<SectionProps> = ({ scrollYProgress }) => {
             </div>
           ))}
 
-          {/* <div className="h-full sm:h-80 lg:h-full w-full relative group cursor-pointer">
-            <img
-              src="/imgs/Carte Google_.png"
-              alt="Carte QR Code Google Avis"
-              className="object-contain sm:object-cover w-full rounded-md h-full p-4 sm:p-0"
-            />
-            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/70 rounded-md transition-all duration-500 flex items-center justify-center">
-              <div className="text-center text-white opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0 px-4 sm:px-6">
-                <h3 className="text-lg sm:text-xl font-bold mb-2 sm:mb-3">
-                  Carte QR Code
-                </h3>
-                <p className="text-xs sm:text-sm mb-3 sm:mb-4 opacity-90">
-                  Carte compacte et pratique pour vos clients nomades
-                </p>
-                <p className="text-base sm:text-lg font-bold mb-3 sm:mb-4 text-[#019090]">
-                  49,90€
-                </p>
-                <a
-                  href="/plaque-avis-google-nfc/produits"
-                  className="inline-block bg-[#019090] text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full font-semibold hover:bg-[#019090]/80 transition-all duration-300 transform hover:scale-105 text-sm sm:text-base"
-                >
-                  Acheter maintenant
-                </a>
-              </div>
-            </div>
-          </div> */}
+
         </div>
       </article>
     </motion.section>
@@ -153,9 +137,7 @@ const Component = forwardRef<HTMLElement>((props, ref) => {
         <Section1 scrollYProgress={scrollYProgress} />
         <Section2 scrollYProgress={scrollYProgress} />
 
-        {/* <Section3 scrollYProgress={scrollYProgress} /> */}
 
-        {/* Footer */}
       </main>
     </>
   );

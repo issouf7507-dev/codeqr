@@ -142,7 +142,7 @@ export async function GET(
         mollieId: order.mollieId,
         createdAt: order.createdAt,
         items: order.items,
-        qrCodes: qrCodes.map((qr) => ({
+        qrCodes: qrCodes.map((qr: any) => ({
           id: qr.id,
           code: qr.code,
           isActivated: qr.isActivated,

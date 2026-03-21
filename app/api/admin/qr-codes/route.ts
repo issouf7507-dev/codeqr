@@ -60,7 +60,7 @@ export async function GET(request: NextRequest) {
     });
 
     return NextResponse.json({
-      qrCodes: qrCodes.map((qr) => ({
+      qrCodes: qrCodes.map((qr: any) => ({
         id: qr.id,
         code: qr.code,
         isActivated: qr.isActivated,

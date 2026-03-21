@@ -1,6 +1,6 @@
 import "dotenv/config";
 import { PrismaMariaDb } from "@prisma/adapter-mariadb";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@/generated/client";
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
@@ -11,7 +11,12 @@ function createPrismaClient() {
     process.env;
 
   // Avoid failing Next.js build/collect phase when env isn't present.
-  if (!DATABASE_HOST || !DATABASE_USER || !DATABASE_PASSWORD || !DATABASE_NAME) {
+  if (
+    !DATABASE_HOST ||
+    !DATABASE_USER ||
+    !DATABASE_PASSWORD ||
+    !DATABASE_NAME
+  ) {
     return null;
   }
 
@@ -33,7 +38,7 @@ function getPrisma(): PrismaClient {
   const created = createPrismaClient();
   if (!created) {
     throw new Error(
-      "Database env vars are missing (DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_NAME)"
+      "Database env vars are missing (DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_NAME)",
     );
   }
 
@@ -48,4 +53,3 @@ export const prisma = new Proxy({} as PrismaClient, {
 });
 
 export { getPrisma };
-

@@ -178,7 +178,7 @@ export async function POST(request: NextRequest) {
     await prisma.qRCode.updateMany({
       where: {
         id: {
-          in: qrCodesToAssign.map((qr) => qr.id),
+          in: qrCodesToAssign.map((qr: any) => qr.id),
         },
       },
       data: {

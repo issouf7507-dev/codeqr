@@ -40,7 +40,7 @@ export async function GET(request: NextRequest) {
       select: { totalAmount: true },
     });
     const estimatedRevenue = paidOrdersData.reduce(
-      (sum, order) => sum + order.totalAmount,
+      (sum: number, order: any) => sum + order.totalAmount,
       0,
     );
 

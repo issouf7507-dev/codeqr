@@ -78,7 +78,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({
       qrCodes,
-      orders: qrCodes.map((qr) => qr.order),
+      orders: qrCodes.map((qr: any) => qr.order),
       // qrCodes
       pagination: {
         page,

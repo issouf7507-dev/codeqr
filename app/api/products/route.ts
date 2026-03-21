@@ -13,7 +13,7 @@ export async function GET() {
     });
 
     // Convertir les features JSON en tableau
-    const productsWithFeatures = products.map((product) => ({
+    const productsWithFeatures = products.map((product: any) => ({
       ...product,
       features: JSON.parse(product.features),
     }));

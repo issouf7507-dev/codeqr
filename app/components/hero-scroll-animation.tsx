@@ -14,9 +14,10 @@ const Section1: React.FC<SectionProps> = ({ scrollYProgress }) => {
   const rotate = useTransform(scrollYProgress, [0, 1], [0, -5]);
   return (
     <motion.section
-      style={{ scale, rotate }}
       className="sticky font-semibold top-0 h-screen flex flex-col items-center justify-center text-[#fff]"
       style={{
+        scale,
+        rotate,
         backgroundImage: "url('/images/hero.jpeg')",
         backgroundSize: "cover",
         backgroundPosition: "center",

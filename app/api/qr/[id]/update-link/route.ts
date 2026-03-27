@@ -18,15 +18,15 @@ export async function PUT(
     }
 
     // Validation du format de l'URL Google
-    if (
-      !googleReviewUrl.startsWith("https://g.page/r/") &&
-      !googleReviewUrl.startsWith("https://maps.app.goo.gl/")
-    ) {
-      return NextResponse.json(
-        { error: "Le lien Google Avis doit être un lien Google Maps valide" },
-        { status: 400 },
-      );
-    }
+    // if (
+    //   !googleReviewUrl.startsWith("https://g.page/r/") &&
+    //   !googleReviewUrl.startsWith("https://maps.app.goo.gl/")
+    // ) {
+    //   return NextResponse.json(
+    //     { error: "Le lien Google Avis doit être un lien Google Maps valide" },
+    //     { status: 400 },
+    //   );
+    // }
 
     // Vérifier que le QR code existe et est activé
     const qrCode = await prisma.qRCode.findUnique({

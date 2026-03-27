@@ -136,11 +136,10 @@ export default function QRCodeActivationPage({
   useEffect(() => {
     if (googleReviewUrl.length > 0) {
       if (
-        !googleReviewUrl.startsWith("https://g.page/r/") &&
-        !googleReviewUrl.startsWith("https://maps.app.goo.gl/")
+        !googleReviewUrl.startsWith("https://")
       ) {
         setUrlError(
-          "Le lien doit commencer par https://g.page/r/ ou https://maps.app.goo.gl/"
+          "Le lien doit commencer par https://"
         );
       } else {
         setUrlError("");
@@ -162,16 +161,16 @@ export default function QRCodeActivationPage({
       return;
     }
 
-    if (
-      !googleReviewUrl.startsWith("https://g.page/r/") &&
-      !googleReviewUrl.startsWith("https://maps.app.goo.gl/")
-    ) {
-      setSubmitError(
-        "Le lien Google Avis doit être un lien Google Maps valide (commençant par https://g.page/r/ ou https://maps.app.goo.gl/)."
-      );
-      setIsSubmitting(false);
-      return;
-    }
+    // if (
+    //   !googleReviewUrl.startsWith("https://g.page/r/") &&
+    //   !googleReviewUrl.startsWith("https://maps.app.goo.gl/")
+    // ) {
+    //   setSubmitError(
+    //     "Le lien Google Avis doit être un lien Google Maps valide (commençant par https://g.page/r/ ou https://maps.app.goo.gl/)."
+    //   );
+    //   setIsSubmitting(false);
+    //   return;
+    // }
 
     if (codeActivation !== code) {
       setSubmitError("Le code d'activation est incorrect.");
@@ -224,7 +223,7 @@ export default function QRCodeActivationPage({
         } else if (response.status === 400) {
           setSubmitError(
             data.error ||
-              "Données invalides. Veuillez vérifier vos informations."
+            "Données invalides. Veuillez vérifier vos informations."
           );
         } else if (response.status === 404) {
           setSubmitError(
@@ -392,11 +391,10 @@ export default function QRCodeActivationPage({
                   </div>
                   {userExists !== null && !isCheckingUser && (
                     <div
-                      className={`mt-2 p-3 rounded-lg border ${
-                        userExists
-                          ? "bg-[#019090]/5 border-[#019090]/20 text-[#019090]"
-                          : "bg-red-50 border-red-200 text-red-600"
-                      }`}
+                      className={`mt-2 p-3 rounded-lg border ${userExists
+                        ? "bg-[#019090]/5 border-[#019090]/20 text-[#019090]"
+                        : "bg-red-50 border-red-200 text-red-600"
+                        }`}
                     >
                       <div className="flex items-center gap-2">
                         {userExists ? (
@@ -423,9 +421,8 @@ export default function QRCodeActivationPage({
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className={`w-full px-4 py-3 border rounded-lg text-black focus:ring-2 focus:ring-[#019090] focus:border-transparent ${
-                      passwordError ? "border-red-300" : "border-gray-300"
-                    }`}
+                    className={`w-full px-4 py-3 border rounded-lg text-black focus:ring-2 focus:ring-[#019090] focus:border-transparent ${passwordError ? "border-red-300" : "border-gray-300"
+                      }`}
                     placeholder="Votre mot de passe"
                     required
                   />
@@ -473,9 +470,8 @@ export default function QRCodeActivationPage({
                     type="url"
                     value={googleReviewUrl}
                     onChange={(e) => setGoogleReviewUrl(e.target.value)}
-                    className={`w-full px-4 py-3 border text-black rounded-lg focus:ring-2 focus:ring-[#019090] focus:border-transparent ${
-                      urlError ? "border-red-300" : "border-gray-300"
-                    }`}
+                    className={`w-full px-4 py-3 border text-black rounded-lg focus:ring-2 focus:ring-[#019090] focus:border-transparent ${urlError ? "border-red-300" : "border-gray-300"
+                      }`}
                     placeholder="https://g.page/r/..."
                     required
                   />
